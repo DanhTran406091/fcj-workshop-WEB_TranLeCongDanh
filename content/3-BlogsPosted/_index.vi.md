@@ -1,22 +1,17 @@
 ---
-title: "Các bài blogs đã đăng"
-date: 2024-01-01
+title: "Các bài blog đã đăng"
+date: 2026-08-03
 weight: 3
 chapter: false
 pre: " <b> 3. </b> "
 ---
 
-{{% notice warning %}}  
-⚠️ **Lưu ý:** Các thông tin dưới đây chỉ nhằm mục đích tham khảo, vui lòng **không sao chép nguyên văn** cho bài báo cáo của bạn kể cả warning này.
-{{% /notice %}}
+Trong quá trình thực tập, em cùng các thành viên trong nhóm nghiên cứu và chia sẻ những kiến thức đã học được về các dịch vụ AWS trên cộng đồng [AWS Study Group](https://www.facebook.com/groups/awsstudygroupfcj).
 
-Tại đây sẽ là phần liệt kê, giới thiệu các blogs mà các bạn đã đăng trên [AWS Study Group](https://www.facebook.com/groups/awsstudygroupfcj). Ví dụ:
+Hiện tại, nhóm em đã thực hiện bài blog sau:
 
-###  [Blog 1 - SESSION POLICIES TRONG AMAZON EKS POD IDENTITY](3.1-Blog1/)
-Blog này giới thiệu Amazon EKS Pod Identity vừa bổ sung tính năng session policies, cho phép bạn thu hẹp quyền IAM một cách linh hoạt và chính xác cho từng pod mà không cần tạo thêm nhiều IAM roles riêng biệt. Đây là bước tiến quan trọng giúp áp dụng nguyên tắc least privilege hiệu quả hơn trong môi trường Kubernetes quy mô lớn.
+### [Blog 1 - Triển khai website React/Vite với Amazon S3](3.1-Blog1/)
 
-###  [Blog 2 - ...](3.2-Blog2/)
-Blog này giới thiệu Amazon EKS Pod Identity vừa bổ sung tính năng session policies, cho phép bạn thu hẹp quyền IAM một cách linh hoạt và chính xác cho từng pod mà không cần tạo thêm nhiều IAM roles riêng biệt. Đây là bước tiến quan trọng giúp áp dụng nguyên tắc least privilege hiệu quả hơn trong môi trường Kubernetes quy mô lớn.
+Bài viết giới thiệu cách sử dụng **Amazon S3 Static Website Hosting** để triển khai một website tĩnh được xây dựng bằng React/Vite. Nội dung trình bày quy trình build ứng dụng, tải các tệp trong thư mục `dist` lên S3, cấu hình quyền truy cập và sử dụng S3 Website Endpoint để truy cập website.
 
-###  [Blog 3 - ...](3.3-Blog3/)
-Blog này giới thiệu Amazon EKS Pod Identity vừa bổ sung tính năng session policies, cho phép bạn thu hẹp quyền IAM một cách linh hoạt và chính xác cho từng pod mà không cần tạo thêm nhiều IAM roles riêng biệt. Đây là bước tiến quan trọng giúp áp dụng nguyên tắc least privilege hiệu quả hơn trong môi trường Kubernetes quy mô lớn.
+Bài viết cũng chia sẻ một số lỗi thường gặp, lưu ý về bảo mật và những hạn chế cần biết khi triển khai website trực tiếp bằng Amazon S3.

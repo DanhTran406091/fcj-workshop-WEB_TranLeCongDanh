@@ -1,22 +1,17 @@
 ---
-title: "Blogs Posted"
-date: 2024-01-01
+title: "Published Blog Posts"
+date: 2026-08-03
 weight: 3
 chapter: false
 pre: " <b> 3. </b> "
 ---
 
-{{% notice warning %}}
-⚠️ **Note:** The information below is for reference purposes only. Please **do not copy verbatim** for your own report, including this warning.
-{{% /notice %}}
+During the internship, my team members and I researched and shared the knowledge we gained about AWS services with the [AWS Study Group](https://www.facebook.com/groups/awsstudygroupfcj) community.
 
-This section will list and introduce the blogs you have posted to [AWS Study Group](https://www.facebook.com/groups/awsstudygroupfcj). For example:
+Currently, our team has published the following blog post:
 
-###  [Blog 1 - SESSION POLICIES IN AMAZON EKS POD IDENTITY](3.1-Blog1/)
-This blog introduces the newly added session policies feature in Amazon EKS Pod Identity, which allows you to narrow IAM permissions flexibly and precisely for each pod without needing to create multiple separate IAM roles. This is an important step forward that helps apply the principle of least privilege more effectively in large-scale Kubernetes environments.
+### [Blog 1 - Deploying a React/Vite Website with Amazon S3](3.1-Blog1/)
 
-###  [Blog 2 - ...](3.2-Blog2/)
-This blog introduces the newly added session policies feature in Amazon EKS Pod Identity, which allows you to narrow IAM permissions flexibly and precisely for each pod without needing to create multiple separate IAM roles. This is an important step forward that helps apply the principle of least privilege more effectively in large-scale Kubernetes environments.
+This blog post introduces how to use **Amazon S3 Static Website Hosting** to deploy a static website built with React and Vite. It covers the process of building the application, uploading the files from the `dist` directory to Amazon S3, configuring access permissions, and accessing the website through an S3 Website Endpoint.
 
-###  [Blog 3 - ...](3.3-Blog3/)
-This blog introduces the newly added session policies feature in Amazon EKS Pod Identity, which allows you to narrow IAM permissions flexibly and precisely for each pod without needing to create multiple separate IAM roles. This is an important step forward that helps apply the principle of least privilege more effectively in large-scale Kubernetes environments.
+The post also shares several common deployment issues, security considerations, and important limitations of hosting a website directly on Amazon S3.

@@ -1,125 +1,139 @@
 ---
-title: "Event 1"
-date: 2024-01-01
+title: "Event 1 - Cloud Architect x Meetup"
+date: 2026-07-11
 weight: 1
 chapter: false
 pre: " <b> 4.1. </b> "
 ---
 
-{{% notice warning %}}
-⚠️ **Lưu ý:** Các thông tin dưới đây chỉ nhằm mục đích tham khảo, vui lòng **không sao chép nguyên văn** cho bài báo cáo của bạn kể cả warning này.
-{{% /notice %}}
+# BÀI THU HOẠCH SỰ KIỆN CLOUD ARCHITECT X MEETUP
 
-# Bài thu hoạch “GenAI-powered App-DB Modernization workshop”
 
-### Mục Đích Của Sự Kiện
+## Mục đích tham gia
 
-- Chia sẻ best practices trong thiết kế ứng dụng hiện đại
-- Giới thiệu phương pháp DDD và event-driven architecture
-- Hướng dẫn lựa chọn compute services phù hợp
-- Giới thiệu công cụ AI hỗ trợ development lifecycle
+Em tham gia sự kiện nhằm mở rộng kiến thức về AWS, tìm hiểu thêm về bảo mật trong các hệ thống ứng dụng AI và lắng nghe những chia sẻ thực tế liên quan đến kỳ thi AWS Certified Cloud Practitioner.
 
-### Danh Sách Diễn Giả
+Bên cạnh việc tiếp thu kiến thức, sự kiện còn là cơ hội để em quan sát cách các bạn sinh viên làm việc nhóm, vận dụng kiến thức AWS và trình bày phương án giải quyết vấn đề trong một cuộc thi thực tế.
 
-- **Jignesh Shah** - Director, Open Source Databases
-- **Erica Liu** - Sr. GTM Specialist, AppMod
-- **Fabrianne Effendi** - Assc. Specialist SA, Serverless Amazon Web Services
+## Nội dung nổi bật
 
-### Nội Dung Nổi Bật
+### 1. Chung kết mini game AWS Quest
 
-#### Đưa ra các ảnh hưởng tiêu cực của kiến trúc ứng dụng cũ
+AWS Quest là một hoạt động theo nhóm được tổ chức trong khuôn khổ sự kiện. Trong ngày thi đầu tiên, các thí sinh thành lập đội và cùng nhau trả lời những câu hỏi trắc nghiệm liên quan đến AWS.
 
-- Thời gian release sản phẩm lâu → Mất doanh thu/bỏ lỡ cơ hội
-- Hoạt động kém hiệu quả → Mất năng suất, tốn kém chi phí
-- Không tuân thủ các quy định về bảo mật → Mất an ninh, uy tín
+Các câu hỏi giúp kiểm tra kiến thức về điện toán đám mây, các dịch vụ AWS và một số tình huống sử dụng cơ bản. Những đội có kết quả tốt tiếp tục bước vào vòng trong.
 
-#### Chuyển đổi sang kiến trúc ứng dụng mới - Microservice Architecture
+Ngày em tham dự là ngày thứ hai của chương trình. Vì vậy, em theo dõi phần chung kết giữa hai đội còn lại chứ không may là một người trực tiếp tham gia thi đấu.
 
-Chuyển đổi thành hệ thống modular – từng chức năng là một **dịch vụ độc lập** giao tiếp với nhau qua **sự kiện** với 3 trụ cột cốt lõi:
+Thông qua phần thi, em quan sát được:
 
-- **Queue Management**: Xử lý tác vụ bất đồng bộ
-- **Caching Strategy:** Tối ưu performance
-- **Message Handling:** Giao tiếp linh hoạt giữa services
+* Cách các thành viên trao đổi và thống nhất đáp án.
+* Khả năng phản ứng nhanh trước câu hỏi có giới hạn thời gian.
+* Tầm quan trọng của việc nắm vững kiến thức nền tảng về AWS.
+* Vai trò của kỹ năng làm việc nhóm trong quá trình giải quyết vấn đề.
 
-#### Domain-Driven Design (DDD)
+Không khí của vòng chung kết diễn ra sôi nổi và tạo thêm động lực để em tiếp tục học tập, thực hành với các dịch vụ AWS.
 
-- **Phương pháp 4 bước**: Xác định domain events → sắp xếp timeline → identify actors → xác định bounded contexts
-- **Case study bookstore**: Minh họa cách áp dụng DDD thực tế
-- **Context mapping**: 7 patterns tích hợp bounded contexts
+### 2. Security for AI Agents
 
-#### Event-Driven Architecture
+Trong phiên trình bày về **Security for AI Agents**, diễn giả chia sẻ những vấn đề cần quan tâm khi xây dựng và vận hành các AI agent.
 
-- **3 patterns tích hợp**: Publish/Subscribe, Point-to-point, Streaming
-- **Lợi ích**: Loose coupling, scalability, resilience
-- **So sánh sync vs async**: Hiểu rõ trade-offs (sự đánh đổi)
+Nội dung giúp em nhận thức rõ hơn rằng một AI agent không chỉ cần thực hiện đúng chức năng mà còn phải được kiểm soát về quyền truy cập, dữ liệu đầu vào, dữ liệu đầu ra và các tài nguyên mà agent được phép sử dụng.
 
-#### Compute Evolution
+Diễn giả cũng trình bày một phần demo để minh họa cách AI agent hoạt động và những rủi ro có thể xuất hiện nếu hệ thống không được cấu hình, giám sát và bảo vệ phù hợp.
 
-- **Shared Responsibility Model**: Từ EC2 → ECS → Fargate → Lambda
-- **Serverless benefits**: No server management, auto-scaling, pay-for-value
-- **Functions vs Containers**: Criteria lựa chọn phù hợp
+Một số nội dung em ghi nhận được:
 
-#### Amazon Q Developer
+* AI agent chỉ nên được cấp những quyền cần thiết để thực hiện nhiệm vụ.
+* Cần hạn chế việc truy cập không cần thiết vào dữ liệu và tài nguyên hệ thống.
+* Không nên đưa mật khẩu, API key hoặc thông tin nhạy cảm trực tiếp vào mã nguồn.
+* Cần kiểm tra và giám sát hoạt động của agent.
+* Kết quả do AI tạo ra cần được kiểm tra trước khi sử dụng trong những tác vụ quan trọng.
 
-- **SDLC automation**: Từ planning đến maintenance
-- **Code transformation**: Java upgrade, .NET modernization
-- **AWS Transform agents**: VMware, Mainframe, .NET migration
+Phiên chia sẻ giúp em hiểu rằng bảo mật cần được xem xét ngay từ giai đoạn thiết kế, đặc biệt đối với những hệ thống có tích hợp AI.
 
-### Những Gì Học Được
+### 3. Inside the Exam: AWS Certified Cloud Practitioner
 
-#### Tư Duy Thiết Kế
+Phiên **Inside the Exam: AWS Certified Cloud Practitioner** giới thiệu tổng quan về chứng chỉ AWS Certified Cloud Practitioner và chia sẻ kinh nghiệm chuẩn bị cho kỳ thi.
 
-- **Business-first approach**: Luôn bắt đầu từ business domain, không phải technology
-- **Ubiquitous language**: Importance của common vocabulary giữa business và tech teams
-- **Bounded contexts**: Cách identify và manage complexity trong large systems
+Đây là chứng chỉ nền tảng dành cho những người muốn tìm hiểu về điện toán đám mây và các dịch vụ cơ bản của AWS.
 
-#### Kiến Trúc Kỹ Thuật
+Trong phiên trình bày, diễn giả chia sẻ một số nội dung như:
 
-- **Event storming technique**: Phương pháp thực tế để mô hình hóa quy trình kinh doanh
-- Sử dụng **Event-driven communication** thay vì synchronous calls
-- **Integration patterns**: Hiểu khi nào dùng sync, async, pub/sub, streaming
-- **Compute spectrum**: Criteria chọn từ VM → containers → serverless
+* Tổng quan về chứng chỉ AWS Certified Cloud Practitioner.
+* Các nhóm kiến thức cần chuẩn bị trước kỳ thi.
+* Cách đọc và phân tích yêu cầu của câu hỏi.
+* Phương pháp loại trừ những đáp án chưa phù hợp.
+* Cách xây dựng kế hoạch học tập và ôn luyện.
+* Những lỗi thường gặp trong quá trình chuẩn bị và làm bài thi.
 
-#### Chiến Lược Hiện Đại Hóa
+Em cũng hiểu thêm rằng chứng chỉ không thay thế kinh nghiệm thực hành. Để đạt kết quả tốt, người học cần kết hợp việc đọc tài liệu, xem bài giảng, làm câu hỏi luyện tập và trực tiếp sử dụng AWS Management Console.
 
-- **Phased approach**: Không rush, phải có roadmap rõ ràng
-- **7Rs framework**: Nhiều con đường khác nhau tùy thuộc vào đặc điểm của mỗi ứng dụng
-- **ROI measurement**: Cost reduction + business agility
+Phiên chia sẻ giúp em có định hướng rõ ràng hơn cho kế hoạch học và thi chứng chỉ AWS Certified Cloud Practitioner trong tương lai. Chứng chỉ này có thể giúp em hệ thống lại kiến thức nền tảng, bổ sung cho CV và tạo tiền đề để tiếp tục học các chứng chỉ AWS ở cấp độ cao hơn.
 
-### Ứng Dụng Vào Công Việc
+## Kiến thức và kỹ năng đạt được
 
-- **Áp dụng DDD** cho project hiện tại: Event storming sessions với business team
-- **Refactor microservices**: Sử dụng bounded contexts để identify service boundaries
-- **Implement event-driven patterns**: Thay thế một số sync calls bằng async messaging
-- **Serverless adoption**: Pilot AWS Lambda cho một số use cases phù hợp
-- **Try Amazon Q Developer**: Integrate vào development workflow để boost productivity
+Sau khi tham gia sự kiện, em đã:
 
-### Trải nghiệm trong event
+* Hiểu thêm về hình thức thi kiến thức AWS theo nhóm.
+* Nhận thức rõ hơn về vai trò của bảo mật trong các hệ thống AI agent.
+* Biết thêm một số rủi ro liên quan đến quyền truy cập và dữ liệu nhạy cảm.
+* Hiểu tổng quan về chứng chỉ AWS Certified Cloud Practitioner.
+* Có thêm kinh nghiệm xây dựng kế hoạch học và chuẩn bị cho kỳ thi chứng chỉ.
+* Cải thiện khả năng lắng nghe, ghi chú và tổng hợp nội dung từ các phiên chia sẻ.
 
-Tham gia workshop **“GenAI-powered App-DB Modernization”** là một trải nghiệm rất bổ ích, giúp tôi có cái nhìn toàn diện về cách hiện đại hóa ứng dụng và cơ sở dữ liệu bằng các phương pháp và công cụ hiện đại. Một số trải nghiệm nổi bật:
+## Trải nghiệm tại sự kiện
 
-#### Học hỏi từ các diễn giả có chuyên môn cao
-- Các diễn giả đến từ AWS và các tổ chức công nghệ lớn đã chia sẻ **best practices** trong thiết kế ứng dụng hiện đại.
-- Qua các case study thực tế, tôi hiểu rõ hơn cách áp dụng **Domain-Driven Design (DDD)** và **Event-Driven Architecture** vào các project lớn.
+Cloud Architect x Meetup mang đến cho em một trải nghiệm thực tế và bổ ích. Mặc dù em tham gia với vai trò người xem và người nghe, các hoạt động trong chương trình vẫn giúp em tiếp cận được nhiều kiến thức mới.
 
-#### Trải nghiệm kỹ thuật thực tế
-- Tham gia các phiên trình bày về **event storming** giúp tôi hình dung cách **mô hình hóa quy trình kinh doanh** thành các domain events.
-- Học cách **phân tách microservices** và xác định **bounded contexts** để quản lý sự phức tạp của hệ thống lớn.
-- Hiểu rõ trade-offs giữa **synchronous và asynchronous communication** cũng như các pattern tích hợp như **pub/sub, point-to-point, streaming**.
+Phần chung kết AWS Quest tạo không khí sôi nổi và cho em thấy giá trị của kiến thức nền tảng cùng kỹ năng làm việc nhóm. Phiên Security for AI Agents giúp em hiểu rõ hơn về tầm quan trọng của bảo mật khi phát triển ứng dụng AI. Phiên chia sẻ về AWS Certified Cloud Practitioner giúp em có thêm định hướng học tập và phát triển nghề nghiệp.
 
-#### Ứng dụng công cụ hiện đại
-- Trực tiếp tìm hiểu về **Amazon Q Developer**, công cụ AI hỗ trợ SDLC từ lập kế hoạch đến maintenance.
-- Học cách **tự động hóa code transformation** và pilot serverless với **AWS Lambda**, từ đó nâng cao năng suất phát triển.
+Ngoài kiến thức chuyên môn, em còn có cơ hội gặp gỡ những người có cùng mối quan tâm về AWS, quan sát cách tổ chức một sự kiện công nghệ và làm quen với môi trường trao đổi kiến thức chuyên nghiệp.
 
-#### Kết nối và trao đổi
-- Workshop tạo cơ hội trao đổi trực tiếp với các chuyên gia, đồng nghiệp và team business, giúp **nâng cao ngôn ngữ chung (ubiquitous language)** giữa business và tech.
-- Qua các ví dụ thực tế, tôi nhận ra tầm quan trọng của **business-first approach**, luôn bắt đầu từ nhu cầu kinh doanh thay vì chỉ tập trung vào công nghệ.
+## Một số hình ảnh tại sự kiện
 
-#### Bài học rút ra
-- Việc áp dụng DDD và event-driven patterns giúp giảm **coupling**, tăng **scalability** và **resilience** cho hệ thống.
-- Chiến lược hiện đại hóa cần **phased approach** và đo lường **ROI**, không nên vội vàng chuyển đổi toàn bộ hệ thống.
-- Các công cụ AI như Amazon Q Developer có thể **boost productivity** nếu được tích hợp vào workflow phát triển hiện tại.
+### Giới thiệu hai đội vào vòng chung kết AWS Quest
 
-#### Một số hình ảnh khi tham gia sự kiện
-* Thêm các hình ảnh của các bạn tại đây
-> Tổng thể, sự kiện không chỉ cung cấp kiến thức kỹ thuật mà còn giúp tôi thay đổi cách tư duy về thiết kế ứng dụng, hiện đại hóa hệ thống và phối hợp hiệu quả hơn giữa các team.
+![Ban tổ chức giới thiệu hai đội vào vòng chung kết AWS Quest](/images/4-EventParticipated/4.1-Event1/01-finalist-introduction.png)
+
+*Ban tổ chức giới thiệu hai đội xuất sắc đã vượt qua vòng loại để bước vào trận chung kết của mini game AWS Quest.*
+
+### Các đội thảo luận và lựa chọn đáp án
+
+![Hai đội thảo luận đáp án trong vòng chung kết AWS Quest](/images/4-EventParticipated/4.1-Event1/02-aws-quest-final.png)
+
+*Các thành viên trong hai đội tập trung trao đổi, phân tích câu hỏi và thống nhất đáp án trong phần thi chung kết AWS Quest.*
+
+### Trao phần thưởng cho đội đạt giải nhất
+
+![Trao phần thưởng cho đội chiến thắng AWS Quest](/images/4-EventParticipated/4.1-Event1/03-award-ceremony.png)
+
+*Ban tổ chức công bố kết quả và trao phần thưởng cho đội giành chiến thắng sau khi hoàn thành vòng chung kết.*
+
+### Phiên chia sẻ về Security for AI Agents
+
+![Diễn giả chia sẻ về Security for AI Agents](/images/4-EventParticipated/4.1-Event1/04-security-ai-agents-session.png)
+
+*Diễn giả trình bày về AI agent, các khả năng nổi bật và những vấn đề bảo mật cần được quan tâm khi thiết kế, triển khai và vận hành hệ thống.*
+
+### Trải nghiệm phần demo của diễn giả
+
+![Người tham dự trải nghiệm phần demo AI agent](/images/4-EventParticipated/4.1-Event1/05-ai-agent-live-demo.png)
+
+*Các sinh viên và thực tập sinh được hướng dẫn truy cập, quan sát và trải nghiệm phần demo ứng dụng do diễn giả giới thiệu.*
+
+### Chia sẻ về chứng chỉ AWS và kinh nghiệm làm bài thi
+
+![Chia sẻ về AWS Certified Cloud Practitioner](/images/4-EventParticipated/4.1-Event1/06-cloud-practitioner-tips.png)
+
+*Diễn giả giới thiệu các chứng chỉ AWS, đồng thời chia sẻ những lưu ý, phương pháp học tập và một số mẹo hữu ích khi chuẩn bị cho kỳ thi AWS Certified Cloud Practitioner.*
+
+### Hình ảnh tổng kết chương trình
+
+![Ảnh tập thể sau chương trình Cloud Architect x Meetup](/images/4-EventParticipated/4.1-Event1/07-meetup-group-photo.png)
+
+*Ban tổ chức, diễn giả và các sinh viên tham dự cùng chụp ảnh lưu niệm sau khi chương trình Cloud Architect x Meetup kết thúc.*
+
+## Kết luận
+
+Sự kiện giúp em mở rộng kiến thức về AWS, AI security và định hướng học chứng chỉ. Đây cũng là cơ hội để em tích lũy thêm trải nghiệm thực tế, nâng cao tinh thần tự học và xác định rõ hơn những kiến thức cần tiếp tục trau dồi trong thời gian tới.

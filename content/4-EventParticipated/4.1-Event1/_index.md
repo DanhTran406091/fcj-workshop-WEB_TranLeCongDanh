@@ -1,126 +1,136 @@
 ---
-title: "Event 1"
-date: 2024-01-01
+title: "Event 1 - Cloud Architect x Meetup"
+date: 2026-07-11
 weight: 1
 chapter: false
 pre: " <b> 4.1. </b> "
 ---
 
-{{% notice warning %}}
-⚠️ **Note:** The information below is for reference purposes only. Please **do not copy it verbatim** into your report, including this warning.
-{{% /notice %}}
+## Purpose of Participation
 
-# Summary Report: “GenAI-powered App-DB Modernization workshop”
+I attended the event to expand my knowledge of AWS, learn more about security considerations for AI-based systems, and gain practical insights into the AWS Certified Cloud Practitioner exam.
 
-### Event Objectives
+The event also gave me an opportunity to observe how students collaborated, applied their AWS knowledge, and solved problems during a team-based competition.
 
-- Share best practices in modern application design
-- Introduce Domain-Driven Design (DDD) and event-driven architecture
-- Provide guidance on selecting the right compute services
-- Present AI tools to support the development lifecycle
+## Event Highlights
 
-### Speakers
+### 1. AWS Quest Final Round
 
-- **Jignesh Shah** – Director, Open Source Databases
-- **Erica Liu** – Sr. GTM Specialist, AppMod
-- **Fabrianne Effendi** – Assc. Specialist SA, Serverless Amazon Web Services
+AWS Quest was a team-based activity organized as part of the event. On the first day, the contestants formed teams and answered multiple-choice questions related to AWS.
 
-### Key Highlights
+The questions assessed their understanding of cloud computing, AWS services, and several basic usage scenarios. The teams with the highest results continued to the next round.
 
-#### Identifying the drawbacks of legacy application architecture
+I attended the second day of the program. Therefore, I watched the final round between the two remaining teams instead of participating directly in the competition.
 
-- Long product release cycles → Lost revenue/missed opportunities  
-- Inefficient operations → Reduced productivity, higher costs  
-- Non-compliance with security regulations → Security breaches, loss of reputation  
+Through the final round, I observed:
 
-#### Transitioning to modern application architecture – Microservices
+* How team members discussed and agreed on their answers.
+* How contestants responded to questions under time pressure.
+* The importance of understanding fundamental AWS concepts.
+* The role of teamwork in solving technical problems.
 
-Migrating to a modular system — each function is an **independent service** communicating via **events**, built on three core pillars:
+The competition created an exciting atmosphere and motivated me to continue studying and practicing with AWS services.
 
-- **Queue Management**: Handle asynchronous tasks  
-- **Caching Strategy**: Optimize performance  
-- **Message Handling**: Flexible inter-service communication  
+### 2. Security for AI Agents
 
-#### Domain-Driven Design (DDD)
+During the **Security for AI Agents** session, the speaker discussed important security considerations when developing and operating AI agents.
 
-- **Four-step method**: Identify domain events → arrange timeline → identify actors → define bounded contexts  
-- **Bookstore case study**: Demonstrates real-world DDD application  
-- **Context mapping**: 7 patterns for integrating bounded contexts  
+The session helped me understand that an AI agent should not only perform its intended functions correctly but should also be controlled in terms of permissions, input data, output data, and accessible resources.
 
-#### Event-Driven Architecture
+The speaker also presented a demonstration to show how an AI agent worked and the risks that could occur if the system was not appropriately configured, monitored, and protected.
 
-- **3 integration patterns**: Publish/Subscribe, Point-to-point, Streaming  
-- **Benefits**: Loose coupling, scalability, resilience  
-- **Sync vs async comparison**: Understanding the trade-offs  
+Some important points I learned included:
 
-#### Compute Evolution
+* An AI agent should receive only the permissions required for its tasks.
+* Unnecessary access to data and system resources should be restricted.
+* Passwords, API keys, and sensitive information should not be stored directly in source code.
+* The activities performed by an AI agent should be monitored.
+* AI-generated results should be reviewed before being used in important tasks.
 
-- **Shared Responsibility Model**: EC2 → ECS → Fargate → Lambda  
-- **Serverless benefits**: No server management, auto-scaling, pay-for-value  
-- **Functions vs Containers**: Criteria for appropriate choice  
+The session helped me recognize that security should be considered from the system design stage, especially when developing applications that integrate AI.
 
-#### Amazon Q Developer
+### 3. Inside the Exam: AWS Certified Cloud Practitioner
 
-- **SDLC automation**: From planning to maintenance  
-- **Code transformation**: Java upgrade, .NET modernization  
-- **AWS Transform agents**: VMware, Mainframe, .NET migration  
+The **Inside the Exam: AWS Certified Cloud Practitioner** session provided an overview of the certification and practical advice for preparing for the exam.
 
-### Key Takeaways
+AWS Certified Cloud Practitioner is a foundational certification for individuals who want to learn about cloud computing and basic AWS services.
 
-#### Design Mindset
+The session covered several topics, including:
 
-- **Business-first approach**: Always start from the business domain, not the technology  
-- **Ubiquitous language**: Importance of a shared vocabulary between business and tech teams  
-- **Bounded contexts**: Identifying and managing complexity in large systems  
+* An overview of the AWS Certified Cloud Practitioner certification.
+* The main knowledge areas covered by the exam.
+* How to read and analyze exam questions.
+* How to eliminate unsuitable answers.
+* How to create a suitable study plan.
+* Common mistakes during exam preparation.
 
-#### Technical Architecture
+I also learned that earning a certification does not replace hands-on experience. Effective preparation should combine documentation, online lessons, practice questions, and hands-on experience with AWS Management Console.
 
-- **Event storming technique**: Practical method for modeling business processes  
-- Use **event-driven communication** instead of synchronous calls  
-- **Integration patterns**: When to use sync, async, pub/sub, streaming  
-- **Compute spectrum**: Criteria for choosing between VM, containers, and serverless  
+The session gave me a clearer direction for studying and taking the AWS Certified Cloud Practitioner exam in the future. This certification can help me organize my foundational knowledge, strengthen my CV, and prepare for more advanced AWS certifications.
 
-#### Modernization Strategy
+## Knowledge and Skills Gained
 
-- **Phased approach**: No rushing — follow a clear roadmap  
-- **7Rs framework**: Multiple modernization paths depending on the application  
-- **ROI measurement**: Cost reduction + business agility  
+After participating in the event, I was able to:
 
-### Applying to Work
+* Understand more about team-based AWS knowledge competitions.
+* Recognize the importance of security in AI agent systems.
+* Identify basic risks related to permissions and sensitive information.
+* Gain an overview of the AWS Certified Cloud Practitioner certification.
+* Learn how to prepare a study plan for an AWS certification exam.
+* Improve my listening, note-taking, and information-summarizing skills.
 
-- **Apply DDD** to current projects: Event storming sessions with business teams  
-- **Refactor microservices**: Use bounded contexts to define service boundaries  
-- **Implement event-driven patterns**: Replace some sync calls with async messaging  
-- **Adopt serverless**: Pilot AWS Lambda for suitable use cases  
-- **Try Amazon Q Developer**: Integrate into the dev workflow to boost productivity  
+## Event Experience
 
-### Event Experience
+Cloud Architect x Meetup was a practical and valuable experience. Although I participated as an observer and attendee, the activities provided me with useful knowledge and new perspectives.
 
-Attending the **“GenAI-powered App-DB Modernization”** workshop was extremely valuable, giving me a comprehensive view of modernizing applications and databases using advanced methods and tools. Key experiences included:
+The AWS Quest final created an exciting atmosphere and demonstrated the value of foundational knowledge and teamwork. The Security for AI Agents session helped me better understand the importance of security in AI applications. The AWS Certified Cloud Practitioner session also provided useful guidance for my future learning and career development.
 
-#### Learning from highly skilled speakers
-- Experts from AWS and major tech organizations shared **best practices** in modern application design.  
-- Through real-world case studies, I gained a deeper understanding of applying **DDD** and **Event-Driven Architecture** to large projects.  
+In addition to technical knowledge, I had an opportunity to meet people who shared an interest in AWS, observe how a technology event was organized, and experience a professional knowledge-sharing environment.
 
-#### Hands-on technical exposure
-- Participating in **event storming** sessions helped me visualize how to **model business processes** into domain events.  
-- Learned how to **split microservices** and define **bounded contexts** to manage large-system complexity.  
-- Understood trade-offs between **synchronous and asynchronous communication** and integration patterns like **pub/sub, point-to-point, streaming**.  
+## Event Photos
 
-#### Leveraging modern tools
-- Explored **Amazon Q Developer**, an AI tool for SDLC support from planning to maintenance.  
-- Learned to **automate code transformation** and pilot serverless with **AWS Lambda** to improve productivity.  
+### Introduction of the AWS Quest Finalists
 
-#### Networking and discussions
-- The workshop offered opportunities to exchange ideas with experts, peers, and business teams, enhancing the **ubiquitous language** between business and tech.  
-- Real-world examples reinforced the importance of the **business-first approach** rather than focusing solely on technology.  
+![The organizers introducing the AWS Quest finalist teams](/images/4-EventParticipated/4.1-Event1/01-finalist-introduction.png)
 
-#### Lessons learned
-- Applying DDD and event-driven patterns reduces **coupling** while improving **scalability** and **resilience**.  
-- Modernization requires a **phased approach** with **ROI measurement**; rushing the process can be risky.  
-- AI tools like Amazon Q Developer can significantly **boost productivity** when integrated into the current workflow.  
+*The organizers introduced the two teams that successfully passed the previous rounds and advanced to the AWS Quest final.*
 
-#### Some event photos
-*Add your event photos here*  
+### Team Discussion During the Final Round
 
-> Overall, the event not only provided technical knowledge but also helped me reshape my thinking about application design, system modernization, and cross-team collaboration.
+![The finalist teams discussing their answers](/images/4-EventParticipated/4.1-Event1/02-aws-quest-final.png)
+
+*The team members discussed the questions, analyzed the available options, and agreed on their final answers during the AWS Quest final.*
+
+### Award Presentation
+
+![The winning team receiving their awards](/images/4-EventParticipated/4.1-Event1/03-award-ceremony.png)
+
+*The organizers announced the final result and presented awards to the winning team after the competition.*
+
+### Security for AI Agents Session
+
+![The speaker presenting the Security for AI Agents session](/images/4-EventParticipated/4.1-Event1/04-security-ai-agents-session.png)
+
+*The speaker discussed AI agent capabilities and important security considerations when designing, deploying, and operating AI-based systems.*
+
+### AI Agent Live Demonstration
+
+![Attendees participating in the AI agent demonstration](/images/4-EventParticipated/4.1-Event1/05-ai-agent-live-demo.png)
+
+*Students and interns were guided through the live demonstration and given an opportunity to experience the application introduced by the speaker.*
+
+### AWS Certification Tips and Exam Preparation
+
+![The speaker sharing AWS certification tips](/images/4-EventParticipated/4.1-Event1/06-cloud-practitioner-tips.png)
+
+*The speaker introduced AWS certifications and shared helpful study methods, important considerations, and practical tips for preparing for the AWS Certified Cloud Practitioner exam.*
+
+### Closing Group Photo
+
+![Group photo after the Cloud Architect x Meetup event](/images/4-EventParticipated/4.1-Event1/07-meetup-group-photo.png)
+
+*The organizers, speakers, students, and other attendees took a group photo after the Cloud Architect x Meetup event.*
+
+## Conclusion
+
+The event helped me expand my knowledge of AWS, AI security, and certification preparation. It also allowed me to gain practical experience, strengthen my motivation for self-study, and identify the technical areas I should continue developing in the future.

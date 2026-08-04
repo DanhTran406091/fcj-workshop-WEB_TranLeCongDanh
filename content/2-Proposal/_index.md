@@ -1,115 +1,401 @@
 ---
 title: "Proposal"
-date: 2024-01-01
+date: 2026-07-13
 weight: 2
 chapter: false
 pre: " <b> 2. </b> "
 ---
-{{% notice warning %}}
-⚠️ **Note:** The information below is for reference purposes only. Please **do not copy verbatim** for your report, including this warning.
-{{% /notice %}}
 
-In this section, you need to summarize the contents of the workshop that you **plan** to conduct.
+# LIVE AUCTION PLATFORM ON AWS
 
-# IoT Weather Platform for Lab Research
-## A Unified AWS Serverless Solution for Real-Time Weather Monitoring
+## An online auction platform deployed on AWS Cloud
 
 ### 1. Executive Summary
-The IoT Weather Platform is designed for the ITea Lab team in Ho Chi Minh City to enhance weather data collection and analysis. It supports up to 5 weather stations, with potential scalability to 10-15, utilizing Raspberry Pi edge devices with ESP32 sensors to transmit data via MQTT. The platform leverages AWS Serverless services to deliver real-time monitoring, predictive analytics, and cost efficiency, with access restricted to 5 lab members via Amazon Cognito.
+
+**Live Auction** is an online auction platform that allows users to list products, follow auction sessions, and place bids in real time. The system aims to provide a transparent and convenient auction environment capable of serving multiple concurrent users.
+
+The frontend is developed with **React/Vite**, while the backend uses **FastAPI and Python**. Application data is managed with **MySQL**. During the initial deployment phase, the team uses Amazon S3 to host the frontend and product images, Amazon EC2 to run the backend, Amazon RDS for MySQL to manage the database, and AWS Lambda for selected background tasks.
+
+In addition to the initial deployment architecture, the team designed an extended AWS architecture to study real-time auction processing, high availability, data security, scalability, and disaster recovery.
 
 ### 2. Problem Statement
-### What’s the Problem?
-Current weather stations require manual data collection, becoming unmanageable with multiple units. There is no centralized system for real-time data or analytics, and third-party platforms are costly and overly complex.
 
-### The Solution
-The platform uses AWS IoT Core to ingest MQTT data, AWS Lambda and API Gateway for processing, Amazon S3 for storage (including a data lake), and AWS Glue Crawlers and ETL jobs to extract, transform, and load data from the S3 data lake to another S3 bucket for analysis. AWS Amplify with Next.js provides the web interface, and Amazon Cognito ensures secure access. Similar to Thingsboard and CoreIoT, users can register new devices and manage connections, though this platform operates on a smaller scale and is designed for private use. Key features include real-time dashboards, trend analysis, and low operational costs.
+#### Current Problems
 
-### Benefits and Return on Investment
-The solution establishes a foundational resource for lab members to develop a larger IoT platform, serving as a study resource, and provides a data foundation for AI enthusiasts for model training or analysis. It reduces manual reporting for each station via a centralized platform, simplifying management and maintenance, and improves data reliability. Monthly costs are $0.66 USD per the AWS Pricing Calculator, with a 12-month total of $7.92 USD. All IoT equipment costs are covered by the existing weather station setup, eliminating additional development expenses. The break-even period of 6-12 months is achieved through significant time savings from reduced manual work.
+An online auction system must process multiple operations that may occur almost simultaneously, especially when several users place bids on the same item. Without proper processing, the following problems may occur:
+
+- Bid information may not be updated promptly.
+- Concurrent bids may be processed in the wrong order.
+- Users may not receive the latest auction status.
+- Product images and static resources may load slowly.
+- The system may become unavailable when the server fails.
+- Errors may be difficult to monitor and troubleshoot.
+- User information and auction data may not be adequately protected.
+
+Furthermore, deploying all components on a single server reduces scalability and creates a single point of failure.
+
+#### Proposed Solution
+
+The team proposes deploying the Live Auction system on AWS in multiple phases.
+
+In the initial phase, the React/Vite frontend is built and deployed using **Amazon S3 Static Website Hosting**. The FastAPI backend is containerized with Docker and hosted on **Amazon EC2**. The local MySQL database is migrated from Docker to **Amazon RDS for MySQL**, while product images are stored in a separate S3 bucket. **AWS Lambda** is used for selected background or event-driven tasks.
+
+In the extended architecture, the system may incorporate Amazon CloudFront, AWS WAF, Amazon API Gateway, Amazon Cognito, Amazon DynamoDB, Amazon SQS, Amazon EventBridge, and AWS monitoring services. This architecture is designed to process bids sequentially, improve scalability, strengthen security, and support multi-region disaster recovery.
+
+#### Benefits
+
+The proposed solution provides the following benefits:
+
+- Users can participate in auctions remotely through a web browser.
+- Auction information can be updated promptly.
+- The frontend, backend, database, and image storage are separated.
+- The system is less dependent on a single server.
+- Resources can be scaled when the number of users increases.
+- Security, monitoring, and data backup capabilities are improved.
+- Team members gain practical experience deploying an application on AWS.
 
 ### 3. Solution Architecture
-The platform employs a serverless AWS architecture to manage data from 5 Raspberry Pi-based stations, scalable to 15. Data is ingested via AWS IoT Core, stored in an S3 data lake, and processed by AWS Glue Crawlers and ETL jobs to transform and load it into another S3 bucket for analysis. Lambda and API Gateway handle additional processing, while Amplify with Next.js hosts the dashboard, secured by Cognito. The architecture is detailed below:
 
-![IoT Weather Station Architecture](/images/2-Proposal/edge_architecture.jpeg)
+#### 3.1. Initial Deployment Architecture
 
-![IoT Weather Platform Architecture](/images/2-Proposal/platform_architecture.jpeg)
+The initial system architecture includes the following components:
 
-### AWS Services Used
-- **AWS IoT Core**: Ingests MQTT data from 5 stations, scalable to 15.
-- **AWS Lambda**: Processes data and triggers Glue jobs (two functions).
-- **Amazon API Gateway**: Facilitates web app communication.
-- **Amazon S3**: Stores raw data in a data lake and processed outputs (two buckets).
-- **AWS Glue**: Crawlers catalog data, and ETL jobs transform and load it.
-- **AWS Amplify**: Hosts the Next.js web interface.
-- **Amazon Cognito**: Secures access for lab users.
+1. Users access the Live Auction website through a web browser.
+2. The React/Vite frontend is built into HTML, CSS, and JavaScript files.
+3. The frontend files are deployed to Amazon S3.
+4. The frontend sends requests to the FastAPI backend through REST APIs.
+5. The backend is containerized with Docker and hosted on Amazon EC2.
+6. The backend reads and writes data through Amazon RDS for MySQL.
+7. Product images are stored in a separate Amazon S3 bucket.
+8. AWS Lambda handles selected background or scheduled tasks.
+9. Amazon CloudWatch supports resource monitoring and log collection.
 
-### Component Design
-- **Edge Devices**: Raspberry Pi collects and filters sensor data, sending it to IoT Core.
-- **Data Ingestion**: AWS IoT Core receives MQTT messages from the edge devices.
-- **Data Storage**: Raw data is stored in an S3 data lake; processed data is stored in another S3 bucket.
-- **Data Processing**: AWS Glue Crawlers catalog the data, and ETL jobs transform it for analysis.
-- **Web Interface**: AWS Amplify hosts a Next.js app for real-time dashboards and analytics.
-- **User Management**: Amazon Cognito manages user access, allowing up to 5 active accounts.
+This architecture is suitable for the current project scope because it is relatively straightforward to deploy, test, and maintain.
 
-### 4. Technical Implementation
-**Implementation Phases**
-This project has two parts—setting up weather edge stations and building the weather platform—each following 4 phases:
-- Build Theory and Draw Architecture: Research Raspberry Pi setup with ESP32 sensors and design the AWS serverless architecture (1 month pre-internship)
-- Calculate Price and Check Practicality: Use AWS Pricing Calculator to estimate costs and adjust if needed (Month 1).
-- Fix Architecture for Cost or Solution Fit: Tweak the design (e.g., optimize Lambda with Next.js) to stay cost-effective and usable (Month 2).
-- Develop, Test, and Deploy: Code the Raspberry Pi setup, AWS services with CDK/SDK, and Next.js app, then test and release to production (Months 2-3).
+#### 3.2. Proposed Extended AWS Architecture
 
-**Technical Requirements**
-- Weather Edge Station: Sensors (temperature, humidity, rainfall, wind speed), a microcontroller (ESP32), and a Raspberry Pi as the edge device. Raspberry Pi runs Raspbian, handles Docker for filtering, and sends 1 MB/day per station via MQTT over Wi-Fi.
-- Weather Platform: Practical knowledge of AWS Amplify (hosting Next.js), Lambda (minimal use due to Next.js), AWS Glue (ETL), S3 (two buckets), IoT Core (gateway and rules), and Cognito (5 users). Use AWS CDK/SDK to code interactions (e.g., IoT Core rules to S3). Next.js reduces Lambda workload for the fullstack web app.
+The following diagram illustrates the extended AWS architecture proposed for the Live Auction platform. It focuses on real-time auction processing, scalability, security, monitoring, high availability, and multi-region disaster recovery.
 
-### 5. Timeline & Milestones
-**Project Timeline**
-- Pre-Internship (Month 0): 1 month for planning and old station review.
-- Internship (Months 1-3): 3 months.
-    - Month 1: Study AWS and upgrade hardware.
-    - Month 2: Design and adjust architecture.
-    - Month 3: Implement, test, and launch.
-- Post-Launch: Up to 1 year for research.
+Click the diagram to open and view it at full size.
 
-### 6. Budget Estimation
-You can find the budget estimation on the [AWS Pricing Calculator](https://calculator.aws/#/estimate?id=621f38b12a1ef026842ba2ddfe46ff936ed4ab01).  
-Or you can download the [Budget Estimation File](../attachments/budget_estimation.pdf).
+[![Proposed AWS architecture for the Live Auction platform](/images/2-Proposal/live-auction-proposed-architecture.svg)](/images/2-Proposal/live-auction-proposed-architecture.svg)
 
-### Infrastructure Costs
-- AWS Services:
-    - AWS Lambda: $0.00/month (1,000 requests, 512 MB storage).
-    - S3 Standard: $0.15/month (6 GB, 2,100 requests, 1 GB scanned).
-    - Data Transfer: $0.02/month (1 GB inbound, 1 GB outbound).
-    - AWS Amplify: $0.35/month (256 MB, 500 ms requests).
-    - Amazon API Gateway: $0.01/month (2,000 requests).
-    - AWS Glue ETL Jobs: $0.02/month (2 DPUs).
-    - AWS Glue Crawlers: $0.07/month (1 crawler).
-    - MQTT (IoT Core): $0.08/month (5 devices, 45,000 messages).
+> **Note:** The diagram represents the proposed target architecture. Some advanced components have not yet been fully implemented in the current version of the project.
 
-Total: $0.7/month, $8.40/12 months
+#### 3.3. General System Flow
 
-- Hardware: $265 one-time (Raspberry Pi 5 and sensors).
+The proposed architecture operates according to the following flow:
 
-### 7. Risk Assessment
-#### Risk Matrix
-- Network Outages: Medium impact, medium probability.
-- Sensor Failures: High impact, low probability.
-- Cost Overruns: Medium impact, low probability.
+1. A user accesses the system through its domain name.
+2. Amazon Route 53 routes the request to Amazon CloudFront.
+3. AWS WAF inspects and filters potentially invalid requests.
+4. CloudFront distributes the frontend stored in Amazon S3.
+5. Users authenticate before accessing protected functions.
+6. REST APIs process account, product, and auction operations.
+7. WebSocket connections deliver new bids and auction updates to connected users.
+8. Bid requests are placed in a queue for sequential processing.
+9. Auction data is stored in an appropriate database.
+10. Product images and audit records are stored in Amazon S3.
+11. Amazon CloudWatch and AWS CloudTrail monitor system activities.
+12. If the primary region becomes unavailable, Route 53 can route traffic to the standby region.
 
-#### Mitigation Strategies
-- Network: Local storage on Raspberry Pi with Docker.
-- Sensors: Regular checks and spares.
-- Cost: AWS budget alerts and optimization.
+### 4. Proposed AWS Services
 
-#### Contingency Plans
-- Revert to manual methods if AWS fails.
-- Use CloudFormation for cost-related rollbacks.
+#### Amazon Route 53
 
-### 8. Expected Outcomes
-#### Technical Improvements: 
-Real-time data and analytics replace manual processes.  
-Scalable to 10-15 stations.
-#### Long-term Value
-1-year data foundation for AI research.  
-Reusable for future projects.
+Amazon Route 53 manages the system domain name and routes users to the application. In the extended architecture, Route 53 can perform health checks and redirect traffic to a standby region when necessary.
+
+#### Amazon CloudFront
+
+Amazon CloudFront distributes HTML, CSS, JavaScript, and image files through a global content delivery network. It reduces website loading time and decreases the number of requests sent directly to Amazon S3.
+
+#### AWS WAF
+
+AWS WAF filters suspicious requests, applies rate-based rules, and protects the web application from common web attacks.
+
+#### Amazon S3
+
+Amazon S3 is used to:
+
+- Host the built React/Vite frontend.
+- Store product images.
+- Store logs or audit records.
+- Replicate important data to a standby region when required.
+
+#### Amazon EC2
+
+During the initial deployment phase, Amazon EC2 hosts the FastAPI backend. The backend is packaged as a Docker container to provide a consistent runtime environment.
+
+#### Amazon ECS and AWS Fargate
+
+In the extended architecture, the backend can be migrated from EC2 to Amazon ECS with AWS Fargate. This approach simplifies container management and supports horizontal scaling based on application demand.
+
+#### Amazon ECR
+
+Amazon ECR stores the backend Docker images. A deployment pipeline can build a new image, push it to ECR, and update the running backend service.
+
+#### Elastic Load Balancing
+
+An Application Load Balancer distributes requests across backend containers, performs health checks, and reduces dependency on a single server.
+
+#### Amazon API Gateway
+
+Amazon API Gateway provides endpoints for REST and WebSocket APIs. REST APIs process business operations, while WebSocket APIs deliver real-time auction information to connected users.
+
+#### AWS Lambda
+
+AWS Lambda can be used to:
+
+- Process selected independent APIs.
+- Verify and update auction status.
+- Process bid commands.
+- Close auction sessions at their scheduled end time.
+- Send notifications to users.
+- Execute scheduled or event-driven background tasks.
+
+#### Amazon RDS for MySQL
+
+In the initial implementation, Amazon RDS for MySQL stores relational data such as:
+
+- User accounts.
+- Product information.
+- Auction sessions.
+- Bid history.
+- Payment and transaction information.
+
+Amazon RDS reduces database administration effort and supports automated data backup.
+
+#### Amazon Aurora
+
+In a target architecture requiring greater scalability and multi-region disaster recovery, Amazon Aurora may be evaluated as a replacement for the initial relational database. It is an extended architectural component and is not the database currently used by the application.
+
+#### Amazon DynamoDB
+
+Amazon DynamoDB is proposed for high-frequency and low-latency data such as:
+
+- Current auction states.
+- Bid events.
+- Wallet hold information.
+- Active WebSocket connections.
+
+DynamoDB Streams can trigger subsequent processing tasks whenever records are changed.
+
+#### Amazon SQS FIFO
+
+Amazon SQS FIFO is proposed for receiving bid requests and processing them in order. It helps prevent inconsistencies when multiple users place bids within a short period.
+
+#### Amazon EventBridge
+
+Amazon EventBridge can schedule auction start and end times and route system events to the appropriate processing components.
+
+#### Amazon Kinesis Data Streams
+
+Amazon Kinesis Data Streams can receive auction event streams for near-real-time analytics, reporting, and operational monitoring.
+
+#### Amazon Cognito
+
+Amazon Cognito is proposed for user registration, authentication, and authorization in the extended architecture. The current application version continues to use JWT authentication managed by the FastAPI backend.
+
+#### Amazon CloudWatch and AWS CloudTrail
+
+- **Amazon CloudWatch** collects logs and metrics and provides operational alarms.
+- **AWS CloudTrail** records administrative activities performed within the AWS account.
+
+#### AWS IAM, AWS KMS, and AWS Secrets Manager
+
+- **AWS IAM** applies permissions according to the principle of least privilege.
+- **AWS KMS** manages encryption keys.
+- **AWS Secrets Manager** stores sensitive information such as database credentials and application secrets.
+
+### 5. System Component Design
+
+#### Frontend
+
+The frontend is developed using React/Vite and provides interfaces for:
+
+- User registration and login.
+- Browsing available products.
+- Viewing auction details.
+- Placing bids and following the current price.
+- Listing products.
+- Managing personal information.
+- Administering the system.
+
+After the build process, the application generates a `dist/` directory. The files in this directory are uploaded to Amazon S3 and delivered to users.
+
+#### Backend
+
+The FastAPI backend provides APIs for:
+
+- User authentication.
+- Account management.
+- Product management.
+- Auction session management.
+- Bid validation and processing.
+- Product image management.
+- Notification management.
+- Administrative functions.
+
+The backend is packaged with Docker to maintain a consistent runtime environment between local development and AWS.
+
+#### Database
+
+During local development, the data is managed using MySQL in Docker. When deployed to AWS, the database is migrated to Amazon RDS for MySQL.
+
+The backend connects to RDS using configuration stored in environment variables or AWS Secrets Manager. The database Security Group only allows connections from the backend.
+
+#### Image Storage
+
+Product images are not stored directly in the relational database. The backend uploads images to Amazon S3 and stores their object keys or URLs in the database. This approach reduces database size and supports scalable object storage.
+
+#### Real-Time Auction Processing
+
+In the initial version, the backend validates bid requests and updates the relational database. In the extended architecture, bid requests can be sent to an SQS FIFO queue to preserve their processing order.
+
+A WebSocket API delivers new prices and auction status updates to connected browsers, allowing users to receive updates without reloading the entire page.
+
+### 6. Technical Implementation Plan
+
+#### Phase 1: Analysis and Design
+
+- Analyze the requirements of the auction platform.
+- Define buyer, seller, and administrator roles.
+- Design the relational database.
+- Design the source-code directory structure.
+- Create the proposed AWS architecture diagram.
+
+#### Phase 2: Application Development
+
+- Develop the frontend with React/Vite.
+- Develop REST APIs with FastAPI.
+- Configure MySQL using Docker.
+- Implement JWT authentication.
+- Develop product and auction functions.
+- Integrate image storage.
+
+#### Phase 3: Initial AWS Deployment
+
+- Build the frontend using `npm run build`.
+- Upload the `dist/` directory to Amazon S3.
+- Enable Static Website Hosting for the frontend.
+- Package the backend with Docker.
+- Deploy the backend to Amazon EC2.
+- Create an Amazon RDS for MySQL database.
+- Configure connectivity between EC2 and RDS.
+- Create an S3 bucket for product images.
+- Configure IAM roles and Security Groups.
+- Test the connectivity among all components.
+
+#### Phase 4: Testing
+
+- Test user registration and login.
+- Test product creation.
+- Test bid placement.
+- Test access permissions for each user role.
+- Test image upload and display.
+- Test concurrent bid requests.
+- Review AWS logs and resource costs.
+
+#### Phase 5: Future Extension
+
+- Integrate Amazon CloudFront and AWS WAF.
+- Research WebSocket API implementation.
+- Process bid requests through Amazon SQS FIFO.
+- Evaluate DynamoDB for real-time auction states.
+- Migrate the backend container to Amazon ECS with AWS Fargate.
+- Build an automated CI/CD pipeline.
+- Evaluate multi-region disaster recovery.
+
+### 7. Technical Requirements
+
+#### Development Technologies
+
+- Frontend: React, Vite, TypeScript or JavaScript.
+- Backend: Python and FastAPI.
+- Database: MySQL.
+- Containerization: Docker and Docker Compose.
+- Source control: Git and GitHub.
+- Architecture design: diagrams.net.
+
+#### Security Requirements
+
+- The AWS root account must not be used for daily operations.
+- Each team member must receive only the required permissions.
+- Access keys and passwords must not be committed to GitHub.
+- Database credentials must be stored in environment variables or Secrets Manager.
+- S3 bucket access policies must be configured appropriately.
+- The RDS Security Group must not allow unrestricted public access.
+- The backend must validate user tokens and roles.
+- HTTPS should be used when the application is placed into production.
+
+### 8. Roadmap and Milestones
+
+- **Week 1:** Become familiar with the working environment and learn the fundamentals of AWS.
+- **Week 2:** Study commonly used AWS services.
+- **Week 3:** Practise using AWS Management Console and learn how AWS costs are generated.
+- **Week 4:** Analyze requirements and design the system architecture.
+- **Week 5:** Develop and integrate the main application functions.
+- **Week 6:** Deploy the system components to AWS.
+- **Week 7:** Test, troubleshoot, and conduct the final project rehearsal.
+- **Week 8:** Complete the project, workshop, and internship report.
+
+### 9. Budget Estimation
+
+The actual cost depends on the selected AWS Region, traffic volume, data storage, and resource operating time. Services that may generate costs include:
+
+| Service | Purpose | Main Cost Factors |
+| --- | --- | --- |
+| Amazon S3 | Frontend and image storage | Storage, requests, and data transfer |
+| Amazon EC2 | FastAPI backend | Instance type and operating time |
+| Amazon RDS | MySQL database | Instance type, storage, and backups |
+| AWS Lambda | Background tasks | Invocations and processing duration |
+| Amazon CloudFront | Content delivery | Outbound data transfer |
+| API Gateway | REST and WebSocket APIs | Requests and connection duration |
+| Amazon CloudWatch | Logs and monitoring | Log volume and custom metrics |
+| Amazon Route 53 | Domain and routing | Hosted zones and DNS queries |
+
+Within the scope of a student project, the team prioritizes small resource configurations, removes unused resources, and uses AWS Budgets to monitor costs.
+
+An accurate estimate will be prepared using the [AWS Pricing Calculator](https://calculator.aws/) after the final configuration and operating duration of each resource have been determined.
+
+### 10. Risk Assessment
+
+| Risk | Impact | Mitigation |
+| --- | --- | --- |
+| Multiple users place bids concurrently | High | Use database transactions, locking, or SQS FIFO |
+| EC2 backend failure | High | Use health checks, backups, and multiple instances when required |
+| Database connectivity failure | High | Use RDS backups, connectivity monitoring, and Multi-AZ when required |
+| Product images cannot be accessed | Medium | Review S3 policies, CORS configuration, and object keys |
+| AWS credentials are exposed | High | Use IAM roles, Secrets Manager, and never commit credentials |
+| AWS costs exceed the budget | Medium | Use AWS Budgets, billing alerts, and remove unused resources |
+| WebSocket connections are interrupted | Medium | Implement reconnection and connection-state management |
+| Primary AWS Region becomes unavailable | High | Use Route 53 failover and a standby region |
+| Bids are processed in the wrong order | High | Use an FIFO queue and auction-state validation |
+
+### 11. Contingency Plan
+
+- Perform regular backups of the RDS database.
+- Enable versioning for important S3 buckets.
+- Store stable Docker images in Amazon ECR.
+- Monitor application errors through CloudWatch.
+- Prepare procedures to restore the backend from a Docker image.
+- Avoid making unverified changes directly in the running environment.
+- Evaluate Infrastructure as Code using Terraform or AWS CloudFormation.
+- Establish a standby region when high availability becomes necessary.
+
+### 12. Expected Outcomes
+
+After completion, the system is expected to:
+
+- Provide an auction website accessible through the Internet.
+- Allow users to register, log in, and manage their accounts.
+- Allow sellers to list products and create auction sessions.
+- Allow buyers to view products and place bids.
+- Store structured data in Amazon RDS.
+- Store product images in Amazon S3.
+- Deploy both frontend and backend components on AWS.
+- Monitor system activities and errors.
+- Establish a foundation for future real-time auction capabilities.
+- Improve the team members’ software development, teamwork, system deployment, and AWS skills.
+
+The extended architecture shown in the diagram represents the long-term development direction. The initial version prioritizes implementing the core functions and establishing a stable deployment with Amazon S3, Amazon EC2, Amazon RDS, and AWS Lambda before integrating more advanced services.

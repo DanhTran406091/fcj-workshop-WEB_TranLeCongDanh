@@ -1,126 +1,285 @@
 ---
-title: "Event 2"
-date: 2024-01-01
-weight: 1
+title: "Event 2 - FCAJ x Agentic AI Build Week"
+date: 2026-06-25
+weight: 2
 chapter: false
 pre: " <b> 4.2. </b> "
 ---
 
-{{% notice warning %}}
-⚠️ **Note:** The information below is for reference purposes only. Please **do not copy it verbatim** into your report, including this warning.
-{{% /notice %}}
+# FCAJ x Agentic AI Build Week
 
-# Summary Report: “GenAI-powered App-DB Modernization workshop”
+## Event Overview
 
-### Event Objectives
+**FCAJ x Agentic AI Build Week** was a sharing session about the participants’ hackathon journey. During the event, teams presented their ideas, solutions, system architectures, product demonstrations, and experiences gained while developing Agentic AI applications.
 
-- Share best practices in modern application design
-- Introduce Domain-Driven Design (DDD) and event-driven architecture
-- Provide guidance on selecting the right compute services
-- Present AI tools to support the development lifecycle
+At the beginning of the event, the guest speakers introduced **Agentic AI Build Week**, the objectives of the hackathon, and the opportunity for participants to apply their knowledge of AWS, artificial intelligence, and software development to real-world problems.
 
-### Speakers
+![Guest speakers introducing Agentic AI Build Week](/images/4-EventParticipated/4.2-Event2/01-agentic-ai-build-week-introduction.png)
 
-- **Jignesh Shah** – Director, Open Source Databases
-- **Erica Liu** – Sr. GTM Specialist, AppMod
-- **Fabrianne Effendi** – Assc. Specialist SA, Serverless Amazon Web Services
+*The guest speakers introduced Agentic AI Build Week and provided an overview of the hackathon.*
 
-### Key Highlights
+## Notable Solutions Presented
 
-#### Identifying the drawbacks of legacy application architecture
+During the main session, the teams presented their hackathon journeys, from selecting a problem and developing an idea to assigning responsibilities, designing the system architecture, and building a working demonstration.
 
-- Long product release cycles → Lost revenue/missed opportunities  
-- Inefficient operations → Reduced productivity, higher costs  
-- Non-compliance with security regulations → Security breaches, loss of reputation  
+Each team selected a different field of application, but they all used AI Agents and AWS services to solve practical problems.
 
-#### Transitioning to modern application architecture – Microservices
+### 1. AI-Powered Conversation Ordering
 
-Migrating to a modular system — each function is an **independent service** communicating via **events**, built on three core pillars:
+The first team presented **AI-Powered Conversation Ordering – From Idea to a Multi-Channel AI Agent**. This solution uses an AI Agent to help users place food orders through conversations across multiple communication channels.
 
-- **Queue Management**: Handle asynchronous tasks  
-- **Caching Strategy**: Optimize performance  
-- **Message Handling**: Flexible inter-service communication  
+![The team presenting AI-Powered Conversation Ordering](/images/4-EventParticipated/4.2-Event2/02-conversation-ordering-presentation.png)
 
-#### Domain-Driven Design (DDD)
+*The team introduced its idea of building an AI Agent for conversational food ordering.*
 
-- **Four-step method**: Identify domain events → arrange timeline → identify actors → define bounded contexts  
-- **Bookstore case study**: Demonstrates real-world DDD application  
-- **Context mapping**: 7 patterns for integrating bounded contexts  
+#### Problem Statement
 
-#### Event-Driven Architecture
+The team identified several inconveniences in the traditional application-based food-ordering process. When users want to order food while having a conversation, they usually need to:
 
-- **3 integration patterns**: Publish/Subscribe, Point-to-point, Streaming  
-- **Benefits**: Loose coupling, scalability, resilience  
-- **Sync vs async comparison**: Understanding the trade-offs  
+1. Leave the messaging application.
+2. Open a food-ordering application.
+3. Sign in or search for a restaurant.
+4. Browse the menu and select products.
+5. Review the shopping cart and complete the order.
 
-#### Compute Evolution
+Switching between multiple applications interrupts the user experience and may cause users to abandon their orders.
 
-- **Shared Responsibility Model**: EC2 → ECS → Fargate → Lambda  
-- **Serverless benefits**: No server management, auto-scaling, pay-for-value  
-- **Functions vs Containers**: Criteria for appropriate choice  
+Processing natural-language requests is also challenging because the system must correctly understand product names, quantities, sizes, additional options, and changes made during the conversation.
 
-#### Amazon Q Developer
+#### The Team’s Solution
 
-- **SDLC automation**: From planning to maintenance  
-- **Code transformation**: Java upgrade, .NET modernization  
-- **AWS Transform agents**: VMware, Mainframe, .NET migration  
+The team proposed an AI Agent capable of receiving food-ordering requests directly from a conversation. Users can describe their requirements using natural language, while the Agent analyzes the request and performs the necessary actions.
 
-### Key Takeaways
+The Agent follows a five-stage process:
 
-#### Design Mindset
+1. **Goal:** Identify the user’s objective and ordering intent.
+2. **Plan:** Determine the steps required to process the request.
+3. **Tools:** Use available tools to retrieve the menu and related information.
+4. **Act:** Perform actions such as selecting products, updating the shopping cart, or creating an order.
+5. **Verify:** Check the result before confirming it with the user.
 
-- **Business-first approach**: Always start from the business domain, not the technology  
-- **Ubiquitous language**: Importance of a shared vocabulary between business and tech teams  
-- **Bounded contexts**: Identifying and managing complexity in large systems  
+An important distinction highlighted by the team was: **“A chatbot replies. An agent acts.”**
 
-#### Technical Architecture
+A conventional chatbot mainly generates responses. In contrast, an AI Agent can use tools and perform actions to complete the user’s intended task.
 
-- **Event storming technique**: Practical method for modeling business processes  
-- Use **event-driven communication** instead of synchronous calls  
-- **Integration patterns**: When to use sync, async, pub/sub, streaming  
-- **Compute spectrum**: Criteria for choosing between VM, containers, and serverless  
+#### Architecture and Integration
 
-#### Modernization Strategy
+The system can receive requests from communication channels such as Zalo, WhatsApp, or a dedicated application. These requests are then sent to the backend, where the system processes the conversation, retrieves product data, manages session states, and performs ordering operations.
 
-- **Phased approach**: No rushing — follow a clear roadmap  
-- **7Rs framework**: Multiple modernization paths depending on the application  
-- **ROI measurement**: Cost reduction + business agility  
+![Overall architecture of the AI Agent ordering system](/images/4-EventParticipated/4.2-Event2/03-conversation-ordering-architecture.png)
 
-### Applying to Work
+*The overall architecture supports requests from multiple communication channels and processes them through an AI Agent.*
 
-- **Apply DDD** to current projects: Event storming sessions with business teams  
-- **Refactor microservices**: Use bounded contexts to define service boundaries  
-- **Implement event-driven patterns**: Replace some sync calls with async messaging  
-- **Adopt serverless**: Pilot AWS Lambda for suitable use cases  
-- **Try Amazon Q Developer**: Integrate into the dev workflow to boost productivity  
+The team also presented a live demonstration of how users could interact with the Agent through natural-language conversations. The solution demonstrated the potential to reduce manual steps and provide a more convenient ordering experience.
 
-### Event Experience
+#### Knowledge Gained
 
-Attending the **“GenAI-powered App-DB Modernization”** workshop was extremely valuable, giving me a comprehensive view of modernizing applications and databases using advanced methods and tools. Key experiences included:
+From this presentation, I learned that building an AI Agent involves more than simply connecting an application to a language model. The system must also manage conversation states, validate data, connect to business tools, and verify results before performing an action.
 
-#### Learning from highly skilled speakers
-- Experts from AWS and major tech organizations shared **best practices** in modern application design.  
-- Through real-world case studies, I gained a deeper understanding of applying **DDD** and **Event-Driven Architecture** to large projects.  
+I also gained a clearer understanding of the difference between a chatbot and an AI Agent, particularly the Agent’s ability to **plan, use tools, perform actions, and verify results**.
 
-#### Hands-on technical exposure
-- Participating in **event storming** sessions helped me visualize how to **model business processes** into domain events.  
-- Learned how to **split microservices** and define **bounded contexts** to manage large-system complexity.  
-- Understood trade-offs between **synchronous and asynchronous communication** and integration patterns like **pub/sub, point-to-point, streaming**.  
+---
 
-#### Leveraging modern tools
-- Explored **Amazon Q Developer**, an AI tool for SDLC support from planning to maintenance.  
-- Learned to **automate code transformation** and pilot serverless with **AWS Lambda** to improve productivity.  
+### 2. SignalScout – Collecting and Analyzing Business Signals
 
-#### Networking and discussions
-- The workshop offered opportunities to exchange ideas with experts, peers, and business teams, enhancing the **ubiquitous language** between business and tech.  
-- Real-world examples reinforced the importance of the **business-first approach** rather than focusing solely on technology.  
+The next team introduced **SignalScout**, a system designed to collect, verify, and analyze signals related to businesses and market activities.
 
-#### Lessons learned
-- Applying DDD and event-driven patterns reduces **coupling** while improving **scalability** and **resilience**.  
-- Modernization requires a **phased approach** with **ROI measurement**; rushing the process can be risky.  
-- AI tools like Amazon Q Developer can significantly **boost productivity** when integrated into the current workflow.  
+#### Problem Statement
 
-#### Some event photos
-*Add your event photos here*  
+Corporate strategy teams often need to monitor large amounts of information from multiple sources. Manually reading, consolidating, and validating this information requires considerable time, while important changes may not be identified early enough.
 
-> Overall, the event not only provided technical knowledge but also helped me reshape my thinking about application design, system modernization, and cross-team collaboration.
+The information may include:
+
+- Business activities and corporate directions.
+- Changes in business strategies.
+- Information about competitors.
+- Signs of restructuring or organizational changes.
+- Potential risks that may affect business operations.
+
+#### The Team’s Solution
+
+SignalScout combines data-collection tools with AI to search for, verify, and summarize information.
+
+According to the Value Creation & Delivery Canvas presented by the team, the system’s main activities include:
+
+- Collecting and validating evidence.
+- Detecting signals of organizational change or restructuring.
+- Analyzing metrics and generating insights.
+- Presenting results through reports or dashboards.
+- Helping users monitor important signals.
+
+![The team presenting SignalScout's value creation and delivery model](/images/4-EventParticipated/4.2-Event2/04-signalscout-value-canvas.png)
+
+*The Value Creation & Delivery Canvas of the SignalScout solution.*
+
+The solution is intended for corporate strategy teams, enterprise risk departments, management teams, and competitive intelligence analysts.
+
+Its primary value is helping users identify important changes at an early stage based on collected and verified signals.
+
+#### Architecture and Demonstration
+
+The system architecture represents a multi-stage workflow consisting of data collection, content processing, AI-based analysis, result storage, and information presentation.
+
+The team used tools such as **AWS, Langfuse, TinyFish, and Apify** while developing the solution. Each tool played a different role in data collection, system monitoring, and information analysis.
+
+During the demonstration, the team presented an interface that consolidated and evaluated signals according to multiple criteria. Instead of manually reading a large number of documents, users could view the processed information through a dashboard.
+
+![SignalScout business signal analysis demonstration](/images/4-EventParticipated/4.2-Event2/05-signalscout-demo.png)
+
+*The demonstration interface consolidated and analyzed signals related to businesses.*
+
+#### Knowledge Gained
+
+Through the SignalScout solution, I learned how to design a multi-stage data-processing workflow, from collecting and validating information to analyzing and presenting the final results.
+
+I also realized that AI only delivers reliable value when the input data comes from identifiable and verified sources. If the input data is inaccurate, the analytical results may also be unreliable.
+
+Therefore, in addition to the capabilities of the AI model, the system must also consider data quality and the traceability of information sources.
+
+---
+
+### 3. Solution Architect Professional Native App
+
+The third team presented the **Solution Architect Professional Native App**. Their presentation was organized into several sections, including the problem statement, proposed solution, workflow, system architecture, impact, and product demonstration.
+
+![The team introducing the Solution Architect Professional Native App](/images/4-EventParticipated/4.2-Event2/06-solution-architect-app-introduction.png)
+
+*Plan V introduced the Solution Architect Professional Native App.*
+
+#### Product Development Journey
+
+In addition to presenting the technical product, the team shared its hackathon journey through four main stages:
+
+1. Registering for the hackathon and selecting a track.
+2. Developing the product within a limited period.
+3. Presenting and demonstrating the solution to the judges.
+4. Reviewing the lessons learned and reflecting on the experience.
+
+This sharing session helped me understand the pressure involved in developing a product within a short time. The team had to agree on an idea, assign responsibilities, select suitable technologies, and complete a functional version for demonstration.
+
+#### System Architecture
+
+The solution used a cloud-native architecture that combined multiple AWS services:
+
+- **Amazon S3:** Stores the frontend, uploaded files, and generated results.
+- **Amazon CloudFront:** Distributes frontend content to users.
+- **Amazon Cognito:** Provides user authentication and management.
+- **Application Load Balancer:** Receives and distributes requests to the backend.
+- **Amazon ECS and AWS Fargate:** Run the backend and AI Agent as containers.
+- **Amazon ECR:** Stores and manages container images.
+- **Amazon RDS for PostgreSQL:** Stores application data.
+- **Amazon EFS:** Provides a shared file system when required.
+- **Amazon Bedrock:** Provides generative AI capabilities for the Agent.
+- **Amazon CloudWatch:** Collects logs and monitors system operations.
+- **Terraform:** Defines and deploys the infrastructure as code.
+
+![AWS architecture of the Solution Architect Professional Native App](/images/4-EventParticipated/4.2-Event2/07-solution-architect-app-architecture.png)
+
+*The architecture combines AWS services to operate the frontend, backend, AI Agent, and database.*
+
+The frontend is stored on Amazon S3 and distributed through Amazon CloudFront. Users are authenticated through Amazon Cognito. Business requests are routed through the Application Load Balancer to the backend and AI Agent running on Amazon ECS with AWS Fargate.
+
+Application data is stored in PostgreSQL, while Amazon Bedrock provides AI-processing capabilities. Amazon CloudWatch supports system monitoring, and Terraform helps the team deploy its infrastructure consistently.
+
+#### Knowledge Gained
+
+This presentation helped me understand how AWS services perform different roles within a complete system. A production application requires more than a frontend and a backend; it may also require authentication, load balancing, storage, databases, monitoring, and infrastructure management.
+
+I particularly learned how the team separated its architecture into independent components. This approach makes the system easier to manage, scale, and modify than deploying all functionality within a single component.
+
+---
+
+### 4. SHEPHERD – Venue Operations Agent
+
+The next team presented **SHEPHERD Venue Operations**, a solution that uses computer vision and Agentic AI to monitor crowded areas, detect congestion, and support staff coordination at events.
+
+#### Problem Statement
+
+At crowded event venues, operations staff must monitor multiple areas simultaneously. When the number of people in an area increases rapidly, delayed detection may lead to congestion and negatively affect the attendee experience.
+
+Fully manual monitoring also presents several limitations:
+
+- Staff cannot continuously observe every area.
+- It is difficult to count people accurately.
+- Responses may be delayed when congestion begins to develop.
+- Staff allocation depends heavily on the experience of the operator.
+
+#### The Team’s Solution
+
+SHEPHERD receives live video streams from cameras and uses computer vision to detect and track people in different areas. The processed data is sent to a monitoring system that displays the number of people, area status, and related alerts.
+
+The AI Agent then analyzes the operational data and produces recommendations. For example, it can recommend assigning additional staff to a crowded area or directing new attendees toward a less congested area.
+
+![SHEPHERD Venue Operations system architecture](/images/4-EventParticipated/4.2-Event2/08-shepherd-architecture.png)
+
+*The architecture processes video streams, analyzes data, and supports venue operations using Agentic AI.*
+
+#### Processing Workflow on AWS
+
+Based on the architecture presented by the team, the system follows this workflow:
+
+1. Cameras transmit live video to **Amazon Kinesis Video Streams**.
+2. A container-based Stream Processor processes the video stream.
+3. An **Amazon SageMaker Endpoint** performs computer vision model inference.
+4. Operational data and incident evidence are stored using Amazon DynamoDB and related storage components.
+5. The frontend is stored on Amazon S3 and distributed through Amazon CloudFront.
+6. Amazon API Gateway and AWS Lambda receive requests from the user interface.
+7. The Agent runs on **Amazon Bedrock AgentCore** to analyze data and generate recommendations.
+8. Amazon Cognito provides user authentication.
+9. IAM, Secrets Manager, CloudTrail, and CloudWatch support access control, secret management, activity auditing, and system monitoring.
+
+#### Product Demonstration
+
+During the demonstration, the system displayed a live video stream with bounding boxes around detected individuals and statistics for different areas.
+
+The dashboard allowed operators to monitor the number of people and identify whether an area was stable or at risk of becoming overcrowded.
+
+The Operations Agent could analyze the data and provide specific recommendations. For example, when the number of people in an area increased rapidly, the Agent could recommend assigning additional staff and redirecting new arrivals to a less crowded area.
+
+![Operations Agent analyzing conditions and recommending staff allocation](/images/4-EventParticipated/4.2-Event2/09-shepherd-operations-agent.png)
+
+*The Operations Agent evaluated each area and provided staff-allocation recommendations.*
+
+#### Challenges Shared by the Team
+
+During the development process, the team encountered several challenges:
+
+- Maintaining a reliable live video stream.
+- Reducing inference latency.
+- Tracking the same object between video frames.
+- Selecting effective camera positions.
+- Completing the system within the hackathon timeline.
+- Making the AI Agent’s recommendations understandable and actionable.
+- Controlling cloud resource costs.
+
+#### Knowledge Gained
+
+Through the SHEPHERD solution, I learned how **real-time data processing, computer vision, cloud computing, and Agentic AI** can be integrated into a single system.
+
+I also realized that a practical AI product requires more than an accurate model. The system must also provide suitable processing speed, stability, result explainability, security, and operational cost control.
+
+## Other Presentations
+
+In addition to the four notable solutions described above, several other teams presented practical ideas, system architectures, and product demonstrations.
+
+Although each team selected a different problem, they all demonstrated the ability to apply AWS services and Agentic AI to build practical solutions.
+
+By observing these presentations, I learned that a successful hackathon product requires more than a creative idea. The team must clearly define the problem, select an appropriate architecture, build a demonstrable product, and effectively communicate the value of the solution.
+
+## Knowledge and Experience Gained
+
+After participating in the event, I was able to:
+
+- Develop a clearer understanding of **Agentic AI** and the differences between an AI Agent and a conventional chatbot.
+- Learn how teams analyze problems and transform ideas into demonstrable products.
+- Understand how multiple AWS services can be combined within a complete system architecture.
+- Explore applications of AI in commerce, business data analysis, and venue operations.
+- Learn how to prepare presentation slides, explain system architectures, and demonstrate technical products.
+- Recognize challenges in building AI systems, including latency, data quality, scalability, and operational costs.
+- Gain experience that can be applied to the development and presentation of my group project during the internship program.
+
+## Conclusion
+
+The **FCAJ x Agentic AI Build Week** event provided me with an opportunity to observe how teams developed products in a hackathon environment.
+
+Through the presentations and demonstrations, I not only expanded my knowledge of AWS and Agentic AI but also learned how to analyze requirements, design system architectures, collaborate within a team, and clearly communicate a technical solution.
