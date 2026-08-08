@@ -1,57 +1,80 @@
 ---
-title: "Week 7 Worklog"
-date: 2024-01-01
+title: "Worklog Week 7"
+date: 2026-08-03
 weight: 7
 chapter: false
 pre: " <b> 1.7. </b> "
 ---
-{{% notice warning %}} 
-⚠️ **Note:** The following information is for reference purposes only. Please **do not copy verbatim** for your own report, including this warning.
-{{% /notice %}}
 
+### Duration:
 
-### Week 7 Objectives:
+**From August 3, 2026 to August 7, 2026**
 
-* Connect and get acquainted with members of First Cloud AI Journey.
-* Understand basic AWS services, how to use the console & CLI.
+### Objectives for Week 7:
 
-### Tasks to be carried out this week:
-| Day | Task                                                                                                                                                                                                   | Start Date | Completion Date | Reference Material                        |
-| --- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------- | --------------- | ----------------------------------------- |
-| 2   | - Get acquainted with FCAJ members <br> - Read and take note of internship unit rules and regulations                                                                                                   | 08/11/2025 | 08/11/2025      |
-| 3   | - Learn about AWS and its types of services <br>&emsp; + Compute <br>&emsp; + Storage <br>&emsp; + Networking <br>&emsp; + Database <br>&emsp; + ... <br>                                              | 08/12/2025 | 08/12/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 4   | - Create AWS Free Tier account <br> - Learn about AWS Console & AWS CLI <br> - **Practice:** <br>&emsp; + Create AWS account <br>&emsp; + Install & configure AWS CLI <br> &emsp; + How to use AWS CLI | 08/13/2025 | 08/13/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 5   | - Learn basic EC2: <br>&emsp; + Instance types <br>&emsp; + AMI <br>&emsp; + EBS <br>&emsp; + ... <br> - SSH connection methods to EC2 <br> - Learn about Elastic IP   <br>                            | 08/14/2025 | 08/15/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 6   | - **Practice:** <br>&emsp; + Launch an EC2 instance <br>&emsp; + Connect via SSH <br>&emsp; + Attach an EBS volume                                                                                     | 08/15/2025 | 08/15/2025      | <https://cloudjourney.awsstudygroup.com/> |
+* Test the complete Live Auction system deployed on AWS.
+* Verify the connection between the frontend and backend services.
+* Test user registration, authentication, and authorization.
+* Test auction functionality and real-time updates.
+* Identify and resolve outstanding issues.
+* Review the Terraform configuration, IAM permissions, and AWS resources.
+* Conduct a final system review before completing the project.
 
+### Tasks completed:
 
-### Week 7 Achievements:
+| Day | Date | Tasks | Reference |
+| --- | --- | --- | --- |
+| Monday | 03/08/2026 | Prepared system test cases; tested the user interface, navigation, and frontend access through Amazon CloudFront. | Team testing documentation |
+| Tuesday | 04/08/2026 | Tested user registration, authentication, login, and authorization through Amazon Cognito; reviewed IAM Role permissions. | <https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools.html> |
+| Wednesday | 05/08/2026 | Tested REST APIs and AWS Lambda functions; verified product and auction management, input validation, and data storage in DynamoDB. | <https://docs.aws.amazon.com/lambda/latest/dg/testing-guide.html> |
+| Thursday | 06/08/2026 | Tested WebSocket connections and real-time bidding; verified the ordered processing of bid requests through Amazon SQS FIFO. | <https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-websocket-api.html> |
+| Friday | 07/08/2026 | Fixed issues discovered during testing; reviewed Terraform resources, performed the final system walkthrough, and evaluated project completion. | Team source code and deployment documentation |
 
-* Understood what AWS is and mastered the basic service groups: 
-  * Compute
-  * Storage
-  * Networking 
-  * Database
-  * ...
+### Results achieved in Week 7:
 
-* Successfully created and configured an AWS Free Tier account.
+* Prepared test cases for the main system features.
+* Verified frontend access through Amazon CloudFront.
+* Tested the main user authentication flows:
 
-* Became familiar with the AWS Management Console and learned how to find, access, and use services via the web interface.
+  * User registration.
+  * Account confirmation.
+  * Login.
+  * Logout.
+  * Password recovery.
+  * Access control for protected features.
 
-* Installed and configured AWS CLI on the computer, including:
-  * Access Key
-  * Secret Key
-  * Default Region
-  * ...
+* Tested the core system features:
 
-* Used AWS CLI to perform basic operations such as:
+  * Displaying the product list.
+  * Viewing product details.
+  * Creating and updating products.
+  * Creating and managing auctions.
+  * Joining an auction.
+  * Submitting bids.
+  * Viewing auction status and bid history.
 
-  * Check account & configuration information
-  * Retrieve the list of regions
-  * View EC2 service
-  * Create and manage key pairs
-  * Check information about running services
-  * ...
+* Verified the connections between:
 
-* Acquired the ability to connect between the web interface and CLI to manage AWS resources in parallel.
-* ...
+  * Frontend and Amazon Cognito.
+  * Frontend and Amazon API Gateway.
+  * API Gateway and AWS Lambda.
+  * AWS Lambda and Amazon DynamoDB.
+  * AWS Lambda and Amazon SQS FIFO.
+  * API Gateway WebSocket and connected users.
+
+* Verified real-time auction status updates.
+* Verified the bid request processing flow through SQS FIFO.
+* Identified and resolved several types of issues:
+
+  * Environment variable configuration errors.
+  * CORS errors when the frontend called APIs.
+  * Permission errors between AWS services.
+  * Lambda input processing errors.
+  * WebSocket connection and disconnection errors.
+  * User-interface status display errors.
+  * Terraform resource configuration errors.
+
+* Reviewed IAM Policies according to the principle of least privilege.
+* Reviewed AWS resource status and system logs.
+* Completed the main system walkthrough from user authentication to auction participation and bidding.
+* Identified the remaining documentation and submission tasks for Week 8.

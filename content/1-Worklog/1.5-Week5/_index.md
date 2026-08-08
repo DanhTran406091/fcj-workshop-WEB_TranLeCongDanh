@@ -1,57 +1,66 @@
 ---
-title: "Week 5 Worklog"
-date: 2024-01-01
+title: "Worklog Week 5"
+date: 2026-07-20
 weight: 5
 chapter: false
 pre: " <b> 1.5. </b> "
 ---
-{{% notice warning %}} 
-⚠️ **Note:** The following information is for reference purposes only. Please **do not copy verbatim** for your own report, including this warning.
-{{% /notice %}}
 
+### Duration:
 
-### Week 5 Objectives:
+**From July 20, 2026 to July 24, 2026**
 
-* Connect and get acquainted with members of First Cloud AI Journey.
-* Understand basic AWS services, how to use the console & CLI.
+### Objectives for Week 5:
 
-### Tasks to be carried out this week:
-| Day | Task                                                                                                                                                                                                   | Start Date | Completion Date | Reference Material                        |
-| --- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------- | --------------- | ----------------------------------------- |
-| 2   | - Get acquainted with FCAJ members <br> - Read and take note of internship unit rules and regulations                                                                                                   | 08/11/2025 | 08/11/2025      |
-| 3   | - Learn about AWS and its types of services <br>&emsp; + Compute <br>&emsp; + Storage <br>&emsp; + Networking <br>&emsp; + Database <br>&emsp; + ... <br>                                              | 08/12/2025 | 08/12/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 4   | - Create AWS Free Tier account <br> - Learn about AWS Console & AWS CLI <br> - **Practice:** <br>&emsp; + Create AWS account <br>&emsp; + Install & configure AWS CLI <br> &emsp; + How to use AWS CLI | 08/13/2025 | 08/13/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 5   | - Learn basic EC2: <br>&emsp; + Instance types <br>&emsp; + AMI <br>&emsp; + EBS <br>&emsp; + ... <br> - SSH connection methods to EC2 <br> - Learn about Elastic IP   <br>                            | 08/14/2025 | 08/15/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 6   | - **Practice:** <br>&emsp; + Launch an EC2 instance <br>&emsp; + Connect via SSH <br>&emsp; + Attach an EBS volume                                                                                     | 08/15/2025 | 08/15/2025      | <https://cloudjourney.awsstudygroup.com/> |
+* Begin developing the core features of the Live Auction system.
+* Build the user interface and basic management features.
+* Develop APIs and business logic for the system.
+* Design data structures for products, auctions, and bids.
+* Research methods for integrating the application with AWS services.
+* Track progress and integrate source code from team members.
 
+### Tasks completed:
 
-### Week 5 Achievements:
+| Day | Date | Tasks | Reference |
+| --- | --- | --- | --- |
+| Monday | 20/07/2026 | Finalized the source-code structure, development conventions, and task assignments; prepared frontend and backend development environments. | Team technical documentation |
+| Tuesday | 21/07/2026 | Developed the React/Vite user interface, including authentication, product listing, product details, and auction listing pages. | <https://react.dev/learn> |
+| Wednesday | 22/07/2026 | Developed APIs and business logic for user, product, and auction management; validated input data and API responses. | <https://fastapi.tiangolo.com/tutorial/> |
+| Thursday | 23/07/2026 | Designed data structures for users, products, auctions, and bid history; researched how these structures could be migrated to Amazon DynamoDB. | <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Introduction.html> |
+| Friday | 24/07/2026 | Integrated the completed features; tested the flow between the frontend and APIs; documented errors and features requiring further development. | Team source code and testing documentation |
 
-* Understood what AWS is and mastered the basic service groups: 
-  * Compute
-  * Storage
-  * Networking 
-  * Database
-  * ...
+### Results achieved in Week 5:
 
-* Successfully created and configured an AWS Free Tier account.
+* Created the initial source-code structure for the Live Auction system.
+* Established the development and source-code integration workflow.
+* Completed the initial interfaces for several core features:
 
-* Became familiar with the AWS Management Console and learned how to find, access, and use services via the web interface.
+  * User registration and authentication.
+  * Product listing.
+  * Product details.
+  * Auction listing.
+  * Auction product management.
+  * Auction status monitoring.
 
-* Installed and configured AWS CLI on the computer, including:
-  * Access Key
-  * Secret Key
-  * Default Region
-  * ...
+* Developed initial APIs for:
 
-* Used AWS CLI to perform basic operations such as:
+  * User management.
+  * Product management.
+  * Auction management.
+  * Bid request processing.
+  * Bid history retrieval.
 
-  * Check account & configuration information
-  * Retrieve the list of regions
-  * View EC2 service
-  * Create and manage key pairs
-  * Check information about running services
-  * ...
+* Designed the main data entities:
 
-* Acquired the ability to connect between the web interface and CLI to manage AWS resources in parallel.
-* ...
+  * User information.
+  * Product information.
+  * Auction information.
+  * Auction status.
+  * Bid prices and bid history.
+
+* Established the initial connection between the frontend and backend APIs.
+* Tested the basic request flow from the user interface to the business logic.
+* Researched how backend functions could be migrated to AWS Lambda.
+* Researched how real-time auction data could be stored in Amazon DynamoDB.
+* Identified the need for API Gateway WebSocket to deliver real-time updates.
+* Documented the issues and unfinished features for the following week.

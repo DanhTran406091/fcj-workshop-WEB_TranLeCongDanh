@@ -5,27 +5,24 @@ weight: 5
 chapter: false
 pre: " <b> 5. </b> "
 ---
-{{% notice warning %}}
-⚠️ **Note:** The information below is for reference purposes only. Please **do not copy verbatim** for your report, including this warning.
-{{% /notice %}}
 
-# Secure Hybrid Access to S3 using VPC Endpoints
+# Building and Deploying the Live Auction System on AWS
 
 #### Overview
 
-**AWS PrivateLink** provides private connectivity to AWS services from VPCs and your on-premises networks, without exposing your traffic to the Public Internet.
+**Live Auction** is an online auction platform that enables users to register accounts, monitor auction sessions, and place bids in real time.
 
-In this lab, you will learn how to create, configure, and test VPC endpoints that enable your workloads to reach AWS services without traversing the Public Internet.
+In this workshop, our team presents the process of building and deploying the **Live Auction** system on **Amazon Web Services (AWS)** using a serverless architecture. The entire cloud infrastructure is provisioned and managed through **Terraform (Infrastructure as Code)**, allowing AWS resources to be created, configured, and maintained in an automated and consistent manner.
 
-You will create two types of endpoints to access Amazon S3: a Gateway VPC endpoint, and an Interface VPC endpoint. These two types of VPC endpoints offer different benefits depending on if you are accessing Amazon S3 from the cloud or your on-premises location
-+ **Gateway** - Create a gateway endpoint to send traffic to Amazon S3 or DynamoDB using private IP addresses.You route traffic from your VPC to the gateway endpoint using route tables.
-+ **Interface** - Create an interface endpoint to send traffic to endpoint services that use a Network Load Balancer to distribute traffic. Traffic destined for the endpoint service is resolved using DNS.
+After the infrastructure is deployed, the system leverages multiple AWS services, including **Amazon S3**, **Amazon CloudFront**, **Amazon Cognito**, **AWS Lambda**, **Amazon API Gateway**, **Amazon DynamoDB**, and **Amazon SQS FIFO**, to provide a scalable, secure, and real-time online auction platform.
 
-#### Content
+This workshop focuses on preparing the deployment environment, provisioning cloud infrastructure with Terraform, verifying the deployed AWS resources, testing the system, and evaluating the deployment results.
 
-1. [Workshop overview](5.1-Workshop-overview)
-2. [Prerequiste](5.2-Prerequiste/)
-3. [Access S3 from VPC](5.3-S3-vpc/)
-4. [Access S3 from On-premises](5.4-S3-onprem/)
-5. [VPC Endpoint Policies (Bonus)](5.5-Policy/)
-6. [Clean up](5.6-Cleanup/)
+#### Contents
+
+1. [Project Overview and Deployment Architecture](5.1-Overview/)
+2. [Environment Preparation](5.2-Preparation/)
+3. [Infrastructure Deployment with Terraform](5.3-Infrastructure/)
+4. [Deployed AWS Services](5.4-AWS-Services/)
+5. [System Testing](5.5-Testing/)
+6. [Results and Conclusion](5.6-Conclusion/)

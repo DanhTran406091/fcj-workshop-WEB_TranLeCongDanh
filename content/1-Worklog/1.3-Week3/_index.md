@@ -1,57 +1,55 @@
 ---
-title: "Week 3 Worklog"
-date: 2024-01-01
+title: "Worklog Week 3"
+date: 2026-07-06
 weight: 3
 chapter: false
 pre: " <b> 1.3. </b> "
 ---
-{{% notice warning %}} 
-⚠️ **Note:** The following information is for reference purposes only. Please **do not copy verbatim** for your own report, including this warning.
-{{% /notice %}}
 
+### Duration:
 
-### Week 3 Objectives:
+**From July 6, 2026 to July 10, 2026**
 
-* Connect and get acquainted with members of First Cloud AI Journey.
-* Understand basic AWS services, how to use the console & CLI.
+### Objectives for Week 3:
 
-### Tasks to be carried out this week:
-| Day | Task                                                                                                                                                                                                   | Start Date | Completion Date | Reference Material                        |
-| --- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------- | --------------- | ----------------------------------------- |
-| 2   | - Get acquainted with FCAJ members <br> - Read and take note of internship unit rules and regulations                                                                                                   | 08/11/2025 | 08/11/2025      |
-| 3   | - Learn about AWS and its types of services <br>&emsp; + Compute <br>&emsp; + Storage <br>&emsp; + Networking <br>&emsp; + Database <br>&emsp; + ... <br>                                              | 08/12/2025 | 08/12/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 4   | - Create AWS Free Tier account <br> - Learn about AWS Console & AWS CLI <br> - **Practice:** <br>&emsp; + Create AWS account <br>&emsp; + Install & configure AWS CLI <br> &emsp; + How to use AWS CLI | 08/13/2025 | 08/13/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 5   | - Learn basic EC2: <br>&emsp; + Instance types <br>&emsp; + AMI <br>&emsp; + EBS <br>&emsp; + ... <br> - SSH connection methods to EC2 <br> - Learn about Elastic IP   <br>                            | 08/14/2025 | 08/15/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 6   | - **Practice:** <br>&emsp; + Launch an EC2 instance <br>&emsp; + Connect via SSH <br>&emsp; + Attach an EBS volume                                                                                     | 08/15/2025 | 08/15/2025      | <https://cloudjourney.awsstudygroup.com/> |
+* Practice using the basic features of the AWS Management Console.
+* Become familiar with AWS CLI and resource management using command-line tools.
+* Practice creating and managing basic AWS resources.
+* Learn how to monitor and manage AWS service costs.
+* Improve security awareness and avoid unexpected charges.
 
+### Tasks completed:
 
-### Week 3 Achievements:
+| Day | Date | Tasks | Reference |
+| --- | --- | --- | --- |
+| Monday | 06/07/2026 | Explored the AWS Management Console; practiced searching for services, accessing them, and reviewing their information. | <https://docs.aws.amazon.com/awsconsolehelpdocs/latest/gsg/getting-started.html> |
+| Tuesday | 07/07/2026 | Studied AWS Identity and Access Management (IAM); reviewed account information, users, permissions, and basic security principles. | <https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction.html> |
+| Wednesday | 08/07/2026 | Installed and configured AWS CLI; practiced checking configuration, retrieving account information, and listing AWS Regions. | <https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html> |
+| Thursday | 09/07/2026 | Practiced creating and managing basic resources; became familiar with EC2, Security Groups, Key Pairs, and resource management on AWS. | <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EC2_GetStarted.html> |
+| Friday | 10/07/2026 | Studied AWS Billing and Cost Management; reviewed costs and learned how to create budgets and cost alerts. | <https://docs.aws.amazon.com/cost-management/latest/userguide/budgets-managing-costs.html> |
 
-* Understood what AWS is and mastered the basic service groups: 
-  * Compute
-  * Storage
-  * Networking 
-  * Database
-  * ...
+### Results achieved in Week 3:
 
-* Successfully created and configured an AWS Free Tier account.
+* Became familiar with the basic features of the AWS Management Console.
+* Learned how to search for, access, and review AWS services.
+* Understood the basic role of AWS IAM in user and permission management.
+* Successfully installed and configured AWS CLI.
+* Used basic AWS CLI commands to:
 
-* Became familiar with the AWS Management Console and learned how to find, access, and use services via the web interface.
+  * Check the AWS CLI version and configuration.
+  * Retrieve account information.
+  * List available AWS Regions.
+  * Retrieve AWS resource information.
+  * Support resource management through the command line.
 
-* Installed and configured AWS CLI on the computer, including:
-  * Access Key
-  * Secret Key
-  * Default Region
-  * ...
+* Understood the basic components required to create an EC2 instance:
 
-* Used AWS CLI to perform basic operations such as:
+  * Amazon Machine Image (AMI).
+  * Instance type.
+  * Key Pair.
+  * Security Group.
+  * Amazon EBS.
 
-  * Check account & configuration information
-  * Retrieve the list of regions
-  * View EC2 service
-  * Create and manage key pairs
-  * Check information about running services
-  * ...
-
-* Acquired the ability to connect between the web interface and CLI to manage AWS resources in parallel.
-* ...
+* Learned how to monitor service costs using AWS Billing and Cost Management.
+* Learned how to create budgets and cost alerts with AWS Budgets.
+* Developed the habit of stopping or deleting unused resources to avoid unexpected charges.

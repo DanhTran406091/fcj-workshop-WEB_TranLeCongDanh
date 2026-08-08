@@ -1,59 +1,80 @@
 ---
 title: "Worklog Tuần 7"
-date: 2024-01-01
+date: 2026-08-03
 weight: 7
 chapter: false
 pre: " <b> 1.7. </b> "
 ---
-{{% notice warning %}}
-⚠️ **Lưu ý:** Các thông tin dưới đây chỉ nhằm mục đích tham khảo, vui lòng **không sao chép nguyên văn** cho bài báo cáo của bạn kể cả warning này.
-{{% /notice %}}
 
+### Thời gian:
+
+**Từ ngày 03/08/2026 đến ngày 07/08/2026**
 
 ### Mục tiêu tuần 7:
 
-* Kết nối, làm quen với các thành viên trong First Cloud AI Journey.
-* Hiểu dịch vụ AWS cơ bản, cách dùng console & CLI.
+* Kiểm thử toàn bộ hệ thống Live Auction sau khi triển khai trên AWS.
+* Kiểm tra khả năng kết nối giữa frontend và các dịch vụ backend.
+* Kiểm thử luồng đăng ký, đăng nhập và phân quyền người dùng.
+* Kiểm tra chức năng đấu giá và cập nhật dữ liệu theo thời gian thực.
+* Phát hiện và khắc phục các lỗi còn tồn tại.
+* Kiểm tra lại cấu hình Terraform, quyền IAM và tài nguyên AWS.
+* Tổng duyệt hệ thống trước khi hoàn thiện đồ án.
 
-### Các công việc cần triển khai trong tuần này:
-| Thứ | Công việc                                                                                                                                                                                   | Ngày bắt đầu | Ngày hoàn thành | Nguồn tài liệu                            |
-| --- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ | --------------- | ----------------------------------------- |
-| 2   | - Làm quen với các thành viên FCAJ <br> - Đọc và lưu ý các nội quy, quy định tại đơn vị thực tập                                                                                             | 11/08/2025   | 11/08/2025      |
-| 3   | - Tìm hiểu AWS và các loại dịch vụ <br>&emsp; + Compute <br>&emsp; + Storage <br>&emsp; + Networking <br>&emsp; + Database <br>&emsp; + ... <br>                                            | 12/08/2025   | 12/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 4   | - Tạo AWS Free Tier account <br> - Tìm hiểu AWS Console & AWS CLI <br> - **Thực hành:** <br>&emsp; + Tạo AWS account <br>&emsp; + Cài AWS CLI & cấu hình <br> &emsp; + Cách sử dụng AWS CLI | 13/08/2025   | 13/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 5   | - Tìm hiểu EC2 cơ bản: <br>&emsp; + Instance types <br>&emsp; + AMI <br>&emsp; + EBS <br>&emsp; + ... <br> - Các cách remote SSH vào EC2 <br> - Tìm hiểu Elastic IP   <br>                  | 14/08/2025   | 15/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 6   | - **Thực hành:** <br>&emsp; + Tạo EC2 instance <br>&emsp; + Kết nối SSH <br>&emsp; + Gắn EBS volume                                                                                         | 15/08/2025   | 15/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
+### Các công việc đã thực hiện:
 
+| Thứ | Ngày | Công việc | Nguồn tài liệu |
+| --- | --- | --- | --- |
+| Thứ Hai | 03/08/2026 | Xây dựng danh sách trường hợp kiểm thử; kiểm tra giao diện, điều hướng và khả năng truy cập frontend thông qua Amazon CloudFront. | Tài liệu kiểm thử của nhóm |
+| Thứ Ba | 04/08/2026 | Kiểm thử luồng đăng ký, xác thực, đăng nhập và phân quyền người dùng thông qua Amazon Cognito; kiểm tra quyền truy cập của các IAM Role. | <https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools.html> |
+| Thứ Tư | 05/08/2026 | Kiểm thử REST API và các hàm AWS Lambda; kiểm tra chức năng quản lý sản phẩm, phiên đấu giá, dữ liệu đầu vào và kết quả lưu trữ trên DynamoDB. | <https://docs.aws.amazon.com/lambda/latest/dg/testing-guide.html> |
+| Thứ Năm | 06/08/2026 | Kiểm thử kết nối WebSocket và luồng đặt giá theo thời gian thực; kiểm tra khả năng tiếp nhận và xử lý tuần tự yêu cầu thông qua Amazon SQS FIFO. | <https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-websocket-api.html> |
+| Thứ Sáu | 07/08/2026 | Khắc phục các lỗi phát hiện trong quá trình kiểm thử; kiểm tra lại Terraform, tổng duyệt luồng hoạt động và đánh giá mức độ hoàn thành của đồ án. | Mã nguồn và tài liệu triển khai của nhóm |
 
 ### Kết quả đạt được tuần 7:
 
-* Hiểu AWS là gì và nắm được các nhóm dịch vụ cơ bản: 
-  * Compute
-  * Storage
-  * Networking 
-  * Database
-  * ...
+* Xây dựng được danh sách các trường hợp kiểm thử cho hệ thống.
+* Kiểm tra được khả năng truy cập frontend thông qua Amazon CloudFront.
+* Kiểm thử các chức năng xác thực người dùng:
 
-* Đã tạo và cấu hình AWS Free Tier account thành công.
+  * Đăng ký tài khoản.
+  * Xác nhận tài khoản.
+  * Đăng nhập.
+  * Đăng xuất.
+  * Khôi phục mật khẩu.
+  * Kiểm tra quyền truy cập vào các chức năng yêu cầu xác thực.
 
-* Làm quen với AWS Management Console và biết cách tìm, truy cập, sử dụng dịch vụ từ giao diện web.
+* Kiểm thử các chức năng chính của hệ thống:
 
-* Cài đặt và cấu hình AWS CLI trên máy tính bao gồm:
-  * Access Key
-  * Secret Key
-  * Region mặc định
-  * ...
+  * Hiển thị danh sách sản phẩm.
+  * Xem thông tin chi tiết sản phẩm.
+  * Tạo và cập nhật sản phẩm.
+  * Tạo và quản lý phiên đấu giá.
+  * Tham gia phiên đấu giá.
+  * Gửi yêu cầu đặt giá.
+  * Xem trạng thái và lịch sử đặt giá.
 
-* Sử dụng AWS CLI để thực hiện các thao tác cơ bản như:
+* Kiểm tra khả năng kết nối giữa các thành phần:
 
-  * Kiểm tra thông tin tài khoản & cấu hình
-  * Lấy danh sách region
-  * Xem dịch vụ EC2
-  * Tạo và quản lý key pair
-  * Kiểm tra thông tin dịch vụ đang chạy
-  * ...
+  * Frontend với Amazon Cognito.
+  * Frontend với Amazon API Gateway.
+  * API Gateway với AWS Lambda.
+  * AWS Lambda với Amazon DynamoDB.
+  * AWS Lambda với Amazon SQS FIFO.
+  * API Gateway WebSocket với các kết nối người dùng.
 
-* Có khả năng kết nối giữa giao diện web và CLI để quản lý tài nguyên AWS song song.
-* ...
+* Kiểm tra được khả năng cập nhật trạng thái phiên đấu giá theo thời gian thực.
+* Kiểm tra luồng tiếp nhận và xử lý yêu cầu đặt giá thông qua hàng đợi SQS FIFO.
+* Phát hiện và khắc phục một số nhóm lỗi:
 
+  * Lỗi cấu hình biến môi trường.
+  * Lỗi CORS khi frontend gọi API.
+  * Lỗi quyền truy cập giữa các dịch vụ AWS.
+  * Lỗi xử lý dữ liệu đầu vào của Lambda.
+  * Lỗi kết nối hoặc mất kết nối WebSocket.
+  * Lỗi hiển thị trạng thái trên giao diện.
+  * Lỗi cấu hình tài nguyên trong Terraform.
 
+* Kiểm tra lại các IAM Policy theo nguyên tắc cấp quyền tối thiểu.
+* Kiểm tra trạng thái tài nguyên và nhật ký hoạt động trên AWS.
+* Tổng duyệt được luồng hoạt động chính của hệ thống từ lúc người dùng đăng nhập đến khi tham gia và đặt giá.
+* Xác định được các nội dung cuối cùng cần hoàn thiện trong tuần 8.

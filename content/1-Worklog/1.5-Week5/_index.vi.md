@@ -1,59 +1,66 @@
 ---
 title: "Worklog Tuần 5"
-date: 2024-01-01
+date: 2026-07-20
 weight: 5
 chapter: false
 pre: " <b> 1.5. </b> "
 ---
-{{% notice warning %}}
-⚠️ **Lưu ý:** Các thông tin dưới đây chỉ nhằm mục đích tham khảo, vui lòng **không sao chép nguyên văn** cho bài báo cáo của bạn kể cả warning này.
-{{% /notice %}}
 
+### Thời gian:
+
+**Từ ngày 20/07/2026 đến ngày 24/07/2026**
 
 ### Mục tiêu tuần 5:
 
-* Kết nối, làm quen với các thành viên trong First Cloud AI Journey.
-* Hiểu dịch vụ AWS cơ bản, cách dùng console & CLI.
+* Bắt đầu phát triển các chức năng cốt lõi của hệ thống Live Auction.
+* Xây dựng giao diện người dùng và các chức năng quản lý cơ bản.
+* Phát triển API và xử lý nghiệp vụ cho hệ thống.
+* Thiết kế cấu trúc dữ liệu phục vụ sản phẩm, phiên đấu giá và lượt đặt giá.
+* Nghiên cứu phương án tích hợp mã nguồn với các dịch vụ AWS.
+* Theo dõi tiến độ và tích hợp mã nguồn giữa các thành viên trong nhóm.
 
-### Các công việc cần triển khai trong tuần này:
-| Thứ | Công việc                                                                                                                                                                                   | Ngày bắt đầu | Ngày hoàn thành | Nguồn tài liệu                            |
-| --- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ | --------------- | ----------------------------------------- |
-| 2   | - Làm quen với các thành viên FCAJ <br> - Đọc và lưu ý các nội quy, quy định tại đơn vị thực tập                                                                                             | 11/08/2025   | 11/08/2025      |
-| 3   | - Tìm hiểu AWS và các loại dịch vụ <br>&emsp; + Compute <br>&emsp; + Storage <br>&emsp; + Networking <br>&emsp; + Database <br>&emsp; + ... <br>                                            | 12/08/2025   | 12/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 4   | - Tạo AWS Free Tier account <br> - Tìm hiểu AWS Console & AWS CLI <br> - **Thực hành:** <br>&emsp; + Tạo AWS account <br>&emsp; + Cài AWS CLI & cấu hình <br> &emsp; + Cách sử dụng AWS CLI | 13/08/2025   | 13/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 5   | - Tìm hiểu EC2 cơ bản: <br>&emsp; + Instance types <br>&emsp; + AMI <br>&emsp; + EBS <br>&emsp; + ... <br> - Các cách remote SSH vào EC2 <br> - Tìm hiểu Elastic IP   <br>                  | 14/08/2025   | 15/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 6   | - **Thực hành:** <br>&emsp; + Tạo EC2 instance <br>&emsp; + Kết nối SSH <br>&emsp; + Gắn EBS volume                                                                                         | 15/08/2025   | 15/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
+### Các công việc đã thực hiện:
 
+| Thứ | Ngày | Công việc | Nguồn tài liệu |
+| --- | --- | --- | --- |
+| Thứ Hai | 20/07/2026 | Thống nhất cấu trúc mã nguồn, quy ước phát triển và phân chia chức năng cho các thành viên; chuẩn bị môi trường phát triển frontend và backend. | Tài liệu kỹ thuật của nhóm |
+| Thứ Ba | 21/07/2026 | Phát triển giao diện người dùng bằng React/Vite; xây dựng các trang đăng nhập, danh sách sản phẩm, thông tin sản phẩm và danh sách phiên đấu giá. | <https://react.dev/learn> |
+| Thứ Tư | 22/07/2026 | Phát triển API và logic nghiệp vụ cho các chức năng quản lý người dùng, sản phẩm và phiên đấu giá; kiểm tra dữ liệu đầu vào và phản hồi từ API. | <https://fastapi.tiangolo.com/tutorial/> |
+| Thứ Năm | 23/07/2026 | Thiết kế cấu trúc dữ liệu cho người dùng, sản phẩm, phiên đấu giá và lịch sử đặt giá; nghiên cứu cách chuyển đổi dữ liệu sang Amazon DynamoDB. | <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Introduction.html> |
+| Thứ Sáu | 24/07/2026 | Tích hợp các chức năng đã hoàn thành; kiểm tra luồng hoạt động từ giao diện đến API; tổng hợp lỗi và xác định các chức năng cần tiếp tục hoàn thiện. | Mã nguồn và tài liệu kiểm thử của nhóm |
 
 ### Kết quả đạt được tuần 5:
 
-* Hiểu AWS là gì và nắm được các nhóm dịch vụ cơ bản: 
-  * Compute
-  * Storage
-  * Networking 
-  * Database
-  * ...
+* Xây dựng được cấu trúc mã nguồn ban đầu cho hệ thống Live Auction.
+* Thống nhất quy trình phát triển và tích hợp mã nguồn giữa các thành viên.
+* Hoàn thành bước đầu giao diện của một số chức năng chính:
 
-* Đã tạo và cấu hình AWS Free Tier account thành công.
+  * Đăng ký và đăng nhập.
+  * Hiển thị danh sách sản phẩm.
+  * Xem thông tin chi tiết sản phẩm.
+  * Hiển thị danh sách phiên đấu giá.
+  * Tạo và quản lý sản phẩm đấu giá.
+  * Theo dõi trạng thái của phiên đấu giá.
 
-* Làm quen với AWS Management Console và biết cách tìm, truy cập, sử dụng dịch vụ từ giao diện web.
+* Xây dựng bước đầu các API phục vụ:
 
-* Cài đặt và cấu hình AWS CLI trên máy tính bao gồm:
-  * Access Key
-  * Secret Key
-  * Region mặc định
-  * ...
+  * Quản lý người dùng.
+  * Quản lý sản phẩm.
+  * Quản lý phiên đấu giá.
+  * Tiếp nhận yêu cầu đặt giá.
+  * Truy xuất lịch sử đặt giá.
 
-* Sử dụng AWS CLI để thực hiện các thao tác cơ bản như:
+* Thiết kế được các nhóm dữ liệu chính của hệ thống:
 
-  * Kiểm tra thông tin tài khoản & cấu hình
-  * Lấy danh sách region
-  * Xem dịch vụ EC2
-  * Tạo và quản lý key pair
-  * Kiểm tra thông tin dịch vụ đang chạy
-  * ...
+  * Thông tin người dùng.
+  * Thông tin sản phẩm.
+  * Thông tin phiên đấu giá.
+  * Trạng thái phiên đấu giá.
+  * Lịch sử và mức giá đặt của người tham gia.
 
-* Có khả năng kết nối giữa giao diện web và CLI để quản lý tài nguyên AWS song song.
-* ...
-
-
+* Kết nối bước đầu giữa frontend và backend thông qua API.
+* Kiểm tra được luồng thao tác cơ bản từ giao diện người dùng đến thành phần xử lý nghiệp vụ.
+* Nghiên cứu phương án chuyển đổi các chức năng backend sang AWS Lambda.
+* Nghiên cứu cách lưu trữ dữ liệu thời gian thực trên Amazon DynamoDB.
+* Xác định nhu cầu sử dụng API Gateway WebSocket để cập nhật trạng thái đấu giá theo thời gian thực.
+* Tổng hợp được các lỗi và chức năng cần hoàn thiện trong tuần tiếp theo.

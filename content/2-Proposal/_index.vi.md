@@ -12,390 +12,362 @@ pre: " <b> 2. </b> "
 
 ### 1. Tóm tắt điều hành
 
-**Live Auction** là nền tảng đấu giá trực tuyến cho phép người dùng đăng sản phẩm, theo dõi phiên đấu giá và đặt giá theo thời gian thực. Hệ thống hướng đến việc tạo ra một môi trường đấu giá minh bạch, thuận tiện và có khả năng phục vụ đồng thời nhiều người dùng.
+**Live Auction** là nền tảng đấu giá trực tuyến được đề xuất nhằm xây dựng một hệ thống hỗ trợ người dùng đăng ký tài khoản, quản lý sản phẩm, tạo và tham gia các phiên đấu giá cũng như cập nhật trạng thái đấu giá theo thời gian thực. Đồ án hướng đến việc nghiên cứu và ứng dụng các dịch vụ của **Amazon Web Services (AWS)** để xây dựng một hệ thống có khả năng mở rộng, đảm bảo tính sẵn sàng và đáp ứng nhu cầu triển khai trên nền tảng điện toán đám mây.
 
-Giao diện frontend được phát triển bằng **React/Vite**, backend sử dụng **FastAPI và Python**, dữ liệu được quản lý bằng **MySQL**. Trong giai đoạn triển khai ban đầu, nhóm sử dụng Amazon S3 để lưu trữ frontend và hình ảnh, Amazon EC2 để vận hành backend, Amazon RDS for MySQL để quản lý cơ sở dữ liệu và AWS Lambda cho một số tác vụ nền.
+Hệ thống được phát triển với **React/Vite** cho frontend, **FastAPI (Python)** cho backend và **MySQL** trong quá trình phát triển cục bộ. Trong giai đoạn đề xuất, nhóm định hướng triển khai frontend trên **Amazon S3**, backend trên các dịch vụ điện toán của AWS, cơ sở dữ liệu trên **Amazon RDS for MySQL**, đồng thời nghiên cứu ứng dụng các dịch vụ như **Amazon API Gateway**, **AWS Lambda**, **Amazon Cognito**, **Amazon DynamoDB**, **Amazon SQS** và **Amazon CloudFront** nhằm đáp ứng yêu cầu mở rộng của hệ thống.
 
-Bên cạnh kiến trúc triển khai ban đầu, nhóm xây dựng kiến trúc AWS mở rộng nhằm nghiên cứu khả năng xử lý đấu giá thời gian thực, tăng tính sẵn sàng, bảo mật dữ liệu và hỗ trợ khôi phục khi xảy ra sự cố.
+Bản đề xuất này trình bày kiến trúc, các dịch vụ AWS dự kiến sử dụng và định hướng triển khai của nhóm trong quá trình phát triển đồ án. Trong quá trình thực hiện, một số thành phần của kiến trúc có thể được điều chỉnh để phù hợp với phạm vi triển khai và điều kiện thực tế.
+
+---
 
 ### 2. Tuyên bố vấn đề
 
 #### Vấn đề hiện tại
 
-Các hệ thống đấu giá trực tuyến cần xử lý nhiều thao tác diễn ra gần như đồng thời, đặc biệt khi nhiều người dùng cùng đặt giá cho một sản phẩm. Nếu hệ thống xử lý không chính xác, có thể xảy ra các vấn đề như:
+Các hệ thống đấu giá trực tuyến cần xử lý đồng thời nhiều yêu cầu từ người dùng trong cùng một thời điểm. Khi số lượng người tham gia tăng lên, hệ thống có thể gặp phải nhiều khó khăn nếu không được thiết kế theo kiến trúc phù hợp.
+
+Một số vấn đề thường gặp gồm:
 
 - Dữ liệu giá đấu không được cập nhật kịp thời.
 - Nhiều yêu cầu đặt giá được xử lý sai thứ tự.
-- Người dùng không nhận được trạng thái mới của phiên đấu giá.
-- Hình ảnh sản phẩm và tài nguyên tĩnh tải chậm.
-- Hệ thống bị gián đoạn khi máy chủ gặp sự cố.
-- Khó theo dõi nhật ký và xác định nguyên nhân khi xảy ra lỗi.
-- Dữ liệu người dùng và thông tin phiên đấu giá chưa được bảo vệ phù hợp.
+- Người dùng không nhận được trạng thái mới của phiên đấu giá theo thời gian thực.
+- Hiệu năng giảm khi số lượng người truy cập tăng cao.
+- Hệ thống khó mở rộng khi bổ sung thêm chức năng.
+- Khó quản lý hạ tầng và theo dõi hoạt động của hệ thống.
+- Dữ liệu và thông tin người dùng cần được bảo vệ tốt hơn trong môi trường Internet.
 
-Ngoài ra, việc triển khai tất cả thành phần trên một máy chủ duy nhất sẽ làm giảm khả năng mở rộng và tạo ra một điểm lỗi duy nhất cho toàn hệ thống.
+Ngoài ra, việc triển khai toàn bộ hệ thống trên một máy chủ duy nhất sẽ tạo ra điểm lỗi đơn (Single Point of Failure), gây khó khăn cho việc mở rộng và bảo trì trong tương lai.
 
 #### Giải pháp đề xuất
 
-Nhóm đề xuất triển khai Live Auction trên AWS theo từng giai đoạn.
+Để giải quyết các vấn đề trên, nhóm đề xuất triển khai hệ thống **Live Auction** trên nền tảng **Amazon Web Services (AWS)** theo từng giai đoạn.
 
-Ở giai đoạn đầu, frontend React/Vite được build và triển khai lên **Amazon S3 Static Website Hosting**. Backend FastAPI được đóng gói bằng Docker và vận hành trên **Amazon EC2**. Cơ sở dữ liệu MySQL được chuyển từ môi trường Docker cục bộ sang **Amazon RDS for MySQL**, trong khi hình ảnh sản phẩm được lưu trong một S3 bucket riêng. **AWS Lambda** được sử dụng cho một số tác vụ nền hoặc tác vụ được kích hoạt theo sự kiện.
+Ở giai đoạn đầu, nhóm tập trung xây dựng các chức năng cốt lõi của hệ thống, bao gồm giao diện người dùng, backend xử lý nghiệp vụ, cơ sở dữ liệu và lưu trữ hình ảnh sản phẩm. Các thành phần này được đề xuất triển khai bằng những dịch vụ AWS phù hợp nhằm giúp hệ thống dễ dàng mở rộng và quản lý.
 
-Ở giai đoạn mở rộng, hệ thống có thể sử dụng Amazon CloudFront, AWS WAF, Amazon API Gateway, Amazon Cognito, Amazon DynamoDB, Amazon SQS, Amazon EventBridge và các dịch vụ giám sát của AWS. Kiến trúc này hướng đến việc xử lý luồng đặt giá theo thứ tự, cải thiện khả năng chịu tải và hỗ trợ dự phòng đa vùng.
+Trong các giai đoạn tiếp theo, kiến trúc sẽ được mở rộng bằng cách tích hợp thêm các dịch vụ AWS phục vụ xác thực người dùng, xử lý API, truyền dữ liệu thời gian thực, hàng đợi thông điệp, lưu trữ dữ liệu hiệu năng cao và các dịch vụ giám sát nhằm nâng cao khả năng chịu tải, tính sẵn sàng và bảo mật của hệ thống.
 
 #### Lợi ích của giải pháp
 
-Giải pháp mang lại những lợi ích chính như:
+Giải pháp được đề xuất mang lại các lợi ích sau:
 
-- Cho phép người dùng tham gia đấu giá từ xa thông qua trình duyệt.
-- Cập nhật thông tin phiên đấu giá nhanh chóng.
-- Tách riêng frontend, backend, cơ sở dữ liệu và tài nguyên hình ảnh.
-- Hạn chế phụ thuộc vào một máy chủ duy nhất.
-- Dễ dàng mở rộng khi số lượng người dùng tăng.
-- Cải thiện khả năng bảo mật, giám sát và sao lưu dữ liệu.
-- Giúp nhóm tiếp cận quy trình triển khai một ứng dụng thực tế trên AWS.
+- Cho phép người dùng truy cập hệ thống đấu giá thông qua trình duyệt web.
+- Hỗ trợ cập nhật trạng thái đấu giá theo thời gian thực.
+- Phân tách các thành phần của hệ thống để thuận tiện cho việc mở rộng.
+- Tận dụng các dịch vụ được quản lý sẵn của AWS nhằm giảm chi phí quản trị hạ tầng.
+- Nâng cao khả năng bảo mật, giám sát và quản lý tài nguyên.
+- Làm nền tảng để nghiên cứu và triển khai kiến trúc serverless trong các giai đoạn tiếp theo.
+
+---
 
 ### 3. Kiến trúc giải pháp
 
+> **Lưu ý:** Chương này trình bày **kiến trúc và phương án triển khai được đề xuất** trong giai đoạn thiết kế của đồ án. Trong quá trình phát triển, nhóm có thể điều chỉnh một số thành phần để phù hợp với điều kiện triển khai thực tế. Kiến trúc triển khai cuối cùng sẽ được trình bày chi tiết trong **Chương 5 - Workshop**.
+
 #### 3.1. Kiến trúc triển khai ban đầu
 
-Kiến trúc ban đầu của hệ thống gồm các thành phần chính:
+Kiến trúc triển khai ban đầu được xây dựng nhằm đáp ứng các chức năng cốt lõi của hệ thống với mức độ phức tạp vừa phải, đồng thời tạo tiền đề cho việc mở rộng trong các giai đoạn tiếp theo.
 
-1. Người dùng truy cập giao diện Live Auction bằng trình duyệt.
-2. Frontend React/Vite được build thành các tệp HTML, CSS và JavaScript.
-3. Các tệp frontend được triển khai trên Amazon S3.
-4. Frontend gửi yêu cầu đến REST API của backend FastAPI.
-5. Backend được đóng gói bằng Docker và vận hành trên Amazon EC2.
-6. Backend đọc và ghi dữ liệu thông qua Amazon RDS for MySQL.
-7. Hình ảnh sản phẩm được lưu trong một Amazon S3 bucket riêng.
-8. AWS Lambda xử lý một số tác vụ nền hoặc công việc theo lịch.
-9. Amazon CloudWatch hỗ trợ theo dõi nhật ký và tình trạng tài nguyên.
+Các thành phần chính của kiến trúc bao gồm:
 
-Kiến trúc này phù hợp với phạm vi đồ án hiện tại vì dễ triển khai, dễ kiểm tra và không yêu cầu quá nhiều dịch vụ phức tạp.
+1. Người dùng truy cập hệ thống thông qua trình duyệt web.
+2. Frontend được phát triển bằng React/Vite và triển khai trên Amazon S3.
+3. Frontend gửi yêu cầu đến các API của backend.
+4. Backend được phát triển bằng FastAPI và được đề xuất triển khai trên hạ tầng AWS.
+5. Dữ liệu được lưu trữ trên hệ quản trị cơ sở dữ liệu phù hợp với nhu cầu của hệ thống.
+6. Hình ảnh sản phẩm được lưu trữ trên Amazon S3.
+7. AWS Lambda được nghiên cứu sử dụng cho các tác vụ nền hoặc xử lý theo sự kiện.
+8. Amazon CloudWatch hỗ trợ giám sát hoạt động và thu thập nhật ký hệ thống.
+
+Kiến trúc này tập trung vào việc xây dựng các chức năng chính của hệ thống, đồng thời tạo nền tảng để mở rộng sang mô hình serverless và tích hợp thêm các dịch vụ AWS trong các giai đoạn tiếp theo.
 
 #### 3.2. Kiến trúc AWS mở rộng được đề xuất
 
-Sơ đồ dưới đây mô tả kiến trúc AWS mở rộng được nhóm đề xuất cho hệ thống Live Auction. Sơ đồ tập trung vào khả năng xử lý đấu giá thời gian thực, bảo mật, giám sát và dự phòng đa vùng.
+Sơ đồ dưới đây mô tả kiến trúc AWS mở rộng được nhóm đề xuất cho hệ thống Live Auction. Kiến trúc tập trung vào khả năng mở rộng, xử lý đấu giá theo thời gian thực, tăng cường bảo mật, giám sát và nâng cao tính sẵn sàng của hệ thống.
 
-Nhấn vào sơ đồ để mở và xem ở kích thước đầy đủ.
+Nhấn vào sơ đồ để xem ở kích thước đầy đủ.
 
 [![Sơ đồ kiến trúc AWS đề xuất cho hệ thống Live Auction](/images/2-Proposal/live-auction-proposed-architecture.svg)](/images/2-Proposal/live-auction-proposed-architecture.svg)
 
-> **Lưu ý:** Sơ đồ trên thể hiện kiến trúc mục tiêu được đề xuất. Một số thành phần nâng cao chưa được triển khai đầy đủ trong phiên bản hiện tại của đồ án.
+> **Lưu ý:** Sơ đồ trên thể hiện **kiến trúc mục tiêu** của hệ thống. Một số thành phần nâng cao sẽ được triển khai trong các giai đoạn tiếp theo tùy theo phạm vi và tiến độ của đồ án.
 
 #### 3.3. Luồng hoạt động tổng quát
 
-Luồng hoạt động của kiến trúc đề xuất gồm:
+Luồng hoạt động tổng quát của kiến trúc được đề xuất như sau:
 
-1. Người dùng truy cập tên miền của hệ thống.
-2. Amazon Route 53 định tuyến yêu cầu đến Amazon CloudFront.
-3. AWS WAF kiểm tra và lọc các yêu cầu không hợp lệ.
-4. CloudFront phân phối frontend được lưu trên Amazon S3.
-5. Người dùng đăng nhập và được xác thực trước khi sử dụng các chức năng được bảo vệ.
-6. REST API xử lý các chức năng như tài khoản, sản phẩm và phiên đấu giá.
-7. WebSocket hỗ trợ truyền trạng thái và giá đấu mới đến người dùng.
-8. Các yêu cầu đặt giá được đưa vào hàng đợi để xử lý tuần tự.
-9. Dữ liệu phiên đấu giá được lưu trong cơ sở dữ liệu phù hợp.
-10. Hình ảnh sản phẩm và bản ghi kiểm toán được lưu trên Amazon S3.
-11. CloudWatch và CloudTrail hỗ trợ giám sát hoạt động của hệ thống.
-12. Khi vùng chính xảy ra sự cố, Route 53 có thể định tuyến sang vùng dự phòng.
+1. Người dùng truy cập hệ thống thông qua trình duyệt web.
+2. Yêu cầu được định tuyến và phân phối đến giao diện người dùng.
+3. Người dùng thực hiện đăng nhập và được xác thực trước khi sử dụng các chức năng yêu cầu quyền truy cập.
+4. Frontend gửi các yêu cầu nghiệp vụ đến backend thông qua API.
+5. Backend tiếp nhận và xử lý các yêu cầu của người dùng.
+6. Các dữ liệu cần lưu trữ được ghi vào dịch vụ cơ sở dữ liệu phù hợp.
+7. Hình ảnh và các tài nguyên tĩnh được lưu trữ trên Amazon S3.
+8. Các yêu cầu đặt giá có thể được xử lý tuần tự thông qua hàng đợi thông điệp trong kiến trúc mở rộng.
+9. Trạng thái đấu giá được cập nhật đến các người dùng đang kết nối theo thời gian thực.
+10. Hệ thống được giám sát thông qua các dịch vụ theo dõi và ghi nhật ký của AWS.
+
 
 ### 4. Các dịch vụ AWS đề xuất sử dụng
 
 #### Amazon Route 53
 
-Amazon Route 53 quản lý tên miền và định tuyến người dùng đến hệ thống. Trong kiến trúc mở rộng, Route 53 còn hỗ trợ kiểm tra tình trạng endpoint và chuyển hướng sang vùng dự phòng khi cần thiết.
+Amazon Route 53 được đề xuất sử dụng để quản lý tên miền và định tuyến người dùng đến hệ thống. Trong kiến trúc mở rộng, Route 53 có thể kết hợp với các cơ chế kiểm tra tình trạng dịch vụ (Health Check) và Failover Routing nhằm hỗ trợ chuyển hướng truy cập sang môi trường dự phòng khi xảy ra sự cố.
 
 #### Amazon CloudFront
 
-Amazon CloudFront phân phối các tệp HTML, CSS, JavaScript và hình ảnh thông qua hệ thống CDN. Dịch vụ này giúp giảm thời gian tải trang và giảm số lượng yêu cầu trực tiếp đến S3.
+Amazon CloudFront được đề xuất làm mạng phân phối nội dung (Content Delivery Network - CDN) cho hệ thống. Dịch vụ này giúp phân phối các tệp HTML, CSS, JavaScript và hình ảnh từ Amazon S3 đến người dùng thông qua các Edge Location, từ đó giảm độ trễ và cải thiện tốc độ truy cập.
+
+Ngoài việc tăng hiệu năng, CloudFront còn hỗ trợ HTTPS, bộ nhớ đệm (Caching) và có thể tích hợp với AWS WAF nhằm tăng cường khả năng bảo mật cho hệ thống.
 
 #### AWS WAF
 
-AWS WAF giúp lọc các yêu cầu có dấu hiệu bất thường, giới hạn tần suất truy cập và bảo vệ hệ thống trước một số hình thức tấn công phổ biến trên ứng dụng web.
+AWS WAF được đề xuất để bảo vệ ứng dụng web trước các hình thức tấn công phổ biến như SQL Injection, Cross-site Scripting (XSS) và các yêu cầu truy cập bất thường.
+
+Khi kết hợp với Amazon CloudFront hoặc Amazon API Gateway, AWS WAF giúp giới hạn tần suất truy cập, lọc các yêu cầu không hợp lệ và tăng cường mức độ an toàn cho hệ thống.
 
 #### Amazon S3
 
-Amazon S3 được sử dụng cho các mục đích:
+Amazon S3 được đề xuất sử dụng cho nhiều mục đích khác nhau trong hệ thống, bao gồm:
 
-- Lưu trữ frontend React/Vite sau khi build.
+- Lưu trữ frontend sau khi build.
+- Lưu trữ giao diện quản trị.
 - Lưu trữ hình ảnh sản phẩm.
-- Lưu bản ghi hoặc dữ liệu phục vụ kiểm tra.
-- Sao chép dữ liệu sang vùng dự phòng khi cần thiết.
+- Lưu trữ các tài nguyên tĩnh và dữ liệu phục vụ kiểm tra khi cần thiết.
+
+Việc sử dụng Amazon S3 giúp tách biệt dữ liệu tĩnh khỏi backend, giảm tải cho hệ thống xử lý nghiệp vụ và tạo điều kiện thuận lợi cho việc mở rộng dung lượng lưu trữ trong tương lai.
 
 #### Amazon EC2
 
-Trong giai đoạn đầu, Amazon EC2 được sử dụng để chạy backend FastAPI. Backend được đóng gói bằng Docker để tạo môi trường chạy thống nhất và thuận tiện cho việc triển khai.
+Trong phương án triển khai ban đầu, Amazon EC2 được đề xuất là môi trường vận hành backend FastAPI. Backend được đóng gói bằng Docker nhằm đảm bảo tính nhất quán giữa môi trường phát triển và môi trường triển khai.
+
+Việc sử dụng EC2 giúp nhóm chủ động quản lý môi trường chạy, đồng thời thuận tiện trong quá trình nghiên cứu, kiểm thử và triển khai các chức năng cốt lõi của hệ thống.
 
 #### Amazon ECS và AWS Fargate
 
-Trong kiến trúc mở rộng, backend có thể được chuyển từ EC2 sang Amazon ECS với AWS Fargate. Cách triển khai này giúp quản lý container thuận tiện hơn và hỗ trợ mở rộng số lượng tác vụ theo nhu cầu.
+Trong giai đoạn mở rộng, nhóm định hướng chuyển backend từ mô hình triển khai trên máy chủ sang nền tảng quản lý container bằng Amazon ECS kết hợp AWS Fargate.
+
+Giải pháp này giúp giảm công việc quản trị hạ tầng, hỗ trợ mở rộng số lượng container theo nhu cầu và tăng khả năng sẵn sàng của hệ thống.
 
 #### Amazon ECR
 
-Amazon ECR lưu trữ Docker image của backend. Quy trình triển khai có thể build image mới, đẩy lên ECR và cập nhật dịch vụ đang chạy.
+Amazon Elastic Container Registry (Amazon ECR) được đề xuất sử dụng để lưu trữ Docker Image của backend.
+
+Khi áp dụng quy trình CI/CD, các phiên bản Docker Image mới có thể được build, lưu trữ trên Amazon ECR và triển khai tự động đến các môi trường vận hành.
 
 #### Elastic Load Balancing
 
-Application Load Balancer phân phối yêu cầu đến các container backend, thực hiện kiểm tra tình trạng và hạn chế việc phụ thuộc vào một máy chủ duy nhất.
+Application Load Balancer (ALB) được đề xuất nhằm phân phối lưu lượng truy cập đến nhiều backend service hoặc container trong trường hợp hệ thống được mở rộng.
+
+ALB còn hỗ trợ kiểm tra tình trạng dịch vụ (Health Check), SSL Termination và cân bằng tải giữa nhiều phiên bản của ứng dụng.
 
 #### Amazon API Gateway
 
-Amazon API Gateway cung cấp điểm truy cập cho REST API và WebSocket API. REST API xử lý các yêu cầu nghiệp vụ, còn WebSocket hỗ trợ gửi dữ liệu đấu giá theo thời gian thực.
+Amazon API Gateway được đề xuất là điểm truy cập thống nhất cho toàn bộ API của hệ thống.
+
+Dịch vụ này hỗ trợ triển khai REST API và WebSocket API, đồng thời tích hợp với nhiều dịch vụ AWS khác như AWS Lambda và Amazon Cognito.
+
+Trong kiến trúc mở rộng, REST API được sử dụng để xử lý các nghiệp vụ của hệ thống như quản lý tài khoản, sản phẩm và phiên đấu giá, trong khi WebSocket API hỗ trợ truyền dữ liệu đấu giá theo thời gian thực đến các người dùng đang kết nối.
 
 #### AWS Lambda
 
-AWS Lambda có thể đảm nhiệm:
+AWS Lambda được đề xuất sử dụng để thực thi các nghiệp vụ của hệ thống theo mô hình serverless. Thay vì duy trì máy chủ hoạt động liên tục, các hàm Lambda chỉ được kích hoạt khi có yêu cầu từ người dùng hoặc từ các dịch vụ AWS khác.
 
-- Xử lý một số API độc lập.
-- Kiểm tra và cập nhật trạng thái phiên đấu giá.
-- Xử lý yêu cầu đặt giá.
-- Kết thúc phiên đấu giá khi hết thời gian.
-- Gửi thông báo cho người dùng.
-- Thực hiện công việc nền hoặc công việc theo lịch.
+Trong kiến trúc đề xuất, Lambda có thể đảm nhiệm các chức năng như:
 
-#### Amazon RDS for MySQL
+- Xử lý các yêu cầu từ REST API.
+- Tiếp nhận và xử lý dữ liệu từ WebSocket.
+- Thực hiện các tác vụ nền theo sự kiện.
+- Gửi thông báo hoặc đồng bộ dữ liệu giữa các thành phần của hệ thống.
 
-Trong phiên bản triển khai ban đầu, Amazon RDS for MySQL lưu trữ các dữ liệu có quan hệ như:
+Việc sử dụng Lambda giúp giảm chi phí vận hành, đồng thời tăng khả năng mở rộng theo lưu lượng truy cập thực tế.
 
-- Tài khoản người dùng.
-- Thông tin sản phẩm.
-- Phiên đấu giá.
-- Lịch sử đặt giá.
-- Thông tin thanh toán và giao dịch.
+---
 
-RDS giúp nhóm giảm công việc quản trị máy chủ cơ sở dữ liệu và hỗ trợ sao lưu dữ liệu.
+#### Amazon RDS và Amazon Aurora
 
-#### Amazon Aurora
+Trong phương án triển khai ban đầu, nhóm đề xuất sử dụng **Amazon RDS for MySQL** để lưu trữ dữ liệu quan hệ của hệ thống như thông tin người dùng, sản phẩm, phiên đấu giá và lịch sử giao dịch.
 
-Trong kiến trúc mục tiêu có yêu cầu mở rộng và dự phòng đa vùng, Amazon Aurora có thể được nghiên cứu để thay thế cơ sở dữ liệu quan hệ ban đầu. Đây là thành phần định hướng mở rộng, chưa phải cơ sở dữ liệu đang được sử dụng trong phiên bản hiện tại.
+Ở giai đoạn mở rộng, **Amazon Aurora Serverless** được xem là một lựa chọn nhằm tăng hiệu năng truy vấn, khả năng mở rộng và tính sẵn sàng của cơ sở dữ liệu mà vẫn đảm bảo khả năng tương thích với MySQL.
+
+---
 
 #### Amazon DynamoDB
 
-DynamoDB được đề xuất cho các dữ liệu cần truy cập nhanh và có tần suất cập nhật cao như:
+Amazon DynamoDB được đề xuất sử dụng cho các dữ liệu cần truy cập với độ trễ thấp hoặc phục vụ các chức năng theo thời gian thực.
 
-- Trạng thái hiện tại của phiên đấu giá.
-- Các sự kiện đặt giá.
-- Trạng thái giữ số dư.
+Một số dữ liệu phù hợp để lưu trữ trên DynamoDB gồm:
+
+- Trạng thái phiên đấu giá.
 - Danh sách kết nối WebSocket.
+- Lịch sử đặt giá.
+- Các dữ liệu tạm thời phục vụ xử lý theo sự kiện.
 
-DynamoDB Streams có thể kích hoạt các tác vụ xử lý tiếp theo khi dữ liệu thay đổi.
+Việc kết hợp cơ sở dữ liệu quan hệ và cơ sở dữ liệu NoSQL giúp tận dụng ưu điểm của từng mô hình lưu trữ.
 
-#### Amazon SQS FIFO
+---
 
-Amazon SQS FIFO được đề xuất để tiếp nhận yêu cầu đặt giá và xử lý theo thứ tự. Thành phần này giúp hạn chế xung đột khi nhiều người cùng đặt giá trong một khoảng thời gian rất ngắn.
+#### Amazon SQS
+
+Amazon Simple Queue Service (Amazon SQS) được đề xuất nhằm xử lý các yêu cầu đặt giá theo cơ chế hàng đợi.
+
+Đối với hệ thống đấu giá, việc tiếp nhận nhiều yêu cầu đặt giá trong cùng một thời điểm có thể dẫn đến xung đột nếu không được xử lý đúng thứ tự. Amazon SQS giúp các yêu cầu được lưu vào hàng đợi trước khi chuyển đến thành phần xử lý, từ đó giảm nguy cơ mất dữ liệu và đảm bảo tính tuần tự trong quá trình xử lý.
+
+---
 
 #### Amazon EventBridge
 
-Amazon EventBridge hỗ trợ lập lịch thời điểm bắt đầu hoặc kết thúc phiên đấu giá và chuyển các sự kiện trong hệ thống đến đúng thành phần xử lý.
+Amazon EventBridge được đề xuất để xây dựng kiến trúc hướng sự kiện (Event-driven Architecture).
 
-#### Amazon Kinesis Data Streams
+Thông qua EventBridge, các sự kiện phát sinh từ hệ thống như tạo phiên đấu giá, kết thúc phiên đấu giá hoặc thay đổi trạng thái có thể được chuyển đến các dịch vụ xử lý tương ứng mà không làm tăng mức độ phụ thuộc giữa các thành phần của hệ thống.
 
-Kinesis Data Streams có thể tiếp nhận luồng sự kiện đấu giá nhằm phục vụ phân tích, thống kê và giám sát hoạt động gần thời gian thực.
+---
+
+#### Amazon Kinesis
+
+Amazon Kinesis được xem là giải pháp mở rộng cho các tình huống cần thu thập và xử lý luồng dữ liệu lớn theo thời gian thực.
+
+Trong phạm vi đồ án, Kinesis chưa phải là thành phần bắt buộc nhưng có thể được nghiên cứu nhằm phục vụ việc phân tích dữ liệu hoặc thống kê hoạt động của hệ thống trong tương lai.
+
+---
 
 #### Amazon Cognito
 
-Amazon Cognito được đề xuất để quản lý đăng ký, đăng nhập và xác thực người dùng trong kiến trúc mở rộng. Trong phiên bản hiện tại, hệ thống vẫn sử dụng cơ chế xác thực JWT do backend quản lý.
+Amazon Cognito được đề xuất để quản lý xác thực và phân quyền người dùng.
 
-#### Amazon CloudWatch và AWS CloudTrail
+Dịch vụ hỗ trợ các chức năng như:
 
-- **Amazon CloudWatch** thu thập log, metric và thiết lập cảnh báo.
-- **AWS CloudTrail** ghi nhận các thao tác quản trị được thực hiện trên tài khoản AWS.
+- Đăng ký tài khoản.
+- Đăng nhập.
+- Xác thực bằng JWT.
+- Quản lý phiên làm việc.
+- Khôi phục mật khẩu.
+- Quản lý thông tin người dùng.
 
-#### AWS IAM, AWS KMS và AWS Secrets Manager
+Việc sử dụng Cognito giúp giảm khối lượng xử lý xác thực của backend và tận dụng cơ chế bảo mật do AWS cung cấp.
 
-- **AWS IAM** phân quyền truy cập theo nguyên tắc đặc quyền tối thiểu.
-- **AWS KMS** quản lý khóa mã hóa dữ liệu.
-- **AWS Secrets Manager** lưu trữ thông tin nhạy cảm như thông tin kết nối cơ sở dữ liệu và khóa bí mật.
+---
 
-### 5. Thiết kế các thành phần hệ thống
+#### Amazon CloudWatch
+
+Amazon CloudWatch được đề xuất để theo dõi hoạt động của hệ thống, thu thập nhật ký và giám sát hiệu năng của các dịch vụ AWS.
+
+Thông qua CloudWatch, nhóm có thể theo dõi trạng thái hoạt động của ứng dụng, phát hiện lỗi và hỗ trợ quá trình phân tích khi xảy ra sự cố.
+
+---
+
+#### AWS IAM
+
+AWS Identity and Access Management (IAM) được sử dụng để quản lý người dùng, nhóm người dùng, vai trò (Role) và quyền truy cập đối với các tài nguyên AWS.
+
+Việc phân quyền theo nguyên tắc **Least Privilege** giúp hạn chế các quyền không cần thiết, đồng thời tăng cường tính bảo mật cho toàn bộ hệ thống.
+
+---
+
+### 5. Thiết kế các thành phần của hệ thống
+
+Hệ thống Live Auction được đề xuất xây dựng theo kiến trúc phân tầng, trong đó mỗi thành phần đảm nhận một vai trò riêng nhằm tăng tính độc lập, khả năng bảo trì và mở rộng.
+
+Các thành phần chính bao gồm:
 
 #### Frontend
 
-Frontend được xây dựng bằng React/Vite và cung cấp các giao diện:
+Frontend được phát triển bằng **React** kết hợp với **Vite**, cung cấp giao diện cho người dùng và quản trị viên.
 
-- Đăng ký và đăng nhập.
-- Xem danh sách sản phẩm.
-- Xem chi tiết phiên đấu giá.
-- Đặt giá và theo dõi giá hiện tại.
-- Đăng sản phẩm.
-- Quản lý thông tin cá nhân.
-- Quản lý hệ thống dành cho quản trị viên.
+Frontend chịu trách nhiệm:
 
-Sau khi chạy lệnh build, ứng dụng tạo thư mục `dist/`. Các tệp trong thư mục này được tải lên Amazon S3 để phân phối đến người dùng.
+- Hiển thị dữ liệu.
+- Gửi yêu cầu đến backend thông qua API.
+- Tiếp nhận dữ liệu thời gian thực.
+- Quản lý trạng thái giao diện.
+- Điều hướng giữa các chức năng của hệ thống.
+
+---
 
 #### Backend
 
-Backend sử dụng FastAPI và cung cấp API cho:
+Backend được phát triển bằng **FastAPI (Python)** theo mô hình RESTful API.
 
-- Xác thực người dùng.
-- Quản lý tài khoản.
-- Quản lý sản phẩm.
+Các chức năng chính gồm:
+
+- Xử lý nghiệp vụ.
 - Quản lý phiên đấu giá.
-- Tiếp nhận và kiểm tra yêu cầu đặt giá.
-- Quản lý hình ảnh.
-- Quản lý thông báo.
-- Chức năng quản trị.
+- Quản lý người dùng.
+- Quản lý sản phẩm.
+- Kiểm tra dữ liệu đầu vào.
+- Xử lý xác thực và phân quyền.
+- Kết nối với cơ sở dữ liệu và các dịch vụ AWS.
 
-Backend được đóng gói bằng Docker để bảo đảm môi trường chạy nhất quán giữa máy phát triển và AWS.
+---
 
 #### Cơ sở dữ liệu
 
-Dữ liệu ban đầu được quản lý bằng MySQL trong Docker. Khi triển khai lên AWS, cơ sở dữ liệu được chuyển sang Amazon RDS for MySQL.
+Hệ thống sử dụng cơ sở dữ liệu để lưu trữ toàn bộ thông tin của ứng dụng.
 
-Backend kết nối đến RDS thông qua thông tin cấu hình được lưu trong biến môi trường hoặc AWS Secrets Manager. Security Group chỉ cho phép backend được truy cập cổng cơ sở dữ liệu.
+Trong phương án đề xuất, dữ liệu quan hệ được lưu trên **Amazon RDS**, đồng thời các dữ liệu phục vụ xử lý thời gian thực có thể được lưu trên **Amazon DynamoDB** nhằm đáp ứng yêu cầu về hiệu năng và khả năng mở rộng.
 
-#### Lưu trữ hình ảnh
+---
 
-Hình ảnh sản phẩm không được lưu trực tiếp trong cơ sở dữ liệu. Backend tải hình ảnh lên S3 và lưu đường dẫn hoặc object key trong cơ sở dữ liệu. Cách tổ chức này giúp giảm kích thước cơ sở dữ liệu và thuận tiện khi mở rộng dung lượng lưu trữ.
+#### Lưu trữ tài nguyên
 
-#### Xử lý đấu giá thời gian thực
+Các hình ảnh sản phẩm, tệp tĩnh và giao diện sau khi xây dựng được đề xuất lưu trữ trên **Amazon S3**.
 
-Trong phiên bản ban đầu, backend kiểm tra yêu cầu đặt giá và cập nhật dữ liệu trong cơ sở dữ liệu. Trong kiến trúc mở rộng, yêu cầu đặt giá có thể được đưa vào SQS FIFO để bảo đảm thứ tự, sau đó được Lambda hoặc dịch vụ backend xử lý.
+Việc tách dữ liệu tĩnh khỏi backend giúp giảm tải cho máy chủ xử lý nghiệp vụ và tăng hiệu quả phân phối nội dung khi kết hợp với Amazon CloudFront.
 
-WebSocket API gửi giá mới và trạng thái phiên đấu giá đến các trình duyệt đang kết nối, giúp người dùng không phải tải lại toàn bộ trang.
+---
 
-### 6. Kế hoạch triển khai kỹ thuật
+### 6. Kế hoạch triển khai
 
-#### Giai đoạn 1: Phân tích và thiết kế
+Nhằm đảm bảo việc phát triển hệ thống được thực hiện có lộ trình, nhóm đề xuất chia quá trình triển khai thành nhiều giai đoạn. Mỗi giai đoạn tập trung vào một nhóm chức năng và các dịch vụ AWS tương ứng, giúp giảm rủi ro trong quá trình phát triển và thuận tiện cho việc kiểm thử.
 
-- Phân tích yêu cầu của hệ thống đấu giá.
-- Xác định vai trò người mua, người bán và quản trị viên.
+#### Giai đoạn 1: Xây dựng hệ thống cốt lõi
+
+Trong giai đoạn đầu, nhóm tập trung phát triển các chức năng cơ bản của hệ thống, bao gồm:
+
+- Xây dựng giao diện người dùng bằng React/Vite.
+- Phát triển backend bằng FastAPI.
 - Thiết kế cơ sở dữ liệu.
-- Thiết kế cây thư mục mã nguồn.
-- Xây dựng sơ đồ kiến trúc AWS.
+- Xây dựng các API phục vụ người dùng và quản trị viên.
+- Hoàn thiện các chức năng đăng nhập, quản lý sản phẩm và quản lý phiên đấu giá.
 
-#### Giai đoạn 2: Phát triển ứng dụng
+Đồng thời, nhóm tiến hành chuẩn bị môi trường phát triển và nghiên cứu các dịch vụ AWS sẽ được sử dụng trong các giai đoạn tiếp theo.
 
-- Xây dựng giao diện bằng React/Vite.
-- Xây dựng API bằng FastAPI.
-- Thiết lập MySQL bằng Docker.
-- Phát triển chức năng xác thực bằng JWT.
-- Phát triển chức năng sản phẩm và đấu giá.
-- Tích hợp lưu trữ hình ảnh.
+---
 
-#### Giai đoạn 3: Triển khai phiên bản ban đầu
+#### Giai đoạn 2: Triển khai trên AWS
 
-- Build frontend bằng `npm run build`.
-- Tải thư mục `dist/` lên Amazon S3.
-- Bật Static Website Hosting cho frontend.
-- Đóng gói backend bằng Docker.
-- Triển khai backend lên Amazon EC2.
-- Khởi tạo Amazon RDS for MySQL.
-- Cấu hình kết nối từ EC2 đến RDS.
-- Tạo S3 bucket lưu trữ hình ảnh.
-- Cấu hình IAM role và Security Group.
-- Kiểm tra kết nối giữa các thành phần.
+Sau khi hoàn thiện các chức năng cốt lõi, nhóm đề xuất triển khai hệ thống lên nền tảng Amazon Web Services.
 
-#### Giai đoạn 4: Kiểm thử
+Các công việc chính bao gồm:
 
-- Kiểm thử đăng ký và đăng nhập.
-- Kiểm thử đăng sản phẩm.
-- Kiểm thử đặt giá.
-- Kiểm thử quyền truy cập của từng vai trò.
-- Kiểm thử tải lên và hiển thị hình ảnh.
-- Kiểm thử khi nhiều người dùng cùng đặt giá.
-- Kiểm tra log và chi phí tài nguyên AWS.
+- Triển khai frontend lên Amazon S3.
+- Cấu hình Amazon CloudFront để phân phối nội dung.
+- Thiết lập xác thực người dùng bằng Amazon Cognito.
+- Triển khai các API trên hạ tầng AWS.
+- Thiết lập cơ sở dữ liệu.
+- Cấu hình lưu trữ hình ảnh và các tài nguyên tĩnh.
+- Thiết lập các dịch vụ giám sát và ghi nhật ký.
 
-#### Giai đoạn 5: Nghiên cứu mở rộng
+---
 
-- Tích hợp CloudFront và AWS WAF.
-- Nghiên cứu WebSocket API.
-- Đưa yêu cầu đặt giá vào SQS FIFO.
-- Nghiên cứu DynamoDB cho trạng thái thời gian thực.
-- Chuyển backend container sang ECS Fargate.
-- Xây dựng quy trình CI/CD.
-- Nghiên cứu dự phòng đa vùng.
+#### Giai đoạn 3: Mở rộng hệ thống
 
-### 7. Yêu cầu kỹ thuật
+Sau khi hệ thống hoạt động ổn định, nhóm định hướng mở rộng kiến trúc nhằm tăng khả năng mở rộng và đáp ứng lượng người dùng lớn hơn.
 
-#### Công nghệ phát triển
+Một số nội dung được đề xuất nghiên cứu gồm:
 
-- Frontend: React, Vite, TypeScript hoặc JavaScript.
-- Backend: Python và FastAPI.
-- Cơ sở dữ liệu: MySQL.
-- Container: Docker và Docker Compose.
-- Quản lý mã nguồn: Git và GitHub.
-- Công cụ thiết kế kiến trúc: diagrams.net.
+- Triển khai kiến trúc serverless.
+- Ứng dụng WebSocket cho đấu giá theo thời gian thực.
+- Tích hợp hàng đợi thông điệp để xử lý các yêu cầu đặt giá.
+- Bổ sung các dịch vụ bảo mật và giám sát.
+- Xây dựng quy trình CI/CD cho việc triển khai hệ thống.
 
-#### Yêu cầu bảo mật
+---
 
-- Không sử dụng tài khoản AWS root cho công việc hằng ngày.
-- Mỗi thành viên chỉ được cấp các quyền cần thiết.
-- Không đưa Access Key hoặc mật khẩu vào GitHub.
-- Thông tin kết nối cơ sở dữ liệu được lưu bằng biến môi trường hoặc Secrets Manager.
-- S3 bucket hình ảnh cần có chính sách truy cập phù hợp.
-- Security Group của RDS không được mở công khai.
-- Backend phải kiểm tra token và vai trò người dùng.
-- Dữ liệu cần được truyền qua HTTPS khi đưa hệ thống vào vận hành chính thức.
+### 7. Đánh giá và kết luận
 
-### 8. Lộ trình và mốc triển khai
+Kiến trúc được đề xuất hướng tới việc xây dựng một nền tảng đấu giá trực tuyến có khả năng mở rộng, dễ bảo trì và tận dụng hiệu quả các dịch vụ do Amazon Web Services cung cấp.
 
-- **Tuần 1:** Làm quen với môi trường thực tập và tìm hiểu tổng quan về AWS.
-- **Tuần 2:** Nghiên cứu các dịch vụ AWS phổ biến.
-- **Tuần 3:** Thực hành trên AWS Management Console và tìm hiểu chi phí.
-- **Tuần 4:** Phân tích yêu cầu và thiết kế kiến trúc hệ thống.
-- **Tuần 5:** Phát triển và tích hợp các chức năng chính.
-- **Tuần 6:** Triển khai các thành phần của hệ thống lên AWS.
-- **Tuần 7:** Kiểm thử, sửa lỗi và tổng duyệt đồ án.
-- **Tuần 8:** Hoàn thiện đồ án, workshop và báo cáo thực tập.
+Việc phân tách hệ thống thành nhiều thành phần độc lập giúp thuận tiện trong quá trình phát triển, kiểm thử và mở rộng về sau. Đồng thời, việc nghiên cứu các dịch vụ AWS ngay từ giai đoạn thiết kế tạo tiền đề để nhóm từng bước hiện thực hóa hệ thống trên nền tảng điện toán đám mây.
 
-### 9. Ước tính ngân sách
+Bản đề xuất này đóng vai trò là cơ sở cho quá trình triển khai của đồ án. Trong quá trình thực hiện, nhóm có thể điều chỉnh một số thành phần của kiến trúc để phù hợp với điều kiện triển khai thực tế, yêu cầu nghiệp vụ và phạm vi của đồ án.
 
-Chi phí thực tế phụ thuộc vào khu vực triển khai, lưu lượng truy cập, dung lượng dữ liệu và thời gian vận hành. Các thành phần có khả năng phát sinh chi phí gồm:
-
-| Dịch vụ | Mục đích | Yếu tố ảnh hưởng chi phí |
-| --- | --- | --- |
-| Amazon S3 | Frontend và hình ảnh | Dung lượng, request và truyền dữ liệu |
-| Amazon EC2 | Backend FastAPI | Loại instance và thời gian vận hành |
-| Amazon RDS | Cơ sở dữ liệu MySQL | Loại instance, dung lượng và backup |
-| AWS Lambda | Tác vụ nền | Số lần gọi và thời gian xử lý |
-| Amazon CloudFront | Phân phối nội dung | Dung lượng truyền ra Internet |
-| API Gateway | REST API và WebSocket | Số lượng request và thời gian kết nối |
-| CloudWatch | Log và giám sát | Dung lượng log và metric |
-| Route 53 | Tên miền và định tuyến | Hosted zone và DNS query |
-
-Trong phạm vi đồ án sinh viên, nhóm ưu tiên cấu hình tài nguyên có quy mô nhỏ, tắt hoặc xóa tài nguyên không sử dụng và thiết lập AWS Budgets để kiểm soát chi phí.
-
-Số liệu chi phí chính xác sẽ được tính lại bằng [AWS Pricing Calculator](https://calculator.aws/) sau khi xác định cấu hình và thời gian vận hành của từng tài nguyên.
-
-### 10. Đánh giá rủi ro
-
-| Rủi ro | Mức ảnh hưởng | Biện pháp giảm thiểu |
-| --- | --- | --- |
-| Nhiều người đặt giá đồng thời | Cao | Transaction, khóa dữ liệu hoặc SQS FIFO |
-| Backend EC2 gặp sự cố | Cao | Health check, backup và kiến trúc nhiều instance |
-| Cơ sở dữ liệu mất kết nối | Cao | RDS backup, kiểm tra kết nối và Multi-AZ khi cần |
-| Hình ảnh không truy cập được | Trung bình | Kiểm tra S3 policy, CORS và object key |
-| Lộ thông tin đăng nhập AWS | Cao | IAM role, Secrets Manager và không commit khóa |
-| Chi phí vượt dự kiến | Trung bình | AWS Budgets, cảnh báo và xóa tài nguyên thừa |
-| WebSocket bị ngắt | Trung bình | Cơ chế kết nối lại và lưu trạng thái kết nối |
-| Vùng chính gặp sự cố | Cao | Route 53 failover và vùng dự phòng |
-| Dữ liệu đặt giá sai thứ tự | Cao | Hàng đợi FIFO và kiểm tra trạng thái phiên |
-
-### 11. Kế hoạch dự phòng
-
-- Sao lưu định kỳ dữ liệu RDS.
-- Bật versioning cho S3 bucket quan trọng.
-- Lưu Docker image ổn định trong Amazon ECR.
-- Theo dõi lỗi thông qua CloudWatch.
-- Chuẩn bị cấu hình khôi phục backend từ Docker image.
-- Hạn chế thay đổi trực tiếp trên môi trường đang vận hành.
-- Nghiên cứu Infrastructure as Code bằng Terraform hoặc AWS CloudFormation.
-- Xây dựng vùng dự phòng khi hệ thống cần độ sẵn sàng cao.
-
-### 12. Kết quả kỳ vọng
-
-Sau khi hoàn thành, hệ thống dự kiến đạt được các kết quả:
-
-- Cung cấp website đấu giá có thể truy cập qua Internet.
-- Cho phép người dùng đăng ký, đăng nhập và quản lý tài khoản.
-- Cho phép người bán đăng sản phẩm và tạo phiên đấu giá.
-- Cho phép người mua xem và đặt giá cho sản phẩm.
-- Lưu trữ dữ liệu có cấu trúc trên Amazon RDS.
-- Lưu trữ hình ảnh sản phẩm trên Amazon S3.
-- Triển khai frontend và backend trên nền tảng AWS.
-- Theo dõi hoạt động và lỗi của hệ thống.
-- Hình thành nền tảng để phát triển khả năng đấu giá thời gian thực.
-- Giúp các thành viên nâng cao kỹ năng phát triển phần mềm, làm việc nhóm, triển khai hệ thống và sử dụng các dịch vụ AWS.
-
-Kiến trúc mở rộng trong sơ đồ là định hướng phát triển dài hạn. Phiên bản đầu tiên ưu tiên hoàn thiện các chức năng cốt lõi và triển khai ổn định với Amazon S3, Amazon EC2, Amazon RDS và AWS Lambda trước khi tích hợp thêm các dịch vụ nâng cao.
+Kiến trúc triển khai và các bước cấu hình thực tế sẽ được trình bày chi tiết trong **Chương 5 – Workshop**, bao gồm quá trình triển khai hạ tầng, cấu hình các dịch vụ AWS và kiểm thử hệ thống sau khi hoàn thành.

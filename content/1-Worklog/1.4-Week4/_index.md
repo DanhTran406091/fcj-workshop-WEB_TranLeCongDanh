@@ -1,57 +1,67 @@
 ---
-title: "Week 4 Worklog"
-date: 2024-01-01
+title: "Worklog Week 4"
+date: 2026-07-13
 weight: 4
 chapter: false
 pre: " <b> 1.4. </b> "
 ---
-{{% notice warning %}} 
-⚠️ **Note:** The following information is for reference purposes only. Please **do not copy verbatim** for your own report, including this warning.
-{{% /notice %}}
 
+### Duration:
 
-### Week 4 Objectives:
+**From July 13, 2026 to July 17, 2026**
 
-* Connect and get acquainted with members of First Cloud AI Journey.
-* Understand basic AWS services, how to use the console & CLI.
+### Objectives for Week 4:
 
-### Tasks to be carried out this week:
-| Day | Task                                                                                                                                                                                                   | Start Date | Completion Date | Reference Material                        |
-| --- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------- | --------------- | ----------------------------------------- |
-| 2   | - Get acquainted with FCAJ members <br> - Read and take note of internship unit rules and regulations                                                                                                   | 08/11/2025 | 08/11/2025      |
-| 3   | - Learn about AWS and its types of services <br>&emsp; + Compute <br>&emsp; + Storage <br>&emsp; + Networking <br>&emsp; + Database <br>&emsp; + ... <br>                                              | 08/12/2025 | 08/12/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 4   | - Create AWS Free Tier account <br> - Learn about AWS Console & AWS CLI <br> - **Practice:** <br>&emsp; + Create AWS account <br>&emsp; + Install & configure AWS CLI <br> &emsp; + How to use AWS CLI | 08/13/2025 | 08/13/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 5   | - Learn basic EC2: <br>&emsp; + Instance types <br>&emsp; + AMI <br>&emsp; + EBS <br>&emsp; + ... <br> - SSH connection methods to EC2 <br> - Learn about Elastic IP   <br>                            | 08/14/2025 | 08/15/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 6   | - **Practice:** <br>&emsp; + Launch an EC2 instance <br>&emsp; + Connect via SSH <br>&emsp; + Attach an EBS volume                                                                                     | 08/15/2025 | 08/15/2025      | <https://cloudjourney.awsstudygroup.com/> |
+* Select and define the scope of the team project.
+* Analyze the online auction problem and system requirements.
+* Identify the core features of the Live Auction platform.
+* Research an AWS architecture suitable for real-time processing.
+* Select the AWS services expected to be used in the project.
+* Prepare the project proposal and implementation plan.
 
+### Tasks completed:
 
-### Week 4 Achievements:
+| Day | Date | Tasks | Reference |
+| --- | --- | --- | --- |
+| Monday | 13/07/2026 | Discussed and selected the **Live Auction Platform on AWS** project; identified its initial objectives and scope. | Project requirements |
+| Tuesday | 14/07/2026 | Analyzed the online auction problem; identified user roles and core features such as registration, authentication, product management, auction creation, and bidding. | Team requirement analysis |
+| Wednesday | 15/07/2026 | Analyzed issues involving real-time price updates, concurrent bids, bid ordering, system availability, and scalability. | <https://aws.amazon.com/architecture/> |
+| Thursday | 16/07/2026 | Researched the proposed architecture and the roles of Amazon S3, CloudFront, Cognito, API Gateway, Lambda, DynamoDB, and SQS FIFO. | <https://docs.aws.amazon.com/wellarchitected/latest/framework/welcome.html> |
+| Friday | 17/07/2026 | Prepared the proposed architecture diagram; selected Terraform as the infrastructure deployment tool, assigned tasks, and completed the project proposal. | <https://developer.hashicorp.com/terraform/tutorials/aws-get-started> |
 
-* Understood what AWS is and mastered the basic service groups: 
-  * Compute
-  * Storage
-  * Networking 
-  * Database
-  * ...
+### Results achieved in Week 4:
 
-* Successfully created and configured an AWS Free Tier account.
+* Selected the **Live Auction Platform on AWS** as the team project.
+* Defined the main objectives and scope of the project.
+* Identified the primary capabilities of the platform:
 
-* Became familiar with the AWS Management Console and learned how to find, access, and use services via the web interface.
+  * User account management.
+  * Auction product management.
+  * Auction session creation and management.
+  * Bid request processing.
+  * Real-time auction status updates.
+  * Scalability based on user traffic.
 
-* Installed and configured AWS CLI on the computer, including:
-  * Access Key
-  * Secret Key
-  * Default Region
-  * ...
+* Identified the main problems that the system must address:
 
-* Used AWS CLI to perform basic operations such as:
+  * Multiple users may place bids at the same time.
+  * Bid requests must be processed in the correct order.
+  * Auction status must be updated promptly.
+  * User information and system resources must be protected.
+  * The system must be scalable and maintainable.
 
-  * Check account & configuration information
-  * Retrieve the list of regions
-  * View EC2 service
-  * Create and manage key pairs
-  * Check information about running services
-  * ...
+* Completed the initial proposed architecture.
+* Identified the expected roles of the AWS services:
 
-* Acquired the ability to connect between the web interface and CLI to manage AWS resources in parallel.
-* ...
+  * **Amazon Cognito:** user authentication and management.
+  * **Amazon S3:** frontend and static resource storage.
+  * **Amazon CloudFront:** content distribution.
+  * **Amazon API Gateway:** API request handling.
+  * **API Gateway WebSocket:** real-time auction updates.
+  * **AWS Lambda:** serverless business logic processing.
+  * **Amazon DynamoDB:** low-latency and real-time data storage.
+  * **Amazon SQS FIFO:** ordered bid request processing.
+  * **AWS IAM:** access control between AWS services.
+
+* Selected Terraform to manage and deploy AWS infrastructure as code.
+* Completed the proposal as the foundation for the next stages.
