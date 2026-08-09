@@ -11,87 +11,96 @@ pre: " <b> 5.4.1. </b> "
 The **Live Auction** system uses **AWS Identity and Access Management (IAM)** and **Amazon Cognito** for two different purposes:
 
 * **AWS IAM** manages access permissions between AWS services.
-* **Amazon Cognito** authenticates application accounts and supports the separation of User and Admin permissions.
+* **Amazon Cognito** manages accounts, authenticates users, and distinguishes User permissions from Admin permissions.
 
-IAM is not used to create application accounts for end users. Instead, User and Admin accounts are managed through an Amazon Cognito User Pool.
+AWS IAM is not used to create application user accounts. Instead, User and Admin accounts are managed through an Amazon Cognito User Pool.
 
-## Role of AWS IAM
+All IAM and Cognito resources are declared with Terraform in the following module:
 
-AWS IAM provides Roles and Policies that allow AWS services to communicate with each other according to the **principle of least privilege**.
+```text
+infra/03-identity
+```
 
-In the Live Auction system, IAM is used to:
+After the Terraform deployment was completed, the team verified the deployed resources directly through the AWS Management Console.
 
-* Allow AWS Lambda to write logs to Amazon CloudWatch.
-* Allow Lambda to read and write data in Amazon DynamoDB.
-* Allow Lambda to send and receive messages through Amazon SQS FIFO.
-* Allow Lambda to manage API Gateway WebSocket connections.
-* Allow API Gateway to invoke the corresponding Lambda Functions.
-* Allow Amazon S3 and CloudFront to work together to distribute frontend content.
-* Restrict each Lambda Function to only the resources required for its operation.
-* Control access permissions between the components of the system.
+{{% notice warning %}}
+Do not include Access Keys, Secret Access Keys, Session Tokens, Client Secrets, Access Tokens, or Refresh Tokens in screenshots or report content. Information such as the AWS Account ID, ARN, User Pool ID, Client ID, username, and email should be partially masked before publishing the report.
+{{% /notice %}}
 
-## Roles and Policies in the System
+## AWS Identity and Access Management
 
-Each group of Lambda Functions is assigned an IAM Role appropriate to its responsibilities.
+### Role of AWS IAM
 
-| Component | Required permissions |
+AWS IAM provides Roles, Policies, and permission mechanisms that allow AWS services in the system to communicate with each other.
+
+Permissions are configured according to the **principle of least privilege**, meaning that each component is granted only the permissions required to perform its assigned tasks.
+
+In the Live Auction system, AWS IAM is used to:
+
+* Allow Lambda functions to write logs to Amazon CloudWatch.
+* Allow the required Lambda functions to read and write data in Amazon DynamoDB.
+* Allow Lambda functions to send messages to Amazon SQS FIFO.
+* Allow Lambda functions to process messages delivered from SQS FIFO.
+* Allow Lambda functions to send real-time updates through API Gateway WebSocket.
+* Allow the Post Confirmation Lambda to perform operations after an account is confirmed.
+* Limit the resources that each Lambda function can access.
+* Establish trust relationships between IAM Roles and the services that use them.
+* Control access between components in the system.
+
+### Authorization mechanisms of system components
+
+| Component | Authorization mechanism |
 | --- | --- |
-| **Business Logic Lambda** | Read and write data in DynamoDB and write logs to CloudWatch. |
-| **Bid Processing Lambda** | Receive messages from SQS FIFO, update bid data in DynamoDB, and send results to the WebSocket API. |
-| **WebSocket Lambda** | Store, retrieve, and remove Connection IDs in DynamoDB and manage WebSocket connections. |
-| **API Gateway** | Invoke the configured Lambda Functions. |
-| **CloudFront** | Access frontend content stored in S3 according to the distribution configuration. |
+| **Business Logic Lambda** | Uses an IAM Role to write logs to CloudWatch and access the required DynamoDB tables. |
+| **Bid Processing Lambda** | Uses an IAM Role to process messages from SQS FIFO, update DynamoDB, and send results through the WebSocket API. |
+| **WebSocket Lambda** | Uses an IAM Role to store, retrieve, or remove WebSocket connection data in DynamoDB and write logs to CloudWatch. |
+| **Cognito Post Confirmation Lambda** | Uses an IAM Role to write logs and perform operations after a user confirms an account. |
+| **API Gateway** | Invokes Lambda through Lambda Permissions configured for the corresponding API, route, or stage. |
+| **CloudFront and Amazon S3** | CloudFront accesses frontend content stored in S3 through Origin Access Control and an S3 Bucket Policy. |
 
-The IAM Roles and IAM Policies are declared in Terraform. When `terraform apply` is executed, Terraform automatically creates the Roles, attaches the required Policies, and configures trust relationships between AWS services.
+IAM Roles, IAM Policies, and Lambda Permissions are declared using Terraform. Therefore, the authorization configuration can be managed consistently and reused in subsequent deployments.
 
-## Checking IAM Roles on AWS Management Console
+## Verifying IAM Roles on the AWS Management Console
 
-After the Terraform deployment is completed, the IAM Roles can be checked by following the steps below.
+### Step 1: Access the IAM service
 
-### Step 1: Open the IAM service
+Sign in to the **AWS Management Console**.
 
-Sign in to **AWS Management Console**.
-
-Enter the following keyword in the search bar:
+Enter the following value in the search bar:
 
 ```text
 IAM
 ```
 
-Select **IAM — Identity and Access Management** from the results.
+Select **IAM — Identity and Access Management**.
 
 ### Step 2: Open the IAM Role list
 
-From the navigation menu on the left, select:
+From the navigation menu, select:
 
 ```text
 Access management → Roles
 ```
 
-The Roles page displays all IAM Roles available in the AWS account.
+The Roles page displays the IAM Roles available in the AWS account.
 
-### Step 3: Find the IAM Roles of the project
+### Step 3: Find the project IAM Roles
 
-Enter the resource prefix of the system in the search box:
+Enter the project resource prefix in the search box:
 
 ```text
 la-
 ```
 
-Verify the IAM Roles created by Terraform for the Lambda Functions and other related components.
+Verify the IAM Roles created by Terraform for the Lambda functions and other related components.
 
-<!--
-SCREENSHOT INSTRUCTIONS:
+The following information should be verified:
 
-1. Open IAM → Roles.
-2. Enter "la-" in the search box.
-3. Capture the list of IAM Roles belonging to the project.
-4. Do not expose the AWS Account ID or other sensitive information.
-5. Save the image as:
-   iam-role-list.png
-6. Place the image in:
-   static/images/5-Workshop/5.4-AWS-services/5.4.1-IAM-Cognito/
--->
+* Whether the Role names follow the project naming convention.
+* The trusted entity of each Role.
+* The creation time of each Role.
+* Whether each Role is assigned to the correct service.
+* Whether all required Lambda Roles have been created.
 
 {{< figure
     src="/images/5-Workshop/5.4-AWS-services/5.4.1-IAM-Cognito/iam-role-list.png"
@@ -99,124 +108,138 @@ SCREENSHOT INSTRUCTIONS:
     width="100%"
 >}}
 
-### Step 4: Check IAM Role permissions
+### Step 4: Verify Permission Policies
 
-Select an IAM Role assigned to a Lambda Function.
+Select an IAM Role assigned to a Lambda function.
 
-Open the **Permissions** tab and verify:
+In the **Permissions** tab, verify:
 
-* The Policies attached to the Role.
-* Permission to write logs to CloudWatch.
-* Permission to access DynamoDB.
-* Permission to access SQS FIFO if the Lambda Function processes queue messages.
-* Permission to manage WebSocket connections if the Lambda Function sends real-time data.
+* The Permission Policies attached to the Role.
+* Permissions to write logs to CloudWatch.
+* Permissions to access DynamoDB.
+* Permissions to access SQS FIFO if the Lambda function processes queue messages.
+* Permissions to send data through the WebSocket API if the Lambda function performs real-time updates.
 * The resource scope allowed by each Policy.
 
-Permissions such as `AdministratorAccess` should not be assigned to Lambda Functions. Access permissions should be restricted to the resources required by each function.
-
-<!--
-SCREENSHOT INSTRUCTIONS:
-
-1. Select an IAM Role assigned to a Lambda Function.
-2. Open the Permissions tab.
-3. Capture the list of Permission policies.
-4. It is not necessary to capture the entire JSON Policy if it is too long.
-5. Save the image as:
-   iam-role-permissions.png
--->
+Broad permissions such as `AdministratorAccess` should not be assigned to Lambda functions. Each Policy should be limited to the resources and operations required by the corresponding function.
 
 {{< figure
     src="/images/5-Workshop/5.4-AWS-services/5.4.1-IAM-Cognito/iam-role-permissions.png"
-    title="Figure 5.4.1.2: Policies attached to a Lambda IAM Role"
+    title="Figure 5.4.1.2: Permission Policies attached to a Lambda IAM Role"
     width="100%"
 >}}
 
-### Step 5: Check the Trust Relationship
+### Step 5: Verify the Trust Relationship
 
-On the IAM Role details page, open the following tab:
+On the IAM Role details page, open:
 
 ```text
 Trust relationships
 ```
 
-Check which service is allowed to assume the Role.
-
-For a Lambda Execution Role, the **Trusted entities** section must allow:
+For a Lambda execution role, the Trusted entities configuration must allow:
 
 ```text
 lambda.amazonaws.com
 ```
 
-The Trust Relationship ensures that only the specified AWS service can assume and use the IAM Role.
+The Trust Relationship determines which service is allowed to assume the IAM Role. This configuration prevents unrelated services from using the Lambda Role.
 
-## Role of Amazon Cognito
+The **View policy document** option can be used to inspect the Trust Policy. Because the resource is managed by Terraform, its configuration should not be modified directly from the AWS Console.
 
-Amazon Cognito is used as the account authentication service for both the **User Frontend** and the **Admin Frontend**.
+{{< figure
+    src="/images/5-Workshop/5.4-AWS-services/5.4.1-IAM-Cognito/iam-role-trust-relationship.png"
+    title="Figure 5.4.1.3: Trust Relationship of a Lambda execution role"
+    width="100%"
+>}}
 
-Cognito is responsible for:
+## Amazon Cognito
 
-* User account registration.
+### Role of Amazon Cognito
+
+Amazon Cognito is used to manage and authenticate accounts for both the **User Frontend** and the **Admin Frontend**.
+
+Amazon Cognito is responsible for:
+
+* User registration.
 * Sign-in and sign-out.
 * Account verification.
 * Password management.
 * Issuing tokens after successful authentication.
 * Storing basic account attributes.
-* Supporting User and Admin role separation.
-* Allowing API Gateway or the backend to verify the identity of the requester.
-
-## Amazon Cognito Components
+* Managing the `user` and `admin` authorization groups.
+* Providing authentication information for API authorization.
+* Invoking the Post Confirmation Lambda after a user confirms an account.
 
 ### Cognito User Pool
 
-A Cognito User Pool is the account directory of the system.
+The Cognito User Pool is the account directory of the system.
 
-The User Pool manages information such as:
+The User Pool stores and manages information such as:
 
-* Username or email address.
-* Password.
+* Username or email.
+* Passwords securely managed by Cognito.
 * Account confirmation status.
-* Account attributes.
-* Account role or group.
+* Account activation status.
+* User attributes.
 * Password policy.
-* Registration and authentication processes.
+* Registration and sign-in processes.
+* Account authorization groups.
 
-The system uses a shared User Pool for both User and Admin accounts. Access permissions are separated based on the role or group assigned to each account.
+The system uses a shared User Pool for both User and Admin accounts. Access permissions are distinguished through two Cognito Groups:
+
+```text
+user
+admin
+```
 
 ### Cognito App Client
 
-The App Client allows the frontend applications to connect to the Cognito User Pool.
+The App Client allows the frontend applications to connect to the Cognito User Pool for registration and authentication.
 
-After successful authentication, Cognito returns the required tokens, including:
+After successful authentication, Cognito can return:
 
-* **ID Token:** Contains account identity information.
-* **Access Token:** Used to authorize access.
-* **Refresh Token:** Used to request new tokens after the current tokens expire.
+* **ID Token:** Contains identity information about the account.
+* **Access Token:** Used to demonstrate access permission.
+* **Refresh Token:** Used to request new tokens when the current tokens expire.
 
-The frontend includes the token in requests sent to API Gateway. The backend verifies the token before processing the requested operation.
+The frontend sends a token in the `Authorization` header when calling the REST API. An API Gateway Authorizer or Lambda Authorizer validates the token before forwarding the request to a Lambda function.
 
-{{% notice warning %}}
-Do not include Client Secrets, Access Tokens, Refresh Tokens, or account credentials in screenshots or report content.
-{{% /notice %}}
+For administrative functions, the system also verifies that the account belongs to the `admin` group before allowing the operation.
 
-## Account Authentication Flow
+### Post Confirmation Lambda
 
-The authentication flow is performed as follows:
+The system configures a Post Confirmation Lambda trigger for the Cognito User Pool.
 
-1. A User or Admin enters their credentials on the corresponding frontend.
+After a user successfully confirms an account, Cognito invokes this Lambda function to perform the required post-confirmation operations, such as initializing related account data in the system.
+
+This configuration includes:
+
+* A Lambda function for processing the Post Confirmation event.
+* An IAM Role assigned to the Lambda function.
+* A Lambda Permission that allows Cognito to invoke the function.
+* A Lambda Trigger connected to the Cognito User Pool.
+* A CloudWatch Log Group for storing execution logs.
+
+## Account authentication flow
+
+The general authentication flow of the system is performed as follows:
+
+1. A User or Admin enters sign-in information on the corresponding frontend.
 2. The frontend sends an authentication request to Amazon Cognito.
-3. Cognito verifies the account and password stored in the User Pool.
-4. If the credentials are valid, Cognito returns authentication tokens to the frontend.
-5. The frontend stores the authentication information according to the application's mechanism.
-6. When calling an API, the frontend includes an Access Token or ID Token in the request.
-7. API Gateway or Lambda verifies the token and account role.
-8. The request is processed only if the account has the required permission.
-9. Administration APIs reject requests from regular User accounts.
+3. Cognito validates the account information in the User Pool.
+4. If the information is valid, Cognito returns tokens to the frontend.
+5. The frontend includes the token in subsequent API requests.
+6. An API Gateway Authorizer or Lambda Authorizer validates the token.
+7. The backend verifies the `user` or `admin` group when processing operations that require authorization.
+8. The request is processed only when the account is authenticated and has the required permission.
+9. Administrative APIs reject requests from accounts that do not belong to the `admin` group.
 
-## Checking the Cognito User Pool on AWS Management Console
+## Verifying the Cognito User Pool on the AWS Management Console
 
-### Step 1: Open Amazon Cognito
+### Step 1: Access Amazon Cognito
 
-Enter the following keyword in the AWS Management Console search bar:
+Enter the following value in the AWS Management Console search bar:
 
 ```text
 Cognito
@@ -226,7 +249,7 @@ Select **Amazon Cognito**.
 
 ### Step 2: Open the User Pool list
 
-From the Amazon Cognito interface, select:
+In the Amazon Cognito interface, select:
 
 ```text
 User pools
@@ -234,40 +257,39 @@ User pools
 
 Verify the User Pool created by Terraform for the Live Auction system.
 
-<!--
-SCREENSHOT INSTRUCTIONS:
+The following information should be verified:
 
-1. Open Amazon Cognito → User pools.
-2. Capture the User Pool list.
-3. Ensure that the User Pool name and status are visible.
-4. Hide sensitive information if necessary.
-5. Save the image as:
-   cognito-user-pool.png
--->
+* User Pool name.
+* User Pool status.
+* User Pool ID.
+* AWS Region.
+* Last updated time.
 
 {{< figure
     src="/images/5-Workshop/5.4-AWS-services/5.4.1-IAM-Cognito/cognito-user-pool.png"
-    title="Figure 5.4.1.3: Cognito User Pool of the Live Auction system"
+    title="Figure 5.4.1.4: Cognito User Pool of the Live Auction system"
     width="100%"
 >}}
 
-### Step 3: Check the sign-in configuration
+### Step 3: Verify the User Pool configuration
 
-Select the User Pool of the system and verify:
+Select the User Pool of the system.
 
-* User Pool name.
-* User Pool ID.
+On the overview and configuration pages, verify:
+
+* User Pool name and ID.
 * AWS Region.
 * Sign-in method.
 * Attributes used for authentication.
 * Password policy.
 * Self-registration status.
 * Email verification mechanism.
-* User groups if Cognito Groups are used.
+* Multi-Factor Authentication configuration, if enabled.
+* Security configuration and token validity periods.
 
-The full User Pool ID may be hidden in the report to avoid publicly exposing resource identifiers.
+The configuration should not be modified directly from the AWS Console because the resource is managed by Terraform. When a change is required, the team should update the Terraform configuration and redeploy the module.
 
-### Step 4: Check the App Client
+### Step 4: Verify the App Client
 
 On the User Pool details page, open:
 
@@ -275,122 +297,124 @@ On the User Pool details page, open:
 Applications → App clients
 ```
 
-Verify the App Client used by the frontend applications for registration and authentication.
+Verify the App Client used by the frontend applications for registration and sign-in.
 
-The following information should be checked:
+The following information should be verified:
 
 * App Client name.
 * Client ID.
 * Enabled authentication flows.
-* Token validity duration.
-* Callback URLs and sign-out URLs, if used.
-* Whether the App Client configuration is appropriate for a frontend application.
-
-<!--
-SCREENSHOT INSTRUCTIONS:
-
-1. Open User Pool → Applications → App clients.
-2. Capture the App Client list.
-3. Hide the Client ID if necessary.
-4. Do not capture or expose the Client Secret.
-5. Save the image as:
-   cognito-app-client.png
--->
+* Token validity periods.
+* Callback URL and sign-out URL, if configured.
+* Whether the App Client configuration is suitable for the frontend applications.
 
 {{< figure
     src="/images/5-Workshop/5.4-AWS-services/5.4.1-IAM-Cognito/cognito-app-client.png"
-    title="Figure 5.4.1.4: App Client configured for the Live Auction system"
+    title="Figure 5.4.1.5: App Client configured for the Live Auction system"
     width="100%"
 >}}
 
-### Step 5: Check User and Admin accounts
+### Step 5: Verify Cognito Groups
 
-From the User Pool, open:
-
-```text
-User management → Users
-```
-
-Check the accounts created in the system.
-
-The following information should be verified:
-
-* Username.
-* Email address.
-* Account confirmation status.
-* Account activation status.
-* Account creation date.
-* Account role or group.
-
-If Cognito Groups are used, open:
+In the User Pool, open:
 
 ```text
 User management → Groups
 ```
 
-Verify the corresponding groups, such as:
+Verify the two authorization groups:
 
 ```text
-User
-Admin
+user
+admin
 ```
 
-An administrator account must be assigned the appropriate Admin permission before it can access the administration features.
+The `user` group is used for standard user accounts. The `admin` group is used for accounts allowed to access administrative functions.
 
-<!--
-SCREENSHOT INSTRUCTIONS:
+The following information should be verified:
 
-1. Open User management → Users.
-2. Capture part of the account list.
-3. Hide email addresses, usernames, or personal information if necessary.
-4. Do not capture tokens or sign-in credentials.
-5. Save the image as:
-   cognito-users.png
--->
+* Group name.
+* Group description.
+* Group precedence, if configured.
+* Number of accounts in each Group.
+* Whether Admin accounts are assigned to the `admin` group.
 
 {{< figure
-    src="/images/5-Workshop/5.4-AWS-services/5.4.1-IAM-Cognito/cognito-users.png"
-    title="Figure 5.4.1.5: Accounts managed by Amazon Cognito"
+    src="/images/5-Workshop/5.4-AWS-services/5.4.1-IAM-Cognito/cognito-groups.png"
+    title="Figure 5.4.1.6: The user and admin groups in the Cognito User Pool"
     width="100%"
 >}}
 
-## Testing the Authentication Functions
+### Step 6: Verify the account list
 
-After checking the AWS configuration, the authentication flow is tested directly on both frontend applications.
+In the User Pool, open:
 
-### Testing a User account
+```text
+User management → Users
+```
 
-1. Open the User Frontend.
-2. Create a new account.
-3. Complete the account verification process if required.
-4. Sign in using the newly created account.
-5. Verify access to personal profile information.
-6. Verify the ability to view and create auction sessions.
-7. Confirm that the User account cannot access administration functions.
+Verify the accounts created in the system.
 
-### Testing an Admin account
+The following information should be verified:
 
-1. Open the Admin Frontend.
-2. Sign in using an Admin account.
-3. Test the user account management function.
-4. Test the product category management function.
-5. Test the auction approval function.
-6. Test the function for creating additional Admin accounts.
-7. Confirm that administration APIs only accept accounts with the Admin role.
+* Username.
+* Email.
+* Account confirmation status.
+* Account activation status.
+* Account creation date.
+* Group assigned to the account.
+
+An administrator account must be assigned to the `admin` group before it can use administrative functions.
+
+{{< figure
+    src="/images/5-Workshop/5.4-AWS-services/5.4.1-IAM-Cognito/cognito-users.png"
+    title="Figure 5.4.1.7: Accounts managed in Amazon Cognito"
+    width="100%"
+>}}
+
+### Step 7: Verify the Lambda Trigger
+
+On the User Pool details page, locate the Lambda Trigger configuration. Depending on the current version of the AWS Console, this configuration may be available under:
+
+```text
+User pool properties → Lambda triggers
+```
+
+or:
+
+```text
+Extensions → Lambda triggers
+```
+
+Verify that the **Post confirmation** event is connected to the correct Lambda function.
+
+The following information should be verified:
+
+* The trigger type is Post Confirmation.
+* The name of the connected Lambda function.
+* The AWS Region of the Lambda function.
+* The User Pool using the trigger.
+* Whether the Lambda function exists and is active.
+
+{{< figure
+    src="/images/5-Workshop/5.4-AWS-services/5.4.1-IAM-Cognito/cognito-post-confirmation-trigger.png"
+    title="Figure 5.4.1.8: Post Confirmation Lambda connected to the Cognito User Pool"
+    width="100%"
+>}}
 
 ## Results
 
-After completing the deployment and verification process:
+After verifying the resources directly through the AWS Management Console, the team confirmed that:
 
-* IAM Roles and IAM Policies were successfully created by Terraform.
-* Lambda Functions were assigned permissions appropriate to their responsibilities.
-* Access between AWS services was controlled according to the principle of least privilege.
-* Lambda Functions were able to write logs to Amazon CloudWatch.
-* The required Lambda Functions were able to access DynamoDB, SQS FIFO, and the WebSocket API.
-* The Cognito User Pool was successfully created and operated correctly.
-* The App Client was configured for frontend registration and authentication.
-* Users were able to create accounts and sign in to the User Frontend.
-* Administrators were able to sign in to the Admin Frontend.
-* User and Admin permissions were separated when accessing system functions.
-* Administration APIs were protected from accounts without the required permissions.
-* The authentication and authorization components were ready for integration with the remaining AWS services.
+* The Cognito User Pool was successfully created by Terraform.
+* The App Client was configured for the frontend applications.
+* The `user` and `admin` Cognito Groups were created for authorization.
+* User accounts were centrally managed in the Cognito User Pool.
+* The Post Confirmation Lambda was connected to the User Pool.
+* The required IAM Roles and IAM Policies were created.
+* The Lambda execution roles contained a Trust Relationship with `lambda.amazonaws.com`.
+* The Lambda functions were assigned permissions appropriate to their responsibilities.
+* Access between AWS services was restricted according to the principle of least privilege.
+* The Cognito and IAM configurations were ready for integration with the frontend applications, API Gateway, Lambda, and other services.
+
+The testing of account registration, sign-in, User/Admin authorization, and API protection is presented in **Section 5.5 — System Testing**.

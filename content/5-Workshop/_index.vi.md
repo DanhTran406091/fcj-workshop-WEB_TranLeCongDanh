@@ -12,13 +12,15 @@ pre: " <b> 5. </b> "
 
 **Live Auction** là nền tảng đấu giá trực tuyến cho phép người dùng đăng ký tài khoản, theo dõi các phiên đấu giá và thực hiện đặt giá theo thời gian thực.
 
-Trong workshop này, nhóm trình bày quá trình triển khai hệ thống **Live Auction** trên nền tảng **Amazon Web Services (AWS)**. Hạ tầng của hệ thống được triển khai bằng **Terraform**, giúp tự động hóa việc tạo và quản lý các tài nguyên AWS, đồng thời đảm bảo tính nhất quán trong quá trình triển khai.
+Hệ thống cung cấp hai giao diện riêng biệt dành cho người dùng và quản trị viên. Người dùng có thể quản lý thông tin cá nhân, tạo phiên đấu giá, thêm một hoặc nhiều vật phẩm, theo dõi phiên và tham gia đặt giá. Quản trị viên có thể quản lý tài khoản người dùng, quản lý danh mục sản phẩm, duyệt phiên đấu giá và tạo thêm tài khoản quản trị viên.
 
-Frontend của người dùng và trang quản trị được lưu trữ trên **Amazon S3** và phân phối thông qua **Amazon CloudFront**. Chức năng xác thực người dùng sử dụng **Amazon Cognito**. Các API nghiệp vụ được triển khai bằng **AWS Lambda** kết hợp với **Amazon API Gateway**.
+Trong Workshop này, nhóm trình bày quá trình xây dựng và triển khai hệ thống **Live Auction** trên nền tảng **Amazon Web Services (AWS)**. Hạ tầng được triển khai bằng **Terraform**, giúp tự động hóa việc tạo và quản lý tài nguyên AWS, đồng thời bảo đảm tính nhất quán giữa các lần triển khai.
 
-Đối với chức năng đấu giá thời gian thực, hệ thống sử dụng **API Gateway WebSocket**, **Amazon SQS FIFO** và **Amazon DynamoDB** nhằm tiếp nhận yêu cầu đặt giá, xử lý theo đúng thứ tự và đồng bộ trạng thái phiên đấu giá đến các người dùng đang kết nối.
+User Frontend và Admin Frontend được lưu trữ riêng biệt trên **Amazon S3** và phân phối thông qua **Amazon CloudFront**. Chức năng xác thực và phân quyền tài khoản sử dụng **Amazon Cognito** kết hợp với **AWS IAM**. Các API nghiệp vụ được triển khai bằng **AWS Lambda** và **Amazon API Gateway**.
 
-Workshop tập trung vào quá trình chuẩn bị môi trường, triển khai hạ tầng bằng Terraform, cấu hình các dịch vụ AWS, kiểm thử hệ thống và đánh giá kết quả sau khi hoàn thành.
+Đối với chức năng đấu giá theo thời gian thực, hệ thống sử dụng **API Gateway WebSocket**, **Amazon SQS FIFO** và **Amazon DynamoDB** để tiếp nhận yêu cầu đặt giá, xử lý thông điệp theo đúng thứ tự, lưu trạng thái đấu giá và gửi dữ liệu cập nhật đến những người dùng đang kết nối.
+
+Workshop tập trung vào quá trình chuẩn bị môi trường, triển khai hạ tầng bằng Terraform, kiểm tra các dịch vụ AWS, kiểm thử hệ thống, hướng dẫn dọn dẹp tài nguyên và tổng kết kết quả đạt được.
 
 #### Nội dung
 
@@ -27,4 +29,5 @@ Workshop tập trung vào quá trình chuẩn bị môi trường, triển khai 
 3. [Triển khai hạ tầng bằng Terraform](5.3-Infrastructure/)
 4. [Các dịch vụ AWS được triển khai](5.4-AWS-Services/)
 5. [Kiểm thử hệ thống](5.5-Testing/)
-6. [Kết quả đạt được](5.6-Conclusion/)
+6. [Dọn dẹp tài nguyên](5.6-Cleanup/)
+7. [Kết quả đạt được](5.7-Results/)

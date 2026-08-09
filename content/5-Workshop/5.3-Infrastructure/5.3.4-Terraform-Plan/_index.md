@@ -1,5 +1,5 @@
 ---
-title: "Review the Deployment Plan"
+title: "Reviewing the Deployment Plan"
 date: 2026-07-13
 weight: 4
 chapter: false
@@ -8,43 +8,92 @@ pre: "<b>5.3.4. </b>"
 
 ## Introduction
 
-After initializing the Terraform environment, the team validates the configuration and prepares the deployment plan using the `terraform plan` command.
+After initializing the Terraform environment, the team checks the configuration and reviews the deployment plan using `terraform fmt -check`, `terraform validate`, and `terraform plan`.
 
-This command analyzes the Terraform configuration files, reads the current infrastructure state, and compares it with the desired configuration. The result shows which resources will be created, updated, replaced, or deleted before the changes are deployed to AWS.
+The `terraform plan` command reads the Terraform configuration, the infrastructure state stored in the Remote Backend, and the actual state of the AWS resources. Terraform then compares the current state with the desired configuration to determine which resources need to be created, updated, replaced, or removed.
 
-Reviewing the deployment plan helps the team detect configuration errors, invalid permissions, and unexpected changes before they affect the running infrastructure.
+Reviewing the plan before deployment helps the team:
+
+* Detect syntax errors and invalid configurations.
+* Review expected changes before they affect AWS resources.
+* Detect resources that may be removed or replaced.
+* Prevent unintended changes to the running system.
+* Confirm that Terraform State is synchronized with the actual infrastructure.
+* Verify the infrastructure after the deployment has been completed.
+
+{{% notice info %}}
+The `terraform validate` and `terraform plan` commands do not directly create, update, or remove AWS resources. Resources are only modified when `terraform apply` is executed and the deployment plan is approved.
+{{% /notice %}}
 
 ---
 
-## Check the Terraform Formatting
+## Navigating to the Module
 
-Before generating a deployment plan, check the formatting of the Terraform files:
+In this section, the `03-identity` module is used as a representative example for validating the configuration and reviewing the deployment plan.
+
+Open PowerShell from the project root directory:
+
+```powershell
+cd "D:\ThucTap\Live-Auction"
+```
+
+Navigate to the Identity module:
+
+```powershell
+cd infra\03-identity
+```
+
+Check the current location:
+
+```powershell
+Get-Location
+```
+
+The result should show that the Terminal is working in:
+
+```text
+D:\ThucTap\Live-Auction\infra\03-identity
+```
+
+If the module has not been initialized on the current computer, run:
+
+```powershell
+terraform init
+```
+
+---
+
+## Checking Terraform Formatting
+
+Before validating the configuration and creating a plan, the team checks the formatting of the Terraform files:
 
 ```powershell
 terraform fmt -check
 ```
 
-If any files do not follow the standard format, run:
+The `terraform fmt -check` command only checks the formatting and does not automatically modify any `.tf` files.
+
+If all files are formatted correctly, the command completes without displaying an error. If the Terminal returns the name of one or more files, those files do not follow the standard Terraform formatting rules.
+
+During development, the following command can be used to automatically format the files:
 
 ```powershell
 terraform fmt
 ```
 
-The `terraform fmt` command automatically standardizes indentation, spacing, and the presentation of Terraform configuration blocks.
+However, `terraform fmt` should not be executed only for the purpose of taking screenshots if there is no intention to update the source code, because the command may modify files managed by Git.
 
-After formatting the files, verify them again:
+The Git working tree can be checked afterward using:
 
 ```powershell
-terraform fmt -check
+git status
 ```
-
-If the command does not return an error, the configuration files follow the expected format.
 
 ---
 
-## Validate the Terraform Configuration
+## Validating the Terraform Configuration
 
-Inside an initialized module directory, run:
+After checking the formatting, run:
 
 ```powershell
 terraform validate
@@ -54,10 +103,10 @@ The `terraform validate` command checks:
 
 * The syntax of the `.tf` files.
 * Variable names and data types.
-* Required resource properties.
+* Required resource attributes.
 * References between resources.
-* Provider and module configuration.
-* The internal consistency of the Terraform configuration.
+* Provider and module configurations.
+* The overall consistency of the Terraform configuration.
 
 When the configuration is valid, Terraform displays:
 
@@ -65,315 +114,179 @@ When the configuration is valid, Terraform displays:
 Success! The configuration is valid.
 ```
 
-<!--
-SCREENSHOT INSTRUCTIONS:
-1. Open the Terminal in infra/03-identity.
-2. Run: terraform validate
-3. Capture the result containing:
-   Success! The configuration is valid.
-4. Save the image as:
-static/images/5-Workshop/5.3-Infrastructure/terraform-validate-success.png
--->
-
-<figure style="text-align: center;">
-    <img src="/images/5-Workshop/5.3-Infrastructure/terraform-validate-success.png" alt="Successful Terraform validation" width="80%">
-    <figcaption style="text-align: center;">
-        <b>Figure 5.3.15.</b> Successfully validating the Terraform configuration with <code>terraform validate</code>.
-    </figcaption>
-</figure>
-
 {{% notice warning %}}
-The `terraform validate` command only checks the syntax and internal consistency of the configuration. It does not confirm that the AWS account has sufficient permissions to create the resources.
+The `terraform validate` command only checks the syntax and internal consistency of the configuration. A successful result does not confirm that the current AWS account has sufficient permissions to access the Backend or manage the declared resources.
 {{% /notice %}}
 
 ---
 
-## Generate the Deployment Plan
+## Creating the Deployment Plan
 
 After the configuration has been validated, run:
 
 ```powershell
-terraform plan
+terraform plan -no-color
 ```
 
-Terraform performs the following operations:
+The `-no-color` option removes color codes from the output, making the Terminal content easier to read and capture for the report.
+
+During execution, Terraform performs the following operations:
 
 1. Reads the configuration files in the module.
-2. Reads the input variable values.
-3. Connects to the Terraform Backend.
-4. Reads the current Terraform State.
-5. Retrieves the current resource state from AWS.
-6. Compares the current state with the desired configuration.
-7. Displays the proposed infrastructure changes.
+2. Connects to the Remote Backend.
+3. Reads the current Terraform State.
+4. Queries the state of the AWS resources.
+5. Compares the actual infrastructure with the desired configuration.
+6. Identifies resources that need to be created, updated, replaced, or removed.
+7. Displays the deployment plan for review.
 
-Terraform uses the following symbols in the plan result:
+Terraform uses the following symbols in the plan output:
 
-| Symbol | Meaning |
-| --- | --- |
-| `+` | A resource will be created. |
-| `~` | A resource will be updated in place. |
-| `-` | A resource will be deleted. |
-| `-/+` | A resource will be deleted and recreated. |
-| `<=` | Data will be read from a Data Source. |
+| Symbol | Meaning                                     |
+| ------ | ------------------------------------------- |
+| `+`    | The resource will be created.               |
+| `~`    | The resource will be updated in place.      |
+| `-`    | The resource will be removed.               |
+| `-/+`  | The resource will be removed and recreated. |
+| `<=`   | Data will be read from a Data Source.       |
 
-Example:
+For example, before the initial deployment, Terraform may display:
 
 ```text
-Terraform will perform the following actions:
-
-  # aws_cognito_user_pool.live_auction will be created
-  + resource "aws_cognito_user_pool" "live_auction" {
-      + id   = (known after apply)
-      + name = "live-auction-user-pool"
-    }
-
 Plan: 3 to add, 0 to change, 0 to destroy.
 ```
 
-The summary means:
+This result means:
 
 * `3 to add`: three resources will be created.
-* `0 to change`: no existing resources will be updated.
-* `0 to destroy`: no resources will be deleted.
+* `0 to change`: no resources will be updated.
+* `0 to destroy`: no resources will be removed.
 
-<!--
-SCREENSHOT INSTRUCTIONS:
-1. Run terraform plan in the 03-identity module.
-2. Scroll to the bottom of the output.
-3. Capture the summary:
-   Plan: ... to add, ... to change, ... to destroy.
-4. Do not include an Access Key, Secret Key, or sensitive data.
-5. Save the image as:
-static/images/5-Workshop/5.3-Infrastructure/terraform-plan-summary.png
--->
-
-<figure style="text-align: center;">
-    <img src="/images/5-Workshop/5.3-Infrastructure/terraform-plan-summary.png" alt="Terraform Plan result" width="90%">
-    <figcaption style="text-align: center;">
-        <b>Figure 5.3.16.</b> Deployment plan result for the Identity module.
-    </figcaption>
-</figure>
+The actual number of resources depends on the source code and infrastructure state at the time the command is executed. Therefore, the values in the example above should not be treated as the official result of the system.
 
 ---
 
-## Use an Input Variable File
+## Reviewing the Plan After Deployment
 
-If the module uses a separate variable file, provide it to the `terraform plan` command:
-
-```powershell
-terraform plan -var-file="terraform.tfvars"
-```
-
-Example content of `terraform.tfvars`:
-
-```hcl
-aws_region   = "ap-southeast-1"
-environment  = "dev"
-project_name = "live-auction"
-```
-
-A variable file separates configuration values from the main Terraform source code and supports multiple deployment environments.
-
-Examples:
+The Live Auction system has already been deployed on AWS. Therefore, when `terraform plan` is executed again using the latest source code and Terraform State, the expected result is:
 
 ```text
-terraform.dev.tfvars
-terraform.staging.tfvars
-terraform.prod.tfvars
+No changes. Your infrastructure matches the configuration.
 ```
 
-To generate a plan for the development environment:
+This message indicates that:
 
-```powershell
-terraform plan -var-file="terraform.dev.tfvars"
-```
-
-{{% notice warning %}}
-Do not store an Access Key, Secret Access Key, password, or other sensitive information in a `.tfvars` file committed to Git. Sensitive values should be provided through environment variables or an appropriate secrets management service.
-{{% /notice %}}
-
----
-
-## Save the Deployment Plan
-
-After reviewing the result, save the deployment plan to a `tfplan` file:
-
-```powershell
-terraform plan -out="tfplan"
-```
-
-The `-out` option saves the exact plan generated by Terraform. This file can be used with `terraform apply` to ensure that Terraform applies only the changes reviewed by the team.
-
-Review the saved plan:
-
-```powershell
-terraform show tfplan
-```
-
-Export the plan in JSON format:
-
-```powershell
-terraform show -json tfplan
-```
-
-The complete workflow is:
-
-```powershell
-terraform validate
-terraform plan -out="tfplan"
-terraform show tfplan
-```
-
-<!--
-SCREENSHOT INSTRUCTIONS:
-1. Run: terraform plan -out="tfplan"
-2. Open the module directory in VS Code Explorer.
-3. Capture the directory showing the generated tfplan file.
-4. Save the image as:
-static/images/5-Workshop/5.3-Infrastructure/terraform-plan-file.png
--->
+* Terraform State matches the current configuration.
+* The AWS resources match the desired state.
+* No resources need to be created.
+* No resources need to be updated.
+* No resources need to be removed or replaced.
 
 <figure style="text-align: center;">
-    <img src="/images/5-Workshop/5.3-Infrastructure/terraform-plan-file.png" alt="Saved Terraform plan file" width="65%">
+    <img src="/images/5-Workshop/5.3-Infrastructure/terraform-plan-no-changes.png" alt="Terraform Plan detected no changes" width="90%">
     <figcaption style="text-align: center;">
-        <b>Figure 5.3.17.</b> The <code>tfplan</code> file generated after saving the deployment plan.
+        <b>Figure 5.3.16.</b> Terraform confirms that the current infrastructure matches the Identity module configuration.
     </figcaption>
 </figure>
 
-{{% notice info %}}
-The `tfplan` file uses a binary format and should not be edited manually. It may contain infrastructure configuration information and should not be committed to a public source-code repository.
+{{% notice warning %}}
+If the result contains `to add`, `to change`, `to destroy`, or the `-/+` symbol, do not immediately execute `terraform apply`. The source code, Terraform State, and actual resources must be reviewed to determine the cause of the changes.
 {{% /notice %}}
 
 ---
 
-## Generate a Plan for Each Module
+## Saving a Deployment Plan
 
-Because the infrastructure is divided into multiple modules, the team runs `terraform plan` according to the dependency order of the architecture.
-
-### Identity Module
-
-Navigate to the Identity module:
+During the initial deployment, the team can save the deployment plan to a `tfplan` file using:
 
 ```powershell
-cd infra\03-identity
-```
-
-Validate the configuration and generate the plan:
-
-```powershell
-terraform validate
 terraform plan -out="tfplan"
 ```
 
-This module prepares the deployment plan for:
-
-* AWS IAM.
-* Amazon Cognito.
-* Roles and Policies used for authentication and authorization.
-
-### Data Module
+The `-out` option saves the exact plan created at the time of the review. This file can then be used during deployment:
 
 ```powershell
-cd ..\04-data
-terraform validate
-terraform plan -out="tfplan"
+terraform apply "tfplan"
 ```
 
-The Data module prepares the plan for Amazon DynamoDB tables used to store:
-
-* Product data.
-* Auction information.
-* Bid history.
-* Auction status.
-* WebSocket connection information.
-
-### Messaging Module
+To review a saved plan, run:
 
 ```powershell
-cd ..\05-messaging
-terraform validate
-terraform plan -out="tfplan"
+terraform show tfplan
 ```
 
-The Messaging module prepares the plan for:
+The `tfplan` file currently present in the `03-identity` module was created during a previous planning process. It was not generated by `terraform init`.
 
-* Amazon SQS FIFO.
-* A dead-letter queue, if configured.
-* Queue Policies and related access permissions.
+{{% notice warning %}}
+The `tfplan` file is a binary file and may contain resource names, ARNs, infrastructure configuration, or sensitive values. It should not be edited manually or pushed to a public repository. A saved plan may also become outdated if the source code or infrastructure state changes.
+{{% /notice %}}
 
-### Compute Module
-
-```powershell
-cd ..\06-compute
-terraform validate
-terraform plan -out="tfplan"
-```
-
-The Compute module prepares the plan for:
-
-* AWS Lambda Functions.
-* Lambda Layers, if used.
-* IAM Roles for Lambda.
-* Environment Variables.
-* Event Source Mappings between Lambda and SQS.
-
-### API Module
-
-```powershell
-cd ..\07-api
-terraform validate
-terraform plan -out="tfplan"
-```
-
-The API module prepares the plan for:
-
-* Amazon API Gateway.
-* REST API routes.
-* API Gateway WebSocket.
-* Lambda Integrations.
-* Authorizers and deployment Stages.
-
-### Edge Module
-
-```powershell
-cd ..\09-edge
-terraform validate
-terraform plan -out="tfplan"
-```
-
-The Edge module prepares the plan for:
-
-* Amazon S3.
-* Amazon CloudFront.
-* Origin Access Control.
-* Bucket Policies.
-* Frontend distribution configuration.
+Because the system has already been deployed, the team does not need to recreate the `tfplan` file only to capture a screenshot. The `terraform plan -no-color` result showing no changes is sufficient to demonstrate that the current source code and infrastructure are synchronized.
 
 ---
 
-## Review the Plan Before Deployment
+## Terraform Modules of the System
 
-Before accepting the deployment plan, the team reviews the following information.
+The current infrastructure is divided into the following modules:
+
+| Module             | Role                                                                                                          |
+| ------------------ | ------------------------------------------------------------------------------------------------------------- |
+| `00-bootstrap`     | Initializes the S3 Backend and Terraform State management mechanism.                                          |
+| `01-foundation`    | Prepares the shared foundational components of the system.                                                    |
+| `03-identity`      | Deploys the Cognito User Pool, App Client, User Groups, IAM resources, and Post Confirmation Lambda.          |
+| `04-data`          | Deploys the DynamoDB tables and the S3 Bucket used to store media data.                                       |
+| `05-messaging`     | Deploys SQS FIFO, Dead-letter Queues, and EventBridge Scheduler components.                                   |
+| `06-compute`       | Deploys Lambda Functions, Lambda Layers, IAM Roles, and Event Source Mappings.                                |
+| `07-api`           | Deploys the REST API, WebSocket API, Authorizers, Routes, Integrations, and Stages.                           |
+| `09-edge`          | Deploys the S3 Buckets and CloudFront Distributions for the User Frontend, Admin Frontend, and media content. |
+| `10-observability` | Configures monitoring, logging, alarms, and system observability.                                             |
+| `11-security`      | Adds security configurations and protective measures to the infrastructure.                                   |
+| `12-backup-dr`     | Configures backup and disaster recovery capabilities.                                                         |
+| `13-cicd`          | Deploys resources used by the continuous integration and continuous deployment process.                       |
+
+Each module has its own Remote Backend and Terraform State. Separating the State by module helps the team:
+
+* Limit the scope of infrastructure changes.
+* Reduce the impact between infrastructure layers.
+* Review the plan of each component independently.
+* Deploy modules according to their dependencies.
+* Reduce the risk of multiple team members modifying the same State.
+
+---
+
+## Items to Review in the Plan
+
+Before approving a deployment plan, the team reviews the following items.
 
 ### Resource Names
 
-The names of S3 Buckets, DynamoDB tables, Lambda Functions, APIs, and Queues must follow the naming conventions of the project.
+The names of S3 Buckets, DynamoDB Tables, Lambda Functions, API Gateway APIs, SQS Queues, and other resources must follow the naming convention of the project.
+
+The primary resources of the system use the following prefix:
+
+```text
+la-
+```
 
 ### AWS Region
 
-Verify that the resources will be created in the expected Region:
+Regional resources are deployed in:
 
 ```text
 ap-southeast-1
 ```
 
+This Region corresponds to **Asia Pacific (Singapore)**.
+
+Some global services, such as AWS IAM and Amazon CloudFront, are not managed within a single Region in the same way as services such as Lambda or DynamoDB.
+
 ### IAM Permissions
 
-IAM Policies should follow the principle of least privilege and provide only the permissions required by each service.
+IAM Policies must follow the principle of least privilege. Each service should only be granted the permissions required to perform its responsibilities.
 
-### Deleted or Replaced Resources
+### Resources Scheduled for Removal or Replacement
 
-If the plan contains:
+If the plan displays:
 
 ```text
 Plan: 0 to add, 0 to change, 1 to destroy.
@@ -385,122 +298,113 @@ or the following symbol:
 -/+
 ```
 
-the team must review the change carefully before continuing. Replacing a resource may interrupt the system or cause data loss if it is not configured correctly.
+the team must carefully review the plan before continuing. Removing or replacing a resource may:
+
+* Interrupt the system.
+* Change an Endpoint or ARN.
+* Cause data loss if the resource is not protected.
+* Affect dependent modules.
+* Cause the frontend to lose its connection to the backend.
 
 ### Output Values
 
-Review the expected Output values, including:
+The expected Output values include:
 
 * Cognito User Pool ID.
-* Cognito Client ID.
+* Cognito App Client ID.
 * DynamoDB table names.
 * SQS Queue URL.
-* REST API endpoint.
-* WebSocket endpoint.
+* REST API Endpoint.
+* WebSocket Endpoint.
 * S3 Bucket name.
 * CloudFront domain name.
+* Lambda Function names.
+* ARNs consumed by other modules.
 
----
-
-## A Plan with No Changes
-
-If the current infrastructure already matches the Terraform configuration, Terraform displays:
-
-```text
-No changes. Your infrastructure matches the configuration.
-```
-
-This message indicates that:
-
-* The Terraform State matches the configuration.
-* No resources need to be created.
-* No resources need to be updated.
-* No resources need to be deleted.
-
-This result commonly appears when `terraform plan` is executed after a successful deployment without any subsequent configuration changes.
+Full Account IDs, ARNs, or sensitive authentication values should not be included in screenshots used in a public report.
 
 ---
 
 ## Common Errors
 
-### Terraform has not been initialized
+### Terraform Has Not Been Initialized
 
-Error message:
+The following message may be displayed:
 
 ```text
 Backend initialization required
 ```
 
-Initialize the module:
+Initialize the module using:
 
 ```powershell
 terraform init
 ```
 
-If the Backend configuration has changed:
+If the Backend configuration has recently been changed and reviewed by the team, run:
 
 ```powershell
 terraform init -reconfigure
 ```
 
-### A required variable is missing
+### Insufficient AWS Permissions
 
-Error message:
-
-```text
-No value for required variable
-```
-
-Provide the value directly:
-
-```powershell
-terraform plan -var="project_name=live-auction"
-```
-
-Alternatively, use a variable file:
-
-```powershell
-terraform plan -var-file="terraform.tfvars"
-```
-
-### Insufficient AWS permissions
-
-Error message:
+The following message may appear:
 
 ```text
 AccessDenied
 ```
 
-Verify the current AWS identity:
+Check the current AWS CLI identity:
 
 ```powershell
 aws sts get-caller-identity
 ```
 
-Then review the corresponding IAM Policy.
+Then review the IAM Policy assigned to the current account or Role.
 
-### A resource already exists
+### Unable to Access the Remote Backend
 
-If a resource was created manually but is not recorded in the Terraform State, Terraform may report an error when the plan is applied.
+Check the following:
 
-Review the existing AWS resource and consider importing it into the Terraform State with `terraform import` instead of creating it again.
+* Whether the S3 Bucket used to store Terraform State still exists.
+* Whether the Bucket name in `backend.tf` is correct.
+* Whether the configured AWS Region is correct.
+* Whether the current account can read the State stored in S3.
+* Whether the DynamoDB table used for State locking is available.
 
-### The Terraform State is locked
+### Terraform State Is Locked
 
-When another process is updating the State, Terraform may report a State lock error.
+Terraform may return a locking error when another process is currently using the State.
 
-Do not manually remove the lock until confirming that the other Terraform process has finished. Multiple team members applying changes to the same module simultaneously can cause State conflicts.
+Do not manually remove or force-unlock the State before confirming that the previous process has finished. Multiple team members operating on the same module at the same time may cause conflicts and inconsistent infrastructure state.
+
+### The Plan Contains Unexpected Changes
+
+If the system has already been deployed but `terraform plan` still detects changes, check:
+
+* Whether the local source code is at the latest commit.
+* Whether the Terminal is currently in the correct module.
+* Whether the AWS credentials point to the correct account.
+* Whether the Backend points to the correct State.
+* Whether resources have been manually modified through AWS Management Console.
+* Whether a Lambda deployment package or build artifact has changed.
+* Whether the environment variables and Provider configuration are correct.
+
+Do not execute `terraform apply` until the cause of the unexpected changes has been identified.
 
 ---
 
-## Result
+## Results
 
-After completing the planning process:
+After reviewing the deployment plan:
 
-* The Terraform files were formatted with `terraform fmt`.
-* Each module configuration was validated with `terraform validate`.
-* Terraform compared the desired configuration with the current infrastructure state.
-* The team reviewed the number of resources to create, update, replace, or delete.
-* The deployment plan for each module was saved to a `tfplan` file.
-* Potentially disruptive infrastructure changes were reviewed before deployment.
-* The modules were ready for deployment using `terraform apply`.
+* The formatting of the Terraform files was checked using `terraform fmt -check`.
+* The Identity module configuration was successfully validated using `terraform validate`.
+* Terraform successfully connected to the Remote Backend.
+* Terraform read the current infrastructure state from Terraform State and AWS.
+* The `terraform plan` command compared the source code with the deployed resources.
+* No resources needed to be created, updated, replaced, or removed.
+* Terraform State and the current infrastructure were synchronized.
+* The verification process did not modify the deployed AWS resources.
+* The system was ready for the deployment workflow verification in the next section.

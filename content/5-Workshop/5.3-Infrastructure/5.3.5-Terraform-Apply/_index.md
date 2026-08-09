@@ -1,75 +1,151 @@
 ---
-title: "Deploy the Infrastructure"
+title: "Infrastructure Deployment"
 date: 2026-07-13
 weight: 5
 chapter: false
 pre: "<b>5.3.5. </b>"
 ---
 
-
 ## Introduction
 
-After reviewing and approving the deployment plan, the team creates the AWS resources using the `terraform apply` command.
+After reviewing and approving the deployment plan, the team uses `terraform apply` to create and configure resources on Amazon Web Services.
 
-This command applies the changes defined in the Terraform plan, including creating, updating, replacing, or deleting resources so that the actual AWS infrastructure matches the desired configuration.
+The `terraform apply` command applies the changes identified in the Terraform plan, including:
 
-In the Live Auction system, the infrastructure is divided into independent modules. These modules are deployed according to their dependency order to ensure that the foundational resources are available before the dependent components are created.
+* Creating new resources.
+* Updating existing resources.
+* Replacing resources when the configuration requires them to be recreated.
+* Removing resources that are no longer declared.
+* Updating Terraform State after a successful deployment.
 
-The deployment order is:
+In the Live Auction system, the infrastructure is divided into multiple independent modules. Each module manages a group of resources and uses a separate Terraform State in the Remote Backend.
 
-1. Identity.
-2. Data.
-3. Messaging.
-4. Compute.
-5. API.
-6. Edge.
+This structure helps the team:
 
----
-
-## Review the Saved Plan
-
-Before deployment, check the `tfplan` file in the current module:
-
-```powershell
-Get-ChildItem
-```
-
-Review the saved plan:
-
-```powershell
-terraform show tfplan
-```
-
-The team should carefully review:
-
-* The number of resources to be created.
-* Existing resources to be updated.
-* Resources to be deleted or replaced.
-* Resource names and AWS Regions.
-* IAM Roles and IAM Policies.
-* Expected Output values.
+* Deploy the infrastructure by functional layer.
+* Limit the scope of changes in each deployment.
+* Reduce the impact between components.
+* Simplify verification and troubleshooting.
+* Allow later modules to use the Outputs of previously deployed modules.
 
 {{% notice warning %}}
-Do not continue if the plan contains unexpected resource deletions or replacements. Review the configuration and generate a new `terraform plan`.
+The Live Auction environment has already been deployed and is currently running on AWS. Do not run `terraform apply` again only to create a screenshot. Applying an unreviewed plan may update, replace, or remove resources currently used by the system.
 {{% /notice %}}
 
 ---
 
-## Run Terraform Apply
+## Preparations Before Deployment
 
-If the deployment plan was saved using:
+Before executing `terraform apply`, the team must ensure that:
+
+* AWS CLI is configured for the correct account.
+* The correct AWS Region is being used.
+* The module has been initialized using `terraform init`.
+* The configuration has passed `terraform validate`.
+* The plan has been reviewed using `terraform plan`.
+* No resources are unexpectedly removed or replaced.
+* The Lambda packages and Lambda Layers have been built.
+* Terraform State is not locked by another process.
+* Dependent modules have already been deployed.
+
+Check the current AWS identity:
+
+```powershell
+aws sts get-caller-identity
+```
+
+Check the configured Region:
+
+```powershell
+aws configure get region
+```
+
+The primary Region used by the project is:
+
+```text
+ap-southeast-1
+```
+
+{{% notice warning %}}
+The result of `aws sts get-caller-identity` may contain the AWS Account ID, User ID, and ARN. These identifiers should be partially hidden before a screenshot is included in a public report or repository.
+{{% /notice %}}
+
+---
+
+## Preparing Lambda Deployment Packages
+
+Some modules use ZIP archives of Lambda Functions or Lambda Layers to calculate `source_code_hash`.
+
+The build artifacts are not stored directly in the Git repository. Therefore, they must be generated on the deployment computer before executing `terraform plan` or `terraform apply`.
+
+For example, build the Post Confirmation Lambda used by the Identity module:
+
+```powershell
+cd "D:\ThucTap\Live-Auction"
+.\backend\build.ps1 -Target function -FunctionName cognito_post_confirm
+```
+
+Verify that the file has been created:
+
+```powershell
+Test-Path .\backend\build\cognito_post_confirm.zip
+```
+
+If the build process succeeds, the command returns:
+
+```text
+True
+```
+
+The remaining Lambda Functions and Lambda Layers must also be built before deploying the Compute module.
+
+{{% notice info %}}
+The `backend/build.ps1` script uses Docker to generate Lambda packages for the required runtime environment. Docker Desktop must be running before the script is executed.
+{{% /notice %}}
+
+---
+
+## Reviewing the Plan Before Apply
+
+If a plan has been saved using:
 
 ```powershell
 terraform plan -out="tfplan"
 ```
 
-apply the exact saved plan:
+the team can review it using:
+
+```powershell
+terraform show tfplan
+```
+
+The following items must be reviewed:
+
+* The number of resources to be created.
+* Resources to be updated.
+* Resources to be removed.
+* Resources to be replaced.
+* Resource names and AWS Regions.
+* IAM Roles and IAM Policies.
+* Expected Output values.
+* Changes to Lambda Functions.
+* Changes to DynamoDB Tables and S3 Buckets.
+
+{{% notice warning %}}
+Do not continue the deployment if the plan contains unexpected resource removals or replacements. Stop the process, review the configuration and Terraform State, and run `terraform plan` again.
+{{% /notice %}}
+
+---
+
+## Executing Terraform Apply
+
+If the plan has been saved to a `tfplan` file, apply that exact plan using:
 
 ```powershell
 terraform apply "tfplan"
 ```
 
-When a saved `tfplan` file is used, Terraform does not request confirmation because the plan has already been generated and reviewed.
+When a saved plan is used, Terraform does not ask for the `yes` confirmation again.
 
 If a saved plan is not used, run:
 
@@ -77,7 +153,7 @@ If a saved plan is not used, run:
 terraform apply
 ```
 
-Terraform displays the proposed changes and requests confirmation:
+Terraform displays the plan and asks for confirmation:
 
 ```text
 Do you want to perform these actions?
@@ -97,132 +173,90 @@ yes
 to begin the deployment.
 
 {{% notice info %}}
-The recommended workflow is to use `terraform plan -out="tfplan"` followed by `terraform apply "tfplan"`. This ensures that Terraform applies only the changes previously reviewed by the team.
+The `terraform plan -out="tfplan"` and `terraform apply "tfplan"` workflow ensures that Terraform applies only the plan reviewed by the team.
 {{% /notice %}}
 
----
-
-## Deploy the Identity Module
-
-The Identity module is deployed first because the remaining modules require IAM Roles, IAM Policies, and user authentication resources.
-
-Navigate to the module directory:
-
-```powershell
-cd infra\03-identity
-```
-
-Review the saved plan:
-
-```powershell
-terraform show tfplan
-```
-
-Deploy the module:
-
-```powershell
-terraform apply "tfplan"
-```
-
-This module creates the following resources:
-
-* Amazon Cognito User Pool.
-* Amazon Cognito User Pool Client.
-* Required IAM Roles.
-* IAM Policies for Lambda and other AWS services.
-* User authentication and authorization configuration.
-
-When the deployment is successful, Terraform displays:
+After a successful deployment, Terraform displays a message in the following format:
 
 ```text
-Apply complete! Resources: 3 added, 0 changed, 0 destroyed.
+Apply complete! Resources: ... added, ... changed, ... destroyed.
 ```
 
-The actual number of resources may vary depending on the project configuration.
+The number of resources depends on the module and the infrastructure state at the time of deployment.
 
-<!--
-SCREENSHOT INSTRUCTIONS:
-1. Run terraform apply "tfplan" in infra/03-identity.
-2. Wait for the deployment to finish.
-3. Capture the final Terminal output containing:
-   Apply complete! Resources: ... added, ... changed, ... destroyed.
-4. Save the image as:
-static/images/5-Workshop/5.3-Infrastructure/terraform-apply-identity.png
--->
-
-<figure style="text-align: center;">
-    <img src="/images/5-Workshop/5.3-Infrastructure/terraform-apply-identity.png" alt="Deploy the Identity module" width="90%">
-    <figcaption style="text-align: center;">
-        <b>Figure 5.3.18.</b> Terraform deployment result for the Identity module.
-    </figcaption>
-</figure>
+A fixed number of resources should not be used as a general result for the entire system.
 
 ---
 
-## Deploy the Data Module
+## Deployment Evidence
 
-After the Identity module is complete, navigate to the Data module:
+Because the infrastructure was deployed previously, evidence of the `terraform apply` execution should be collected from:
 
-```powershell
-cd ..\04-data
-```
+* The Terminal of the member who performed the deployment.
+* GitHub Actions or another CI/CD system.
+* AWS CodeBuild logs.
+* Deployment records retained by the team.
 
-If a plan has not been generated or the configuration has changed, run:
+Do not execute `terraform apply` again only to create a screenshot for the report.
 
-```powershell
-terraform init
-terraform validate
-terraform plan -out="tfplan"
-```
+Because the infrastructure was previously deployed by another team member and the original Terminal output was not retained, the team verifies the deployment through Terraform State, Terraform Output, and the actual resources on AWS Management Console.
 
-Deploy the module:
-
-```powershell
-terraform apply "tfplan"
-```
-
-The Data module creates Amazon DynamoDB tables for storing:
-
-* Product information.
-* Auction information.
-* Auction status.
-* Bid history.
-* WebSocket connection information.
-* Other application data.
-
-After the deployment, review the Output values:
-
-```powershell
-terraform output
-```
-
-<!--
-SCREENSHOT INSTRUCTIONS:
-1. Deploy the 04-data module.
-2. Capture the Apply complete result or the terraform output result.
-3. Do not include sensitive data.
-4. Save the image as:
-static/images/5-Workshop/5.3-Infrastructure/terraform-apply-data.png
--->
-
-<figure style="text-align: center;">
-    <img src="/images/5-Workshop/5.3-Infrastructure/terraform-apply-data.png" alt="Deploy the Data module" width="90%">
-    <figcaption style="text-align: center;">
-        <b>Figure 5.3.19.</b> Deployment result for the Data module.
-    </figcaption>
-</figure>
+These verification results confirm that the resources were created, are managed by Terraform, and are operating in the AWS environment.
 
 ---
 
-## Deploy the Messaging Module
+## Module Deployment Order
 
-Navigate to the Messaging module:
+The infrastructure is organized according to functional layers and dependencies.
+
+The general deployment order is:
+
+1. Bootstrap.
+2. Foundation.
+3. Identity.
+4. Data.
+5. Messaging.
+6. Compute.
+7. API.
+8. Edge.
+9. Observability.
+10. Security.
+11. Backup and Disaster Recovery.
+12. CI/CD.
+
+The corresponding source code modules are:
+
+| Order | Module | Primary components |
+| --- | --- | --- |
+| 1 | `00-bootstrap` | S3 Remote Backend and Terraform State locking. |
+| 2 | `01-foundation` | Shared foundational resources. |
+| 3 | `03-identity` | Cognito, IAM, Post Confirmation Lambda, and CloudWatch Log Group. |
+| 4 | `04-data` | DynamoDB Tables and the S3 Bucket used for media storage. |
+| 5 | `05-messaging` | SQS FIFO, Dead-letter Queues, and EventBridge Scheduler. |
+| 6 | `06-compute` | Lambda Functions, Lambda Layers, IAM Roles, and Event Source Mappings. |
+| 7 | `06-compute/stage3-control-plane` | Lambda Functions for sessions, items, queries, and administration operations. |
+| 8 | `07-api` | REST API, WebSocket API, Authorizers, Routes, Integrations, and Stages. |
+| 9 | `09-edge` | S3 and CloudFront for the User Frontend, Admin Frontend, and media content. |
+| 10 | `10-observability` | Logs, metrics, dashboards, and alarms. |
+| 11 | `11-security` | Additional security configurations. |
+| 12 | `12-backup-dr` | Backup and disaster recovery support. |
+| 13 | `13-cicd` | Resources used by the CI/CD process. |
+
+The actual order may be adjusted by the deployment pipeline. However, modules using `terraform_remote_state` can only be deployed after the State of their dependencies exists.
+
+---
+
+## Deploying the Identity Module
+
+The Identity module deploys the authentication and authorization components.
+
+Navigate to the module:
 
 ```powershell
-cd ..\05-messaging
+cd "D:\ThucTap\Live-Auction\infra\03-identity"
 ```
 
-Validate, plan, and deploy the module:
+Deployment workflow:
 
 ```powershell
 terraform init
@@ -231,88 +265,137 @@ terraform plan -out="tfplan"
 terraform apply "tfplan"
 ```
 
-This module creates the messaging resources:
+This module manages:
 
-* Amazon SQS FIFO Queue.
-* Dead-letter queue, if configured.
-* Queue Policy.
-* Permissions for sending and receiving messages.
-* Configuration for processing bid requests in order.
-
-Review the Output values:
-
-```powershell
-terraform output
-```
-
-The Outputs may include:
-
-* SQS Queue URL.
-* SQS Queue ARN.
-* Dead-letter Queue ARN.
+* Amazon Cognito User Pool.
+* Cognito User Pool App Client.
+* Cognito User Group for Users.
+* Cognito User Group for Administrators.
+* Post Confirmation Lambda.
+* IAM Role and IAM Policy for the Lambda Function.
+* Lambda Permission allowing Cognito to invoke the Lambda Function.
+* CloudWatch Log Group.
 
 ---
 
-## Deploy the Compute Module
+## Deploying the Data Module
 
-Navigate to the Compute module:
+Navigate to the module:
 
 ```powershell
-cd ..\06-compute
+cd "D:\ThucTap\Live-Auction\infra\04-data"
 ```
 
-Initialize and validate the configuration if necessary:
+Deployment workflow:
 
 ```powershell
 terraform init
 terraform validate
 terraform plan -out="tfplan"
-```
-
-Deploy the module:
-
-```powershell
 terraform apply "tfplan"
 ```
 
-The Compute module deploys the business logic components:
+The Data module deploys DynamoDB Tables used for:
 
-* AWS Lambda Functions.
-* IAM Roles for Lambda.
-* Environment Variables.
-* Lambda Permissions.
-* Event Source Mappings between Amazon SQS and AWS Lambda.
-* Functions used by the REST API and WebSocket API.
+* Auction item state.
+* Bid events.
+* WebSocket connections.
+* Bidder aliases.
+* Idempotency control.
+* Auction session catalog.
+* Product category catalog.
+* Administration audit events.
 
-During deployment, the Lambda source code is packaged and uploaded to AWS. Terraform configures the Runtime, Handler, memory, timeout, and environment variables for each function.
-
-<!--
-SCREENSHOT INSTRUCTIONS:
-1. Deploy the 06-compute module.
-2. Capture the output showing the aws_lambda_function resources.
-3. Include the Apply complete result.
-4. Save the image as:
-static/images/5-Workshop/5.3-Infrastructure/terraform-apply-compute.png
--->
-
-<figure style="text-align: center;">
-    <img src="/images/5-Workshop/5.3-Infrastructure/terraform-apply-compute.png" alt="Deploy the Compute module" width="90%">
-    <figcaption style="text-align: center;">
-        <b>Figure 5.3.20.</b> Deploying the system's AWS Lambda Functions.
-    </figcaption>
-</figure>
+This module also deploys the S3 Bucket used to store media data for products and auction sessions.
 
 ---
 
-## Deploy the API Module
+## Deploying the Messaging Module
 
-After the Lambda Functions are available, navigate to the API module:
+Navigate to the module:
 
 ```powershell
-cd ..\07-api
+cd "D:\ThucTap\Live-Auction\infra\05-messaging"
 ```
 
-Run:
+Deployment workflow:
+
+```powershell
+terraform init
+terraform validate
+terraform plan -out="tfplan"
+terraform apply "tfplan"
+```
+
+The Messaging module deploys:
+
+* The SQS Queue that receives bid commands.
+* A Dead-letter Queue for messages that cannot be processed.
+* An EventBridge Scheduler Schedule Group.
+* A Scheduler Dead-letter Queue.
+* IAM Role and IAM Policy for the Scheduler.
+* The mechanism used to process requests in order.
+
+---
+
+## Deploying the Compute Module
+
+Before deploying the Compute module, the team builds the Lambda packages and Lambda Layer using the script in the `backend` directory.
+
+For example, build all packages:
+
+```powershell
+cd "D:\ThucTap\Live-Auction"
+.\backend\build.ps1 -Target all
+```
+
+After the build is completed, navigate to the Compute module:
+
+```powershell
+cd infra\06-compute
+```
+
+Deployment workflow:
+
+```powershell
+terraform init
+terraform validate
+terraform plan -out="tfplan"
+terraform apply "tfplan"
+```
+
+The Compute module deploys:
+
+* Bid Processor Lambda.
+* WebSocket Authorizer Lambda.
+* WebSocket Handler Lambda.
+* Broadcast Lambda.
+* Shared Lambda Layer.
+* IAM Role and IAM Policy for each Lambda Function.
+* CloudWatch Log Groups.
+* Event Source Mapping between SQS and Lambda.
+* Environment Variables used to connect the services.
+
+The `stage3-control-plane` module additionally deploys:
+
+* Session Service Lambda.
+* Item Service Lambda.
+* Query Service Lambda.
+* Admin Command Lambda.
+* Shared Lambda Layer.
+* EventBridge Scheduler for auction session lifecycle operations.
+
+---
+
+## Deploying the API Module
+
+Navigate to the module:
+
+```powershell
+cd "D:\ThucTap\Live-Auction\infra\07-api"
+```
+
+Deployment workflow:
 
 ```powershell
 terraform init
@@ -323,62 +406,34 @@ terraform apply "tfplan"
 
 The API module deploys:
 
-* Amazon API Gateway.
 * REST API.
-* API Routes and Methods.
+* REST API Resources and Methods.
 * Lambda Integrations.
-* Cognito Authorizer.
-* API Gateway WebSocket.
-* WebSocket Routes such as `$connect`, `$disconnect`, and `$default`.
-* Deployment Stages.
-* Permissions allowing API Gateway to invoke Lambda.
-
-After deployment, display the API endpoints:
-
-```powershell
-terraform output
-```
-
-The result may contain:
-
-```text
-rest_api_endpoint      = "https://example.execute-api.ap-southeast-1.amazonaws.com/dev"
-websocket_api_endpoint = "wss://example.execute-api.ap-southeast-1.amazonaws.com/dev"
-```
-
-{{% notice warning %}}
-The endpoints above are examples only. Use the endpoints returned by Terraform in the actual deployment environment.
-{{% /notice %}}
-
-<!--
-SCREENSHOT INSTRUCTIONS:
-1. Run terraform output after deploying the 07-api module.
-2. Capture the REST API endpoint and WebSocket endpoint.
-3. Partially hide the API ID if necessary.
-4. Save the image as:
-static/images/5-Workshop/5.3-Infrastructure/terraform-api-outputs.png
--->
-
-<figure style="text-align: center;">
-    <img src="/images/5-Workshop/5.3-Infrastructure/terraform-api-outputs.png" alt="Terraform API Outputs" width="85%">
-    <figcaption style="text-align: center;">
-        <b>Figure 5.3.21.</b> REST API and WebSocket endpoints after deployment.
-    </figcaption>
-</figure>
+* API Gateway Stage.
+* API Gateway Deployment.
+* API Key and Usage Plan.
+* WebSocket API.
+* WebSocket Authorizer.
+* `$connect` Route.
+* `$disconnect` Route.
+* `join_room` Route.
+* `place_bid` Route.
+* Lambda Permissions for API Gateway.
+* CloudWatch Access Logs.
 
 ---
 
-## Deploy the Edge Module
+## Deploying the Edge Module
 
-The Edge module is deployed after the API and backend components are available.
+The Edge module is deployed after the backend and APIs are available.
 
 Navigate to the module:
 
 ```powershell
-cd ..\09-edge
+cd "D:\ThucTap\Live-Auction\infra\09-edge"
 ```
 
-Validate, plan, and deploy the module:
+Deployment workflow:
 
 ```powershell
 terraform init
@@ -389,117 +444,196 @@ terraform apply "tfplan"
 
 The Edge module deploys:
 
-* S3 Bucket for the frontend.
-* S3 Bucket Policy.
-* Amazon CloudFront Distribution.
+* S3 Bucket for the User Frontend.
+* S3 Bucket for the Admin Frontend.
+* CloudFront Distribution for the User Frontend.
+* CloudFront Distribution for the Admin Frontend.
+* CloudFront Distribution for media content.
 * Origin Access Control.
-* Default Root Object configuration.
-* Static content distribution configuration.
-* Output values for S3 and CloudFront.
+* S3 Bucket Policies.
+* Server-side Encryption.
+* S3 Public Access Block.
+* Default Root Object.
+* Static content distribution rules.
 
-After the deployment, review the Outputs:
+---
 
-```powershell
-terraform output
-```
+## Deploying the Operational Modules
 
-Example:
+After the primary functional components are available, the team deploys the following modules.
+
+### Observability
 
 ```text
-frontend_bucket_name   = "live-auction-frontend-example"
-cloudfront_domain_name = "example.cloudfront.net"
+infra/10-observability
 ```
 
-<!--
-SCREENSHOT INSTRUCTIONS:
-1. Run terraform output in the 09-edge module.
-2. Capture the S3 Bucket name and CloudFront domain.
-3. Save the image as:
-static/images/5-Workshop/5.3-Infrastructure/terraform-edge-outputs.png
--->
+This module provides logs, metrics, dashboards, and alarms for monitoring the system.
 
-<figure style="text-align: center;">
-    <img src="/images/5-Workshop/5.3-Infrastructure/terraform-edge-outputs.png" alt="Terraform Edge Outputs" width="85%">
-    <figcaption style="text-align: center;">
-        <b>Figure 5.3.22.</b> S3 and CloudFront Output values after deployment.
-    </figcaption>
-</figure>
+### Security
+
+```text
+infra/11-security
+```
+
+This module adds security configurations and controls to the infrastructure.
+
+### Backup and Disaster Recovery
+
+```text
+infra/12-backup-dr
+```
+
+This module configures backup and recovery capabilities for system failures.
+
+### CI/CD
+
+```text
+infra/13-cicd
+```
+
+This module deploys the components that support automated building, testing, and deployment.
+
+Each module follows the basic workflow:
+
+```powershell
+terraform init
+terraform validate
+terraform plan -out="tfplan"
+terraform apply "tfplan"
+```
 
 ---
 
-## Review Terraform Outputs
+## Checking Terraform State After Deployment
 
-After deploying each module, display its Output values:
-
-```powershell
-terraform output
-```
-
-Display a specific Output:
-
-```powershell
-terraform output rest_api_endpoint
-```
-
-Export the Output values as JSON:
-
-```powershell
-terraform output -json
-```
-
-Output values are used to:
-
-* Configure the frontend.
-* Configure Lambda environment variables.
-* Connect the application to API Gateway.
-* Establish WebSocket connections.
-* Verify resource names and ARNs.
-* Transfer information between modules.
-
-If an Output is marked as sensitive, Terraform does not display its value in the normal output.
-
-{{% notice warning %}}
-Do not publicly disclose Outputs containing tokens, passwords, credentials, or other sensitive information.
-{{% /notice %}}
-
----
-
-## Review the Terraform State
-
-After deployment, list the resources managed by Terraform:
+After the infrastructure has been deployed, the resources managed by Terraform can be verified using:
 
 ```powershell
 terraform state list
 ```
 
-Example:
-
-```text
-aws_cognito_user_pool.live_auction
-aws_cognito_user_pool_client.web_client
-aws_iam_role.lambda_execution_role
-```
-
-Display the details of a resource:
+For example, in the Identity module:
 
 ```powershell
-terraform state show aws_cognito_user_pool.live_auction
+cd "D:\ThucTap\Live-Auction\infra\03-identity"
+terraform state list
 ```
 
-The `terraform state list` command confirms that the deployed resources have been recorded in the Terraform State.
+The result displays resources such as:
+
+```text
+aws_cloudwatch_log_group.cognito_post_confirm
+aws_cognito_user_group.admin
+aws_cognito_user_group.user
+aws_cognito_user_pool.main
+aws_cognito_user_pool_client.web
+aws_iam_role.cognito_post_confirm
+aws_iam_role_policy.cognito_post_confirm
+aws_lambda_function.cognito_post_confirm
+aws_lambda_permission.cognito_post_confirm
+```
+
+<figure style="text-align: center;">
+    <img src="/images/5-Workshop/5.3-Infrastructure/terraform-state-list.png" alt="Resources recorded in Terraform State" width="85%">
+    <figcaption style="text-align: center;">
+        <b>Figure 5.3.18.</b> Identity module resources managed through Terraform State.
+    </figcaption>
+</figure>
 
 {{% notice warning %}}
-Do not edit the Terraform State file manually. Incorrect State modifications may prevent Terraform from managing the infrastructure accurately.
+Do not directly modify Terraform State. Incorrect State operations may prevent Terraform from managing the infrastructure correctly or cause unintended changes.
 {{% /notice %}}
 
 ---
 
-## Verify Infrastructure Synchronization
+## Checking Terraform Output
 
-After `terraform apply` is complete, run:
+After deployment, Terraform Output is used to retrieve information required to connect the modules, frontend applications, backend services, and AWS resources.
+
+From the Identity module, run:
 
 ```powershell
-terraform plan
+cd "D:\ThucTap\Live-Auction\infra\03-identity"
+terraform output
+```
+
+The command returns:
+
+```text
+PS D:\ThucTap\Live-Auction\infra\03-identity> terraform output
+
+cognito_client_id = "2ttqnjt0nmttmi655dav*******"
+cognito_issuer = "https://cognito-idp.ap-southeast-1.amazonaws.com/ap-southeast-1_1Ly4*****"
+cognito_jwks_url = "https://cognito-idp.ap-southeast-1.amazonaws.com/ap-southeast-1_1Ly4*****/.well-known/jwks.json"
+cognito_user_pool_arn = "arn:aws:cognito-idp:ap-southeast-1:************:userpool/ap-southeast-1_1Ly4*****"
+cognito_user_pool_client_id = "2tt*********************703g"
+cognito_user_pool_id = "ap-southeast-1_1Ly4*****"
+
+Warning: Deprecated Parameter
+
+The parameter "dynamodb_table" is deprecated.
+Use parameter "use_lockfile" instead.
+```
+
+The Outputs have the following roles:
+
+| Output | Role |
+| --- | --- |
+| `cognito_client_id` | ID of the Cognito App Client used by the frontend when sending authentication requests. |
+| `cognito_issuer` | Address of the JWT issuer for the User Pool. |
+| `cognito_jwks_url` | Address providing the public keys used by the backend or Authorizer to verify JWT signatures. |
+| `cognito_user_pool_arn` | ARN identifying the Cognito User Pool on AWS. |
+| `cognito_user_pool_client_id` | ID of the Cognito App Client exported for use by other components. |
+| `cognito_user_pool_id` | ID of the Cognito User Pool deployed for the system. |
+
+These Outputs are used to:
+
+* Configure the User Frontend and Admin Frontend.
+* Send registration and sign-in requests to Amazon Cognito.
+* Verify JWTs in the backend or API Authorizer.
+* Pass Identity information to dependent modules.
+* Identify the User Pool and App Client currently in use.
+* Connect backend services to the authentication system.
+
+To retrieve an individual Output, run:
+
+```powershell
+terraform output cognito_user_pool_id
+```
+
+To retrieve the value without quotation marks, use `-raw`:
+
+```powershell
+terraform output -raw cognito_user_pool_id
+```
+
+To export all Outputs as JSON:
+
+```powershell
+terraform output -json
+```
+
+The JSON result can be consumed by deployment scripts or passed to subsequent configuration steps.
+
+{{% notice info %}}
+The `dynamodb_table is deprecated` warning appears because the Terraform Backend currently uses a DynamoDB table to lock Terraform State. The configuration was still operational at the time of verification, but newer Terraform versions recommend using the S3 Backend `use_lockfile` option. This is a future compatibility warning, not an error from `terraform output`.
+{{% /notice %}}
+
+{{% notice warning %}}
+The Cognito User Pool ID, App Client ID, and ARN are not passwords or Secret Keys. However, these values still disclose information about the AWS resource identifiers and infrastructure structure. Because the report repository is Public, the team partially hides the Account ID, User Pool ID, App Client ID, and ARN before including the output in the report. Never disclose a Client Secret, Access Token, Refresh Token, password, or AWS credential.
+{{% /notice %}}
+
+The `terraform output` result confirms that the Identity module has been deployed, Terraform State contains the output values, and other components can use these values to connect to Amazon Cognito.
+
+---
+
+## Confirming Synchronization After Deployment
+
+After deployment, the team runs:
+
+```powershell
+terraform plan -no-color
 ```
 
 If the infrastructure matches the configuration, Terraform displays:
@@ -508,144 +642,157 @@ If the infrastructure matches the configuration, Terraform displays:
 No changes. Your infrastructure matches the configuration.
 ```
 
-This confirms that:
+This result confirms that:
 
-* The AWS resources were created according to the configuration.
-* The Terraform State was updated.
-* No pending infrastructure changes remain.
+* AWS resources were deployed according to the configuration.
+* Terraform State was updated.
+* No unapplied changes remain.
 * The Terraform source code and actual infrastructure are synchronized.
 
-<!--
-SCREENSHOT INSTRUCTIONS:
-1. After a successful apply, run terraform plan again.
-2. Capture:
-   No changes. Your infrastructure matches the configuration.
-3. Save the image as:
-static/images/5-Workshop/5.3-Infrastructure/terraform-no-changes.png
--->
+The `No changes` screenshot was already presented in **Section 5.3.4 – Reviewing the Deployment Plan**, so the same image is not repeated in this section.
 
-<figure style="text-align: center;">
-    <img src="/images/5-Workshop/5.3-Infrastructure/terraform-no-changes.png" alt="Terraform reports no changes" width="90%">
-    <figcaption style="text-align: center;">
-        <b>Figure 5.3.23.</b> Terraform confirms that the infrastructure matches the configuration.
-    </figcaption>
-</figure>
+---
+
+## Checking Resources on AWS Management Console
+
+In addition to Terraform State, the team signs in to AWS Management Console and verifies:
+
+* Cognito User Pool and App Client.
+* IAM Roles and IAM Policies.
+* DynamoDB Tables.
+* SQS FIFO Queues and Dead-letter Queues.
+* Lambda Functions and Lambda Layers.
+* REST API and WebSocket API.
+* S3 Buckets.
+* CloudFront Distributions.
+* CloudWatch Log Groups and Alarms.
+* CI/CD resources.
+
+The AWS Management Console verification confirms that the resources were created and currently exist in the AWS account.
+
+A consolidated resource list is presented in **Section 5.4 – Deployed AWS Services**.
 
 ---
 
 ## Common Errors
 
-### The saved plan is no longer valid
+### Missing Lambda Package
 
-Error message:
+Terraform may return:
+
+```text
+Call to function "filebase64sha256" failed
+```
+
+or:
+
+```text
+The system cannot find the file specified.
+```
+
+This error occurs when the Lambda ZIP archive has not been built on the current computer.
+
+For example, build the Post Confirmation Lambda:
+
+```powershell
+cd "D:\ThucTap\Live-Auction"
+.\backend\build.ps1 -Target function -FunctionName cognito_post_confirm
+```
+
+### Saved Plan Is Stale
+
+Terraform may return:
 
 ```text
 Saved plan is stale
 ```
 
-Generate a new plan:
+This error occurs when the configuration or State changes after the `tfplan` file has been created.
+
+Create a new plan:
 
 ```powershell
 terraform plan -out="tfplan"
 ```
 
-Apply the new plan:
+Review the new plan before applying it.
 
-```powershell
-terraform apply "tfplan"
-```
+### Insufficient AWS Permissions
 
-### Insufficient permissions
-
-Error message:
+The following message may appear:
 
 ```text
 AccessDenied
 ```
 
-Verify the current AWS identity:
+Check the AWS identity:
 
 ```powershell
 aws sts get-caller-identity
 ```
 
-Then review the IAM Policy assigned to the deployment identity.
+Then review the IAM Policy of the account or Role performing the deployment.
 
-### The resource already exists
+### State Is Locked
 
-If a resource was created manually, Terraform may report a duplicate-name error.
+Terraform may return an error when another process is operating on the same State.
 
-The team should:
+Do not manually remove the lock or use `force-unlock` until the previous process has been confirmed as completed.
 
-* Review the existing AWS resource.
-* Rename the new resource if appropriate.
-* Or import the existing resource into the Terraform State using `terraform import`.
+### Resource Exists Outside Terraform State
 
-### Module dependency error
+If a resource was created manually but is not managed through Terraform State, the apply operation may fail because of a duplicate resource name.
 
-If a module requires an Output from another module that has not been deployed, the deployment may fail.
+Review the existing resource and consider using `terraform import` instead of recreating it.
 
-Deploy the modules in the required order:
+### CloudFront Is Not Updated Immediately
 
-```text
-Identity → Data → Messaging → Compute → API → Edge
-```
-
-### Lambda package error
-
-Check:
-
-* The source-code path.
-* Handler name.
-* Runtime.
-* Required dependencies.
-* ZIP file structure.
-* The `source_code_hash` value.
-
-### CloudFront is not immediately available
-
-After deployment, CloudFront may require some time to reach the `Deployed` status. Wait for the distribution process to finish before testing the frontend.
+After deployment, CloudFront may require additional time to enter the `Deployed` state. Wait for the distribution to complete before testing the frontend.
 
 ---
 
-## Destroy Resources in a Test Environment
+## Resource Destruction Warning
 
-To remove test resources, first review the destruction plan:
-
-```powershell
-terraform plan -destroy
-```
-
-After carefully reviewing the plan, run:
+The following command:
 
 ```powershell
 terraform destroy
 ```
 
-Terraform requests confirmation:
-
-```text
-yes
-```
+removes the resources managed by the current module.
 
 {{% notice danger %}}
-`terraform destroy` deletes the resources managed by the current module. Do not run this command in an active environment without backing up data and confirming the exact scope of the operation.
+Do not run `terraform destroy` against the active Live Auction environment. This command may remove the Cognito User Pool, Lambda Functions, DynamoDB Tables, SQS Queues, API Gateway APIs, S3 Buckets, or other critical resources, causing system interruption and data loss.
 {{% /notice %}}
+
+Resources should only be destroyed in a test environment after:
+
+* Identifying the exact module and resource scope.
+* Backing up the required data.
+* Reviewing the destruction plan.
+* Receiving approval from the team.
+* Confirming that users will not be affected.
 
 ---
 
-## Result
+## Results
 
-After completing the deployment process:
+After the infrastructure deployment was completed:
 
-* The Terraform modules were applied in the correct dependency order.
-* IAM Roles, IAM Policies, and Amazon Cognito were created.
-* Amazon DynamoDB tables were deployed.
-* Amazon SQS FIFO was configured for ordered bid request processing.
-* AWS Lambda Functions were deployed.
-* REST API and WebSocket API were created using Amazon API Gateway.
-* Amazon S3 and Amazon CloudFront were configured for the frontend.
-* The required Output values were retrieved from Terraform.
-* The Terraform State was updated with the deployed resources.
-* The post-deployment `terraform plan` confirmed that no pending changes remained.
-* The infrastructure was ready for deployment verification.
+* The Remote Backend and Terraform State were configured.
+* The modules were deployed according to their dependencies.
+* Amazon Cognito and IAM resources were created.
+* The Post Confirmation Lambda was integrated with Cognito.
+* Amazon DynamoDB Tables were deployed.
+* The media storage S3 Bucket was configured.
+* Amazon SQS FIFO and Dead-letter Queues were created.
+* EventBridge Scheduler was configured for time-based operations.
+* AWS Lambda Functions and Lambda Layers were deployed.
+* The REST API and WebSocket API were created through Amazon API Gateway.
+* The User Frontend and Admin Frontend were stored in separate S3 Buckets.
+* CloudFront Distributions were configured for the frontend applications and media content.
+* Monitoring, security, backup, and CI/CD components were added.
+* Terraform State recorded the managed resources.
+* Terraform Output provided the values required by dependent components.
+* Post-deployment verification confirmed that the Terraform source code and AWS infrastructure were synchronized.
+* The infrastructure was ready for detailed service verification in the next section.

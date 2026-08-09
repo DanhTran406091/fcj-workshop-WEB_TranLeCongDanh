@@ -64,15 +64,16 @@ Nếu AWS CLI đã được cấu hình chính xác, kết quả sẽ trả về
 Ví dụ:
 
 ```json
-{
-    "UserId": "EXAMPLEUSERID",
-    "Account": "123456789012",
-    "Arn": "arn:aws:iam::123456789012:user/example-user"
+{                                                                                                                                              
+    "UserId": "AIDATMVS2AD************",
+    "Account": "2333********",
+    "Arn": "arn:aws:iam::23********:user/la-frontend-1"
 }
+
 ```
 
 {{% notice warning %}}
-Không đưa Access Key, Secret Access Key hoặc Session Token vào hình ảnh và mã nguồn báo cáo. Nên che một phần Account ID và ARN trước khi sử dụng ảnh chụp.
+**Lưu ý bảo mật:** Không đưa **Access Key**, **Secret Access Key** hoặc **Session Token** vào hình ảnh, mã nguồn hay repository báo cáo. Đây là các thông tin xác thực có thể được sử dụng để truy cập tài khoản AWS, gọi dịch vụ và tạo hoặc thay đổi tài nguyên trong phạm vi quyền đã cấp. Nếu bị công khai, các thông tin này có thể dẫn đến truy cập trái phép, mất dữ liệu hoặc phát sinh chi phí AWS ngoài ý muốn. Kết quả của lệnh `aws sts get-caller-identity` không hiển thị Secret Access Key nhưng có chứa **AWS Account ID**, **User ID** và **ARN**. Các thông tin này không phải mật khẩu, tuy nhiên vẫn có thể làm lộ danh tính tài khoản, tên IAM User hoặc IAM Role và cấu trúc tài nguyên của hệ thống. Vì vậy, nên che một phần Account ID, User ID và ARN trước khi đưa ảnh chụp vào báo cáo hoặc repository công khai.
 {{% /notice %}}
 
 ---
@@ -91,53 +92,105 @@ Trong lần khởi tạo đầu tiên, nhóm bắt đầu với module `03-ident
 cd 03-identity
 ```
 
-Kiểm tra các tệp cấu hình trong module:
+Module `03-identity` chứa các tệp cấu hình Terraform được sử dụng để triển khai lớp xác thực và phân quyền của hệ thống. Các tệp trong module khai báo Terraform Backend, AWS Provider, biến đầu vào, giá trị đầu ra và các tài nguyên liên quan đến Amazon Cognito và AWS IAM.
+
+Có thể kiểm tra vị trí thư mục hiện tại bằng lệnh:
 
 ```powershell
-Get-ChildItem
+Get-Location
 ```
 
-Thư mục module bao gồm các tệp Terraform cơ bản:
+Kết quả cần cho thấy Terminal đang làm việc tại thư mục:
 
 ```text
-backend.tf
-main.tf
-outputs.tf
-providers.tf
-variables.tf
-versions.tf
+D:\ThucTap\Live-Auction\infra\03-identity
 ```
+
+Sau khi di chuyển đúng vào module, nhóm tiếp tục thực hiện bước khởi tạo Terraform Backend và môi trường làm việc.
+
+---
+
+## Kiểm tra kết quả khởi tạo
+
+Sau khi lệnh `terraform init` hoàn tất, nhóm sử dụng lệnh sau để kiểm tra các tệp trong module:
+
+```powershell
+Get-ChildItem -Force
+```
+
+Kết quả cho thấy các tệp cấu hình Terraform ban đầu vẫn được giữ nguyên, đồng thời Terraform đã tạo thêm thư mục `.terraform/` và tệp `.terraform.lock.hcl`.
+
+Các thành phần chính trong thư mục bao gồm:
+
+* `backend.tf`: Khai báo Remote Backend dùng để lưu trữ Terraform State.
+* `main.tf`: Khai báo các tài nguyên chính của module Identity.
+* `outputs.tf`: Khai báo các giá trị đầu ra của module.
+* `providers.tf`: Cấu hình AWS Provider.
+* `variables.tf`: Khai báo các biến đầu vào.
+* `versions.tf`: Khai báo phiên bản Terraform và Provider được yêu cầu.
+* `.terraform/`: Chứa Provider, module phụ thuộc và thông tin Backend được Terraform sử dụng.
+* `.terraform.lock.hcl`: Khóa phiên bản Provider đã được Terraform lựa chọn.
+* `tfplan`: Tệp kế hoạch triển khai được tạo trong quá trình thực hiện `terraform plan` trước đó.
+
+<figure style="text-align: center;">
+    <img src="/images/5-Workshop/5.3-Infrastructure/terraform-init-files.png" alt="Các tệp trong module Identity sau khi Terraform Init" width="80%">
+    <figcaption style="text-align: center;">
+        <b>Hình 5.3.14.</b> Các tệp trong module <code>03-identity</code> sau khi khởi tạo Terraform.
+    </figcaption>
+</figure>
+
+{{% notice info %}}
+Tệp `tfplan` không được tạo bởi lệnh `terraform init`. Đây là tệp kế hoạch triển khai đã được tạo trong quá trình thực hiện `terraform plan` trước đó. Tệp này xuất hiện trong ảnh do nhóm kiểm tra lại thư mục sau khi hệ thống đã hoàn tất quá trình triển khai.
+{{% /notice %}}
+
+Kết quả trên cho thấy:
+
+* Terraform đã nhận diện thành công các tệp cấu hình của module.
+* AWS Provider đã được tải về máy.
+* Remote Backend đã được kết nối.
+* Phiên bản Provider đã được khóa trong `.terraform.lock.hcl`.
+* Module `03-identity` đã sẵn sàng cho các bước `terraform validate`, `terraform plan` và `terraform apply`.
+
+Việc chạy lại `terraform init` không tạo mới, cập nhật hoặc xóa các tài nguyên AWS đang hoạt động. Lệnh này chỉ chuẩn bị lại môi trường làm việc Terraform và kết nối đến Remote Backend đã được cấu hình.
 
 ---
 
 ## Khởi tạo Terraform Backend
 
-Dự án sử dụng Terraform Backend để lưu trữ trạng thái hạ tầng từ xa. Cấu hình Backend được khai báo trong tệp `backend.tf` của từng module.
+Để quản lý trạng thái của hạ tầng sau khi triển khai, dự án sử dụng **Remote Backend** thay vì lưu Terraform State trực tiếp trên máy của từng thành viên. Cấu hình Backend được khai báo trong tệp `backend.tf` của từng module Terraform.
 
-Ví dụ:
+Trong hệ thống Live Auction, Terraform State được lưu trữ trên **Amazon S3**. Mỗi module sử dụng một `key` riêng để tách biệt tệp trạng thái, giúp việc quản lý các thành phần hạ tầng trở nên rõ ràng và hạn chế ảnh hưởng lẫn nhau giữa các module.
+
+Ví dụ, cấu hình Backend của module **07-api** như sau:
 
 ```hcl
 terraform {
   backend "s3" {
-    bucket = "TEN_BUCKET_LUU_TERRAFORM_STATE"
-    key    = "identity/terraform.tfstate"
-    region = "ap-southeast-1"
+    bucket         = "la-tfstate-233376973052"
+    key            = "07-api/terraform.tfstate"
+    region         = "ap-southeast-1"
+    dynamodb_table = "la-tflock"
+    encrypt        = true
   }
 }
 ```
 
-Ý nghĩa của các thuộc tính:
+Các thuộc tính trong cấu hình có ý nghĩa như sau:
 
-| Thuộc tính | Chức năng |
-| --- | --- |
-| `bucket` | Tên S3 Bucket dùng để lưu Terraform State. |
-| `key` | Đường dẫn của tệp State tương ứng với module. |
-| `region` | AWS Region chứa S3 Bucket. |
+| Thuộc tính       | Chức năng                                                               |
+| ---------------- | ----------------------------------------------------------------------- |
+| `bucket`         | Tên Amazon S3 Bucket được sử dụng để lưu trữ Terraform State.           |
+| `key`            | Đường dẫn của tệp Terraform State tương ứng với module đang triển khai. |
+| `region`         | AWS Region chứa S3 Bucket dùng làm Terraform Backend.                   |
+| `dynamodb_table` | Tên bảng Amazon DynamoDB được cấu hình để hỗ trợ cơ chế khóa State.     |
+| `encrypt`        | Cho phép mã hóa Terraform State khi được lưu trữ trên Amazon S3.        |
 
-Việc sử dụng Remote Backend giúp Terraform State không phụ thuộc vào máy tính của một thành viên. Các thành viên trong nhóm có thể sử dụng chung trạng thái hạ tầng trong quá trình phát triển và triển khai.
+Trong cấu hình trên, Terraform State của module **07-api** được lưu tại `07-api/terraform.tfstate` trong S3 Bucket `la-tfstate-233376973052` tại Region `ap-southeast-1`.
+
+Việc sử dụng Remote Backend giúp Terraform State không phụ thuộc vào máy tính của một thành viên cụ thể. Nhờ đó, các thành viên trong nhóm có thể làm việc trên cùng trạng thái hạ tầng và giảm nguy cơ xảy ra sai lệch giữa các môi trường triển khai.
 
 {{% notice note %}}
-Thay `TEN_BUCKET_LUU_TERRAFORM_STATE` bằng tên S3 Bucket thực tế trong tệp cấu hình của nhóm.
+Mỗi module Terraform có thể sử dụng một `key` khác nhau trong cùng S3 Bucket để quản lý Terraform State riêng cho từng thành phần hạ tầng.
 {{% /notice %}}
 
 Nếu tài nguyên Remote Backend chưa được tạo, di chuyển đến thư mục `00-bootstrap`:
