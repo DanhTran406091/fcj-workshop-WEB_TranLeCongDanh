@@ -1,4 +1,12 @@
-### 5.5.2. Phương pháp và định dạng test case
+---
+title: "Phương pháp và định dạng test case"
+date: 2026-08-03
+weight: 2
+chapter: false
+pre: " <b> 5.5.2. </b> "
+---
+
+### Phương pháp và định dạng test case
 
 #### Phương pháp kiểm thử
 

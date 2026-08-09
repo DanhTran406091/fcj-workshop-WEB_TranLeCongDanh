@@ -1,4 +1,10 @@
-### 5.5.7. S3, Image Upload, and CloudFront Testing
+---
+title: "S3, Image Upload, and CloudFront Testing"
+date: 2026-08-03
+weight: 7
+chapter: false
+pre: " <b> 5.5.7. </b> "
+---
 
 #### Objective
 

@@ -1,4 +1,12 @@
-### 5.5.3. Authentication and Authorization Testing
+---
+title: "Authentication and Authorization Testing"
+date: 2026-08-03
+weight: 3
+chapter: false
+pre: " <b> 5.5.3. </b> "
+---
+
+### Authentication and Authorization Testing
 
 #### Test Objectives
 

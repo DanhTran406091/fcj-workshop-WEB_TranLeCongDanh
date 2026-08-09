@@ -1,4 +1,10 @@
-### 5.5.6. Kiểm thử luồng đặt giá đầu cuối
+---
+title: "Kiểm thử luồng đặt giá đầu cuối"
+date: 2026-08-03
+weight: 6
+chapter: false
+pre: " <b> 5.5.6. </b> "
+---
 
 #### Mục tiêu
 

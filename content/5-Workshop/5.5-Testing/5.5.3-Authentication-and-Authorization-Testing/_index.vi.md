@@ -1,4 +1,12 @@
-### 5.5.3. Kiểm thử xác thực và phân quyền
+---
+title: "Kiểm thử xác thực và phân quyền"
+date: 2026-08-03
+weight: 3
+chapter: false
+pre: " <b> 5.5.3. </b> "
+---
+
+### Kiểm thử xác thực và phân quyền
 
 #### Mục tiêu kiểm thử
 
