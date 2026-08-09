@@ -58,7 +58,7 @@ Trong đó:
 - **infra/**: Mã nguồn Terraform dùng để triển khai hạ tầng AWS.
 
 <figure style="text-align: center;">
-    <img src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.2-Prerequisite/project-structure.png" alt="Project Structure" width="35%">
+    <img src="/images/5-Workshop/5.2-Prerequisite/project-structure.png" alt="Project Structure" width="35%">
     <figcaption style="text-align: center;">
         <b>Hình 5.2.1.</b> Cấu trúc thư mục chính của dự án.
     </figcaption>
@@ -75,7 +75,7 @@ aws --version
 ```
 
 <figure style="text-align: center;">
-    <img src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.2-Prerequisite/aws-version.png" alt="AWS CLI Version" width="80%">
+    <img src="/images/5-Workshop/5.2-Prerequisite/aws-version.png" alt="AWS CLI Version" width="80%">
     <figcaption style="text-align: center;">
         <b>Hình 5.2.2.</b> Kiểm tra phiên bản AWS CLI.
     </figcaption>
@@ -97,7 +97,7 @@ Nhập lần lượt các thông tin sau:
 Sau khi hoàn tất, AWS CLI sẽ lưu thông tin xác thực để Terraform có thể sử dụng trong quá trình triển khai.
 
 <figure style="text-align: center;">
-    <img src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.2-Prerequisite/aws-configure.png" alt="AWS Configure" width="80%">
+    <img src="/images/5-Workshop/5.2-Prerequisite/aws-configure.png" alt="AWS Configure" width="80%">
     <figcaption style="text-align: center;">
         <b>Hình 5.2.3.</b> Cấu hình AWS CLI bằng lệnh <code>aws configure</code>.
     </figcaption>
@@ -118,7 +118,7 @@ Nếu cài đặt thành công, hệ thống sẽ hiển thị phiên bản Terr
 Terraform sẽ được sử dụng trong các bước tiếp theo để triển khai và quản lý toàn bộ hạ tầng AWS của hệ thống Live Auction.
 
 <figure style="text-align: center;">
-    <img src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.2-Prerequisite/terraform-version.png" alt="Terraform Version" width="60%">
+    <img src="/images/5-Workshop/5.2-Prerequisite/terraform-version.png" alt="Terraform Version" width="60%">
     <figcaption style="text-align: center;">
         <b>Hình 5.2.4.</b> Kiểm tra phiên bản Terraform.
     </figcaption>

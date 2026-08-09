@@ -183,7 +183,7 @@ Thông báo này cho biết:
 * Không có tài nguyên cần xóa hoặc thay thế.
 
 <figure style="text-align: center;">
-    <img src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.3-Infrastructure/terraform-plan-no-changes.png" alt="Terraform Plan không phát hiện thay đổi" width="80%">
+    <img src="/images/5-Workshop/5.3-Infrastructure/terraform-plan-no-changes.png" alt="Terraform Plan không phát hiện thay đổi" width="80%">
     <figcaption style="text-align: center;">
         <b>Hình 5.3.16.</b> Terraform xác nhận hạ tầng hiện tại phù hợp với cấu hình của module Identity.
     </figcaption>

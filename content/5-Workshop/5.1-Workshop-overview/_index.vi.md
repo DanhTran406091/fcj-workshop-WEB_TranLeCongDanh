@@ -38,7 +38,7 @@ User Frontend và Admin Frontend được triển khai độc lập nhằm tách
 Sơ đồ dưới đây mô tả kiến trúc triển khai thực tế của hệ thống.
 
 {{< figure
-    src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.1-Workshop-overview/live-auction-deployment-architecture.svg"
+    src="/images/5-Workshop/5.1-Workshop-overview/live-auction-deployment-architecture.svg"
     title="Hình 5.1.1: Kiến trúc triển khai hệ thống Live Auction trên AWS"
     width="100%"
 >}}

@@ -134,7 +134,7 @@ These APIs support:
 ```text
 GET  /api/v1/auction-items
 GET  /api/v1/auction-items/{item_id}
-POST /api/v1/auction-items/{item_id}/fcj-workshop-WEB_TranLeCongDanh/images/presign
+POST /api/v1/auction-items/{item_id}/images/presign
 ```
 
 These APIs support:
@@ -480,7 +480,7 @@ Verify:
 * AWS Region.
 
 {{< figure
-    src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.4-AWS-services/5.4.5-API-Gateway/api-gateway-api-list.png"
+    src="/images/5-Workshop/5.4-AWS-services/5.4.5-API-Gateway/api-gateway-api-list.png"
     title="Figure 5.4.5.1: APIs of the Live Auction system on Amazon API Gateway"
     width="100%"
 >}}
@@ -652,7 +652,7 @@ The Resource tree shows that the REST API is divided into two primary groups:
 Because the Resource tree on the AWS Management Console contains many paths and cannot be displayed completely on one screen, the following figure shows only part of the deployed structure. The complete list is presented in the Resource tree above.
 
 {{< figure
-    src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.4-AWS-services/5.4.5-API-Gateway/api-gateway-resources-methods.png"
+    src="/images/5-Workshop/5.4-AWS-services/5.4.5-API-Gateway/api-gateway-resources-methods.png"
     title="Figure 5.4.5.2: Part of the REST API Resources and HTTP Methods on the AWS Management Console"
     width="50%"
 >}}
@@ -685,7 +685,7 @@ Lambda Proxy Integration: Enabled
 ```
 
 {{< figure
-    src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.4-AWS-services/5.4.5-API-Gateway/api-gateway-method-execution.png"
+    src="/images/5-Workshop/5.4-AWS-services/5.4.5-API-Gateway/api-gateway-method-execution.png"
     title="Figure 5.4.5.3: Method and Lambda Integration configuration of the REST API"
     width="100%"
 >}}
@@ -709,7 +709,7 @@ The following information should be confirmed:
 * The Authorizer is used by the API Methods.
 
 {{< figure
-    src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.4-AWS-services/5.4.5-API-Gateway/api-gateway-cognito-authorizer.png"
+    src="/images/5-Workshop/5.4-AWS-services/5.4.5-API-Gateway/api-gateway-cognito-authorizer.png"
     title="Figure 5.4.5.4: Cognito User Pool Authorizer of the REST API"
     width="100%"
 >}}
@@ -736,7 +736,7 @@ Verify:
 The Stage should not be modified directly through the AWS Console because it is managed by Terraform.
 
 {{< figure
-    src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.4-AWS-services/5.4.5-API-Gateway/api-gateway-prod-stage.png"
+    src="/images/5-Workshop/5.4-AWS-services/5.4.5-API-Gateway/api-gateway-prod-stage.png"
     title="Figure 5.4.5.5: prod Stage of the Amazon API Gateway REST API"
     width="100%"
 >}}
@@ -759,7 +759,7 @@ Verify:
 * Connected Usage Plan.
 
 {{< figure
-    src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.4-AWS-services/5.4.5-API-Gateway/api-gateway-api-key.png"
+    src="/images/5-Workshop/5.4-AWS-services/5.4.5-API-Gateway/api-gateway-api-key.png"
     title="Figure 5.4.5.6: API Key configured for the REST API"
     width="100%"
 >}}
@@ -789,7 +789,7 @@ Quota: 10,000 requests/day
 ```
 
 {{< figure
-    src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.4-AWS-services/5.4.5-API-Gateway/api-gateway-usage-plan.png"
+    src="/images/5-Workshop/5.4-AWS-services/5.4.5-API-Gateway/api-gateway-usage-plan.png"
     title="Figure 5.4.5.7: Throttling and Quota of the API Gateway Usage Plan"
     width="100%"
 >}}
@@ -824,7 +824,7 @@ The `4XX error` graph records requests rejected because of client-side errors, s
 The Access Logs of the `prod` Stage are stored in the CloudWatch Log Group configured in the **Logs and tracing** section of the Stage.
 
 {{< figure
-    src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.4-AWS-services/5.4.5-API-Gateway/api-gateway-cloudwatch-metrics.png"
+    src="/images/5-Workshop/5.4-AWS-services/5.4.5-API-Gateway/api-gateway-cloudwatch-metrics.png"
     title="Figure 5.4.5.8: API Call, Latency, and Error Metrics of the REST API"
     width="100%"
 >}}

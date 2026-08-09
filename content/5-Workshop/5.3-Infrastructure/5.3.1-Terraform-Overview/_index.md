@@ -13,7 +13,7 @@ Terraform is an **Infrastructure as Code (IaC)** tool developed by HashiCorp tha
 Using Terraform, all AWS resources required by the system, such as IAM, Amazon S3, Amazon CloudFront, Amazon Cognito, AWS Lambda, Amazon API Gateway, Amazon DynamoDB, and Amazon SQS, are described as code. When deployment is required, Terraform automatically creates or updates these resources according to the defined configuration.
 
 <figure style="text-align: center;">
-    <img src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.3-Infrastructure/terraform-overview.png" alt="Terraform Overview" width="60%">
+    <img src="/images/5-Workshop/5.3-Infrastructure/terraform-overview.png" alt="Terraform Overview" width="60%">
     <figcaption style="text-align: center;">
         <b>Figure 5.3.1.</b> Terraform is used to manage the AWS infrastructure of the Live Auction system.
     </figcaption>

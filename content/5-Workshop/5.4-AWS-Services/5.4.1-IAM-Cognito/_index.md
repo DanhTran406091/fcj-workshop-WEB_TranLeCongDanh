@@ -103,7 +103,7 @@ The following information should be verified:
 * Whether all required Lambda Roles have been created.
 
 {{< figure
-    src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.4-AWS-services/5.4.1-IAM-Cognito/iam-role-list.png"
+    src="/images/5-Workshop/5.4-AWS-services/5.4.1-IAM-Cognito/iam-role-list.png"
     title="Figure 5.4.1.1: IAM Roles of the Live Auction system"
     width="100%"
 >}}
@@ -124,7 +124,7 @@ In the **Permissions** tab, verify:
 Broad permissions such as `AdministratorAccess` should not be assigned to Lambda functions. Each Policy should be limited to the resources and operations required by the corresponding function.
 
 {{< figure
-    src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.4-AWS-services/5.4.1-IAM-Cognito/iam-role-permissions.png"
+    src="/images/5-Workshop/5.4-AWS-services/5.4.1-IAM-Cognito/iam-role-permissions.png"
     title="Figure 5.4.1.2: Permission Policies attached to a Lambda IAM Role"
     width="100%"
 >}}
@@ -148,7 +148,7 @@ The Trust Relationship determines which service is allowed to assume the IAM Rol
 The **View policy document** option can be used to inspect the Trust Policy. Because the resource is managed by Terraform, its configuration should not be modified directly from the AWS Console.
 
 {{< figure
-    src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.4-AWS-services/5.4.1-IAM-Cognito/iam-role-trust-relationship.png"
+    src="/images/5-Workshop/5.4-AWS-services/5.4.1-IAM-Cognito/iam-role-trust-relationship.png"
     title="Figure 5.4.1.3: Trust Relationship of a Lambda execution role"
     width="100%"
 >}}
@@ -266,7 +266,7 @@ The following information should be verified:
 * Last updated time.
 
 {{< figure
-    src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.4-AWS-services/5.4.1-IAM-Cognito/cognito-user-pool.png"
+    src="/images/5-Workshop/5.4-AWS-services/5.4.1-IAM-Cognito/cognito-user-pool.png"
     title="Figure 5.4.1.4: Cognito User Pool of the Live Auction system"
     width="100%"
 >}}
@@ -309,7 +309,7 @@ The following information should be verified:
 * Whether the App Client configuration is suitable for the frontend applications.
 
 {{< figure
-    src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.4-AWS-services/5.4.1-IAM-Cognito/cognito-app-client.png"
+    src="/images/5-Workshop/5.4-AWS-services/5.4.1-IAM-Cognito/cognito-app-client.png"
     title="Figure 5.4.1.5: App Client configured for the Live Auction system"
     width="100%"
 >}}
@@ -340,7 +340,7 @@ The following information should be verified:
 * Whether Admin accounts are assigned to the `admin` group.
 
 {{< figure
-    src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.4-AWS-services/5.4.1-IAM-Cognito/cognito-groups.png"
+    src="/images/5-Workshop/5.4-AWS-services/5.4.1-IAM-Cognito/cognito-groups.png"
     title="Figure 5.4.1.6: The user and admin groups in the Cognito User Pool"
     width="100%"
 >}}
@@ -367,7 +367,7 @@ The following information should be verified:
 An administrator account must be assigned to the `admin` group before it can use administrative functions.
 
 {{< figure
-    src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.4-AWS-services/5.4.1-IAM-Cognito/cognito-users.png"
+    src="/images/5-Workshop/5.4-AWS-services/5.4.1-IAM-Cognito/cognito-users.png"
     title="Figure 5.4.1.7: Accounts managed in Amazon Cognito"
     width="100%"
 >}}
@@ -397,7 +397,7 @@ The following information should be verified:
 * Whether the Lambda function exists and is active.
 
 {{< figure
-    src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.4-AWS-services/5.4.1-IAM-Cognito/cognito-post-confirmation-trigger.png"
+    src="/images/5-Workshop/5.4-AWS-services/5.4.1-IAM-Cognito/cognito-post-confirmation-trigger.png"
     title="Figure 5.4.1.8: Post Confirmation Lambda connected to the Cognito User Pool"
     width="100%"
 >}}

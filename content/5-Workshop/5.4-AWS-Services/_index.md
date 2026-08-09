@@ -60,11 +60,11 @@ IMAGE INSTRUCTIONS:
    Lambda ↔ SQS FIFO
    Lambda → API Gateway WebSocket → User
 3. Save the image as:
-static/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.4-AWS-Services/deployed-services-architecture.png
+static/images/5-Workshop/5.4-AWS-Services/deployed-services-architecture.png
 -->
 
 <figure style="text-align: center;">
-    <img src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.4-AWS-Services/deployed-services-architecture.png" alt="Architecture of the deployed AWS services" width="90%">
+    <img src="/images/5-Workshop/5.4-AWS-Services/deployed-services-architecture.png" alt="Architecture of the deployed AWS services" width="90%">
     <figcaption style="text-align: center;">
         <b>Figure 5.4.1.</b> Overview of the AWS services deployed for the Live Auction system.
     </figcaption>
@@ -192,11 +192,11 @@ SCREENSHOT INSTRUCTIONS:
 3. If Resource Groups is not used, capture the AWS Console page showing the recently accessed project services.
 4. Do not expose the Account ID, email address, personal ARN, or credentials.
 5. Save the image as:
-static/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.4-AWS-Services/aws-deployed-resources.png
+static/images/5-Workshop/5.4-AWS-Services/aws-deployed-resources.png
 -->
 
 <figure style="text-align: center;">
-    <img src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.4-AWS-Services/aws-deployed-resources.png" alt="Resources deployed on AWS" width="90%">
+    <img src="/images/5-Workshop/5.4-AWS-Services/aws-deployed-resources.png" alt="Resources deployed on AWS" width="90%">
     <figcaption style="text-align: center;">
         <b>Figure 5.4.2.</b> Live Auction resources displayed in the AWS Management Console.
     </figcaption>

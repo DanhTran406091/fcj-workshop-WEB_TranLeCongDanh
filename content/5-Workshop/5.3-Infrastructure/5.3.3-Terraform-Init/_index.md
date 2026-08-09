@@ -31,11 +31,11 @@ SCREENSHOT INSTRUCTIONS:
 1. Run: terraform version
 2. Capture the Terminal showing both the command and its result.
 3. Save the image as:
-static/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.3-Infrastructure/terraform-version.png
+static/images/5-Workshop/5.3-Infrastructure/terraform-version.png
 -->
 
 <figure style="text-align: center;">
-    <img src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.3-Infrastructure/terraform-version.png" alt="Check the Terraform version" width="75%">
+    <img src="/images/5-Workshop/5.3-Infrastructure/terraform-version.png" alt="Check the Terraform version" width="75%">
     <figcaption style="text-align: center;">
         <b>Figure 5.3.12.</b> Checking the Terraform version in the deployment environment.
     </figcaption>
@@ -193,11 +193,11 @@ SCREENSHOT INSTRUCTIONS:
 3. Capture the result containing:
    Terraform has been successfully initialized!
 4. Save the image as:
-static/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.3-Infrastructure/terraform-init-success.png
+static/images/5-Workshop/5.3-Infrastructure/terraform-init-success.png
 -->
 
 <figure style="text-align: center;">
-    <img src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.3-Infrastructure/terraform-init-success.png" alt="Successful Terraform initialization" width="85%">
+    <img src="/images/5-Workshop/5.3-Infrastructure/terraform-init-success.png" alt="Successful Terraform initialization" width="85%">
     <figcaption style="text-align: center;">
         <b>Figure 5.3.13.</b> Successfully initializing the Terraform module with <code>terraform init</code>.
     </figcaption>
@@ -264,11 +264,11 @@ SCREENSHOT INSTRUCTIONS:
    variables.tf
    versions.tf
 3. Save the image as:
-static/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.3-Infrastructure/terraform-init-files.png
+static/images/5-Workshop/5.3-Infrastructure/terraform-init-files.png
 -->
 
 <figure style="text-align: center;">
-    <img src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.3-Infrastructure/terraform-init-files.png" alt="Files created after Terraform Init" width="65%">
+    <img src="/images/5-Workshop/5.3-Infrastructure/terraform-init-files.png" alt="Files created after Terraform Init" width="65%">
     <figcaption style="text-align: center;">
         <b>Figure 5.3.14.</b> The <code>.terraform</code> directory and <code>.terraform.lock.hcl</code> file after initialization.
     </figcaption>

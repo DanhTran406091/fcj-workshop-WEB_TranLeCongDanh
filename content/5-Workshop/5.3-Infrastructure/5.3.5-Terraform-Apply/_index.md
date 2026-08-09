@@ -535,7 +535,7 @@ aws_lambda_permission.cognito_post_confirm
 ```
 
 <figure style="text-align: center;">
-    <img src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.3-Infrastructure/terraform-state-list.png" alt="Resources recorded in Terraform State" width="85%">
+    <img src="/images/5-Workshop/5.3-Infrastructure/terraform-state-list.png" alt="Resources recorded in Terraform State" width="85%">
     <figcaption style="text-align: center;">
         <b>Figure 5.3.18.</b> Identity module resources managed through Terraform State.
     </figcaption>

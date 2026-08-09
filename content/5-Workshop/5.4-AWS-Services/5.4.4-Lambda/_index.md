@@ -422,7 +422,7 @@ The following information should be checked:
 * Whether all required functions were deployed.
 
 {{< figure
-    src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.4-AWS-services/5.4.4-Lambda/lambda-function-list.png"
+    src="/images/5-Workshop/5.4-AWS-services/5.4.4-Lambda/lambda-function-list.png"
     title="Figure 5.4.4.1: Lambda functions of the Live Auction system"
     width="100%"
 >}}
@@ -459,7 +459,7 @@ Verify:
 * Execution Role.
 
 {{< figure
-    src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.4-AWS-services/5.4.4-Lambda/lambda-general-configuration.png"
+    src="/images/5-Workshop/5.4-AWS-services/5.4.4-Lambda/lambda-general-configuration.png"
     title="Figure 5.4.4.2: Runtime, memory, and timeout configuration of a Lambda function"
     width="100%"
 >}}
@@ -483,7 +483,7 @@ The following information should be confirmed:
 * Report batch item failures is enabled.
 
 {{< figure
-    src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.4-AWS-services/5.4.4-Lambda/lambda-bid-processor-sqs-trigger.png"
+    src="/images/5-Workshop/5.4-AWS-services/5.4.4-Lambda/lambda-bid-processor-sqs-trigger.png"
     title="Figure 5.4.4.3: SQS Trigger of the Bid Processor Lambda"
     width="100%"
 >}}
@@ -514,7 +514,7 @@ The following information should be verified:
 * Whether the Lambda is connected to the correct API.
 
 {{< figure
-    src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.4-AWS-services/5.4.4-Lambda/lambda-api-gateway-trigger.png"
+    src="/images/5-Workshop/5.4-AWS-services/5.4.4-Lambda/lambda-api-gateway-trigger.png"
     title="Figure 5.4.4.4: API Gateway Trigger of a Lambda function"
     width="100%"
 >}}
@@ -540,7 +540,7 @@ Only confirm that:
 Complete values should not be displayed if they contain information that should not be published.
 
 {{< figure
-    src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.4-AWS-services/5.4.4-Lambda/lambda-environment-variables.png"
+    src="/images/5-Workshop/5.4-AWS-services/5.4.4-Lambda/lambda-environment-variables.png"
     title="Figure 5.4.4.5: Environment variables of a Lambda function"
     width="100%"
 >}}
@@ -568,7 +568,7 @@ The following information should be confirmed:
 * The function can access only the required resources.
 
 {{< figure
-    src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.4-AWS-services/5.4.4-Lambda/lambda-execution-role.png"
+    src="/images/5-Workshop/5.4-AWS-services/5.4.4-Lambda/lambda-execution-role.png"
     title="Figure 5.4.4.6: IAM Execution Role assigned to a Lambda function"
     width="100%"
 >}}
@@ -598,7 +598,7 @@ Select the most recent Log Stream and verify:
 * Errors, if present.
 
 {{< figure
-    src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.4-AWS-services/5.4.4-Lambda/lambda-cloudwatch-log.png"
+    src="/images/5-Workshop/5.4-AWS-services/5.4.4-Lambda/lambda-cloudwatch-log.png"
     title="Figure 5.4.4.7: Lambda execution logs on Amazon CloudWatch"
     width="100%"
 >}}
@@ -623,7 +623,7 @@ Verify the following Metrics:
 These Metrics confirm that the function has been invoked and help identify operational issues.
 
 {{< figure
-    src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.4-AWS-services/5.4.4-Lambda/lambda-monitoring-metrics.png"
+    src="/images/5-Workshop/5.4-AWS-services/5.4.4-Lambda/lambda-monitoring-metrics.png"
     title="Figure 5.4.4.8: Monitoring Metrics of a Lambda function"
     width="100%"
 >}}

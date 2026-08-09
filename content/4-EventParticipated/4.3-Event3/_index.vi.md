@@ -16,7 +16,7 @@ Khác với một chatbot chỉ tiếp nhận câu hỏi và tạo phản hồi,
 
 Sự kiện kết hợp giữa phần trình bày lý thuyết và các bài thực hành có hướng dẫn. Qua đó, người tham dự không chỉ tìm hiểu cách AI Agent hoạt động mà còn được chuẩn bị môi trường phát triển, xây dựng một Agent cơ bản và từng bước tiếp cận quy trình triển khai Agent lên AWS.
 
-![Giới thiệu sự kiện AgentForge Deep Dive](/fcj-workshop-WEB_TranLeCongDanh/images/4-EventParticipated/4.3-Event3/01-agentforge-introduction.png)
+![Giới thiệu sự kiện AgentForge Deep Dive](/images/4-EventParticipated/4.3-Event3/01-agentforge-introduction.png)
 
 *Các diễn giả giới thiệu AgentForge và mục tiêu xây dựng hệ thống Agentic AI sẵn sàng cho môi trường thực tế bằng Amazon Bedrock AgentCore.*
 
@@ -24,7 +24,7 @@ Sự kiện kết hợp giữa phần trình bày lý thuyết và các bài th�
 
 AgentForge được thiết kế thành chương trình kéo dài ba ngày. Mỗi ngày kết hợp giữa lý thuyết và Hands-on Lab với mức độ chuyên sâu tăng dần.
 
-![Lộ trình ba ngày của AgentForge](/fcj-workshop-WEB_TranLeCongDanh/images/4-EventParticipated/4.3-Event3/02-three-day-agenda.png)
+![Lộ trình ba ngày của AgentForge](/images/4-EventParticipated/4.3-Event3/02-three-day-agenda.png)
 
 *Lộ trình tổng quan của chương trình AgentForge trong ba ngày.*
 
@@ -67,7 +67,7 @@ Trong phạm vi sự kiện này, em mới tham gia và hoàn thành nội dung 
 
 Agentic AI được giới thiệu là các hệ thống phần mềm có khả năng tự chủ một phần hoặc toàn phần, sử dụng AI để **suy luận, lập kế hoạch và hoàn thành nhiệm vụ** thay cho con người hoặc một hệ thống khác.
 
-![Khái niệm Agentic AI](/fcj-workshop-WEB_TranLeCongDanh/images/4-EventParticipated/4.3-Event3/03-what-is-agentic-ai.png)
+![Khái niệm Agentic AI](/images/4-EventParticipated/4.3-Event3/03-what-is-agentic-ai.png)
 
 *Agentic AI sử dụng AI để suy luận, lập kế hoạch và hoàn thành nhiệm vụ với mức độ tự chủ khác nhau.*
 
@@ -89,7 +89,7 @@ Một AI Agent cơ bản có thể gồm những thành phần sau:
 - **Guardrails:** Các quy tắc giúp giới hạn và kiểm soát hành vi của Agent.
 - **User Interaction:** Kênh tương tác giữa người dùng với Agent.
 
-![Các thành phần cơ bản của một AI Agent](/fcj-workshop-WEB_TranLeCongDanh/images/4-EventParticipated/4.3-Event3/04-basic-agent-components.png)
+![Các thành phần cơ bản của một AI Agent](/images/4-EventParticipated/4.3-Event3/04-basic-agent-components.png)
 
 *Một Agent kết hợp mục tiêu, bộ nhớ, dữ liệu, công cụ và mô hình ngôn ngữ để thực hiện hành động.*
 
@@ -104,7 +104,7 @@ Diễn giả giới thiệu các mức độ tự chủ khác nhau của hệ th
 3. **Autonomous Agents:** Có khả năng lập kế hoạch trong thời gian chạy và thực hiện nhiệm vụ gồm nhiều bước.
 4. **Agentic Virtual Workers:** Phối hợp nhiều Agent, làm việc trong thời gian dài và mô phỏng cách phối hợp của một nhóm con người.
 
-![Các mức độ tự chủ của hệ thống AI](/fcj-workshop-WEB_TranLeCongDanh/images/4-EventParticipated/4.3-Event3/05-autonomy-gradient.png)
+![Các mức độ tự chủ của hệ thống AI](/images/4-EventParticipated/4.3-Event3/05-autonomy-gradient.png)
 
 *Các mức độ tự chủ tăng dần từ trợ lý đơn giản đến Agentic Virtual Workers.*
 
@@ -114,7 +114,7 @@ Một bài học quan trọng em tiếp thu được là không phải lúc nào
 
 Phần tiếp theo giới thiệu vòng lặp Agent cơ bản trong **Strands Agents**.
 
-![Vòng lặp hoạt động cơ bản của Agent](/fcj-workshop-WEB_TranLeCongDanh/images/4-EventParticipated/4.3-Event3/06-strands-agent-loop.png)
+![Vòng lặp hoạt động cơ bản của Agent](/images/4-EventParticipated/4.3-Event3/06-strands-agent-loop.png)
 
 *Vòng lặp xử lý giữa người dùng, Agent, mô hình và các công cụ.*
 
@@ -147,7 +147,7 @@ Khi một Agent được đưa vào sử dụng thực tế, hệ thống cần 
 
 Amazon Bedrock AgentCore cung cấp các thành phần hỗ trợ đưa Agent từ môi trường phát triển lên môi trường vận hành thực tế.
 
-![Các thành phần của Amazon Bedrock AgentCore](/fcj-workshop-WEB_TranLeCongDanh/images/4-EventParticipated/4.3-Event3/07-agentcore-components.png)
+![Các thành phần của Amazon Bedrock AgentCore](/images/4-EventParticipated/4.3-Event3/07-agentcore-components.png)
 
 *Amazon Bedrock AgentCore cung cấp môi trường vận hành, ngữ cảnh, công cụ, tối ưu hóa và các cơ chế quản lý Agent.*
 
@@ -174,7 +174,7 @@ Runtime có thể hỗ trợ nhiều kiểu giao tiếp khác nhau:
 - **A2A:** Giao tiếp giữa Agent với Agent.
 - **AG-UI:** Giao tiếp giữa Agent và giao diện người dùng.
 
-![Các giao thức được AgentCore Runtime hỗ trợ](/fcj-workshop-WEB_TranLeCongDanh/images/4-EventParticipated/4.3-Event3/08-agentcore-runtime-protocols.png)
+![Các giao thức được AgentCore Runtime hỗ trợ](/images/4-EventParticipated/4.3-Event3/08-agentcore-runtime-protocols.png)
 
 *AgentCore Runtime hỗ trợ nhiều hình thức giao tiếp giữa ứng dụng, công cụ, Agent và người dùng.*
 
@@ -197,7 +197,7 @@ Nhờ đó, Agent có thể truy cập tài nguyên với quyền phù hợp tha
 
 AgentCore Gateway đóng vai trò là lớp kết nối an toàn giữa Agent với API, công cụ và tài nguyên bên ngoài.
 
-![AgentCore Gateway cung cấp quyền truy cập an toàn](/fcj-workshop-WEB_TranLeCongDanh/images/4-EventParticipated/4.3-Event3/09-agentcore-gateway-secure-access.png)
+![AgentCore Gateway cung cấp quyền truy cập an toàn](/images/4-EventParticipated/4.3-Event3/09-agentcore-gateway-secure-access.png)
 
 *AgentCore Gateway quản lý kết nối và xác thực khi Agent truy cập các công cụ bên ngoài.*
 

@@ -241,7 +241,7 @@ Các nội dung cần kiểm tra gồm:
 
 
 {{< figure
-    src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.4-AWS-services/5.4.2-S3/s3-bucket-list.png"
+    src="/images/5-Workshop/5.4-AWS-services/5.4.2-S3/s3-bucket-list.png"
     title="Hình 5.4.2.1: Các S3 Bucket của hệ thống Live Auction"
     width="100%"
 >}}
@@ -269,7 +269,7 @@ Không mở nội dung tệp cấu hình nếu tệp có chứa API endpoint, Cl
 
 
 {{< figure
-    src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.4-AWS-services/5.4.2-S3/s3-user-frontend-objects.png"
+    src="/images/5-Workshop/5.4-AWS-services/5.4.2-S3/s3-user-frontend-objects.png"
     title="Hình 5.4.2.2: Nội dung được lưu trong User Frontend Bucket"
     width="100%"
 >}}
@@ -290,7 +290,7 @@ Nội dung của Admin Frontend được lưu độc lập với User Frontend, 
 
 
 {{< figure
-    src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.4-AWS-services/5.4.2-S3/s3-admin-frontend-objects.png"
+    src="/images/5-Workshop/5.4-AWS-services/5.4.2-S3/s3-admin-frontend-objects.png"
     title="Hình 5.4.2.3: Nội dung được lưu trong Admin Frontend Bucket"
     width="100%"
 >}}
@@ -311,7 +311,7 @@ Nếu bucket chưa có dữ liệu, giao diện có thể hiển thị trạng t
 
 
 {{< figure
-    src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.4-AWS-services/5.4.2-S3/s3-item-media-objects.png"
+    src="/images/5-Workshop/5.4-AWS-services/5.4.2-S3/s3-item-media-objects.png"
     title="Hình 5.4.2.4: Dữ liệu trong Item Media Bucket"
     width="100%"
 >}}
@@ -342,7 +342,7 @@ Không chỉnh sửa Bucket Policy trực tiếp trên Console vì cấu hình �
 
 
 {{< figure
-    src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.4-AWS-services/5.4.2-S3/s3-block-public-access.png"
+    src="/images/5-Workshop/5.4-AWS-services/5.4.2-S3/s3-block-public-access.png"
     title="Hình 5.4.2.5: Cấu hình Block Public Access của S3 Bucket"
     width="100%"
 >}}
@@ -372,14 +372,14 @@ Trạng thái cần xác nhận:
 
 
 {{< figure
-    src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.4-AWS-services/5.4.2-S3/s3-bucket-versioning.png"
+    src="/images/5-Workshop/5.4-AWS-services/5.4.2-S3/s3-bucket-versioning.png"
     title="Hình 5.4.2.6: Cấu hình Versioning của User Frontend Bucket"
     width="100%"
 >}}
 Kết quả kiểm tra cho thấy **Bucket Versioning** đang ở trạng thái `Enabled`. Nhờ đó, Amazon S3 có thể lưu giữ nhiều phiên bản của cùng một đối tượng và hỗ trợ khôi phục dữ liệu khi tệp bị ghi đè hoặc xóa nhầm.
 
 {{< figure
-    src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.4-AWS-services/5.4.2-S3/s3-default-encryption.png"
+    src="/images/5-Workshop/5.4-AWS-services/5.4.2-S3/s3-default-encryption.png"
     title="Hình 5.4.2.7: Cấu hình mã hóa mặc định của User Frontend Bucket"
     width="100%"
 >}}
@@ -407,7 +407,7 @@ Không công khai toàn bộ danh sách origin nếu có địa chỉ môi trư�
 
 
 {{< figure
-    src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.4-AWS-services/5.4.2-S3/s3-media-cors.png"
+    src="/images/5-Workshop/5.4-AWS-services/5.4.2-S3/s3-media-cors.png"
     title="Hình 5.4.2.8: Cấu hình CORS của Item Media Bucket"
     width="100%"
 >}}

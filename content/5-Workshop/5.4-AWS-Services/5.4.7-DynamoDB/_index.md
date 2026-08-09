@@ -549,7 +549,7 @@ Active
 ```
 
 {{< figure
-    src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.4-AWS-services/5.4.7-DynamoDB/dynamodb-table-list.png"
+    src="/images/5-Workshop/5.4-AWS-services/5.4.7-DynamoDB/dynamodb-table-list.png"
     title="Figure 5.4.7.1: DynamoDB tables of the Live Auction system"
     width="100%"
 >}}
@@ -581,7 +581,7 @@ Verify:
 - Table Size.
 
 {{< figure
-    src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.4-AWS-services/5.4.7-DynamoDB/dynamodb-table-overview.png"
+    src="/images/5-Workshop/5.4-AWS-services/5.4.7-DynamoDB/dynamodb-table-overview.png"
     title="Figure 5.4.7.2: Information about the la_auction_catalog table"
     width="100%"
 >}}
@@ -607,7 +607,7 @@ Verify:
 Do not directly edit or delete items through the AWS Console.
 
 {{< figure
-    src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.4-AWS-services/5.4.7-DynamoDB/dynamodb-auction-catalog-items.png"
+    src="/images/5-Workshop/5.4-AWS-services/5.4.7-DynamoDB/dynamodb-auction-catalog-items.png"
     title="Figure 5.4.7.3: Auction session and item data in la_auction_catalog"
     width="100%"
 >}}
@@ -644,7 +644,7 @@ Active
 ```
 
 {{< figure
-    src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.4-AWS-services/5.4.7-DynamoDB/dynamodb-global-secondary-indexes.png"
+    src="/images/5-Workshop/5.4-AWS-services/5.4.7-DynamoDB/dynamodb-global-secondary-indexes.png"
     title="Figure 5.4.7.4: Global Secondary Indexes of la_auction_catalog"
     width="100%"
 >}}
@@ -679,7 +679,7 @@ TTL attribute: ttl
 The `la_idempotency` table can also be checked for the `expiration` TTL attribute.
 
 {{< figure
-    src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.4-AWS-services/5.4.7-DynamoDB/dynamodb-websocket-ttl.png"
+    src="/images/5-Workshop/5.4-AWS-services/5.4.7-DynamoDB/dynamodb-websocket-ttl.png"
     title="Figure 5.4.7.5: TTL configuration of the WebSocket Connections table"
     width="100%"
 >}}
@@ -711,7 +711,7 @@ Point-in-time recovery: On
 ```
 
 {{< figure
-    src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.4-AWS-services/5.4.7-DynamoDB/dynamodb-point-in-time-recovery.png"
+    src="/images/5-Workshop/5.4-AWS-services/5.4.7-DynamoDB/dynamodb-point-in-time-recovery.png"
     title="Figure 5.4.7.6: Point-in-Time Recovery of the DynamoDB table"
     width="100%"
 >}}
@@ -738,7 +738,7 @@ View type: New and old images
 ```
 
 {{< figure
-    src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.4-AWS-services/5.4.7-DynamoDB/dynamodb-stream.png"
+    src="/images/5-Workshop/5.4-AWS-services/5.4.7-DynamoDB/dynamodb-stream.png"
     title="Figure 5.4.7.7: DynamoDB Stream of the auction-state table"
     width="100%"
 >}}
@@ -763,7 +763,7 @@ Verify the following metrics:
 These metrics help monitor table activity while the system is in use.
 
 {{< figure
-    src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.4-AWS-services/5.4.7-DynamoDB/dynamodb-monitoring-metrics.png"
+    src="/images/5-Workshop/5.4-AWS-services/5.4.7-DynamoDB/dynamodb-monitoring-metrics.png"
     title="Figure 5.4.7.8: Amazon DynamoDB table monitoring metrics"
     width="100%"
 >}}

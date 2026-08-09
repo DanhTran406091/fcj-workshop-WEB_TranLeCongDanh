@@ -25,7 +25,7 @@ chapter: false
 
 &emsp; **Internship Duration:** From 12/06/2026 to 15/08/2026
 
-![Your profile picture](/fcj-workshop-WEB_TranLeCongDanh/images/avatar-aws.png)
+![Your profile picture](/images/avatar-aws.png)
 
 ### Report Content
 

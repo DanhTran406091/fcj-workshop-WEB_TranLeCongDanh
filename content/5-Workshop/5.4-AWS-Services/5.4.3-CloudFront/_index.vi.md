@@ -284,7 +284,7 @@ Deployed
 ```
 
 {{< figure
-    src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.4-AWS-services/5.4.3-CloudFront/cloudfront-distribution-list.png"
+    src="/images/5-Workshop/5.4-AWS-services/5.4.3-CloudFront/cloudfront-distribution-list.png"
     title="Hình 5.4.3.1: Các CloudFront Distribution của hệ thống Live Auction"
     width="100%"
 >}}
@@ -316,7 +316,7 @@ index.html
 ```
 
 {{< figure
-    src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.4-AWS-services/5.4.3-CloudFront/cloudfront-user-frontend-general.png"
+    src="/images/5-Workshop/5.4-AWS-services/5.4.3-CloudFront/cloudfront-user-frontend-general.png"
     title="Hình 5.4.3.2: Thông tin User Frontend CloudFront Distribution"
     width="100%"
 >}}
@@ -338,7 +338,7 @@ Kiểm tra:
 * Origin không trỏ nhầm sang Admin Frontend Bucket hoặc Media Bucket.
 
 {{< figure
-    src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.4-AWS-services/5.4.3-CloudFront/cloudfront-user-frontend-origin.png"
+    src="/images/5-Workshop/5.4-AWS-services/5.4.3-CloudFront/cloudfront-user-frontend-origin.png"
     title="Hình 5.4.3.3: S3 Origin của User Frontend Distribution"
     width="100%"
 >}}
@@ -374,7 +374,7 @@ Compress objects automatically: Yes
 
 
 {{< figure
-    src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.4-AWS-services/5.4.3-CloudFront/cloudfront-cache-behavior.png"
+    src="/images/5-Workshop/5.4-AWS-services/5.4.3-CloudFront/cloudfront-cache-behavior.png"
     title="Hình 5.4.3.4: Default Cache Behavior của CloudFront Distribution"
     width="100%"
 >}}
@@ -400,7 +400,7 @@ Admin Frontend Distribution cũng cần có hai cấu hình tương tự.
 
 
 {{< figure
-    src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.4-AWS-services/5.4.3-CloudFront/cloudfront-custom-error-responses.png"
+    src="/images/5-Workshop/5.4-AWS-services/5.4.3-CloudFront/cloudfront-custom-error-responses.png"
     title="Hình 5.4.3.5: Custom Error Response hỗ trợ Single Page Application"
     width="100%"
 >}}
@@ -420,7 +420,7 @@ Kiểm tra:
 
 
 {{< figure
-    src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.4-AWS-services/5.4.3-CloudFront/cloudfront-admin-frontend.png"
+    src="/images/5-Workshop/5.4-AWS-services/5.4.3-CloudFront/cloudfront-admin-frontend.png"
     title="Hình 5.4.3.6: CloudFront Distribution dành cho Admin Frontend"
     width="100%"
 >}}
@@ -444,7 +444,7 @@ Kiểm tra:
 
 
 {{< figure
-    src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.4-AWS-services/5.4.3-CloudFront/cloudfront-item-media.png"
+    src="/images/5-Workshop/5.4-AWS-services/5.4.3-CloudFront/cloudfront-item-media.png"
     title="Hình 5.4.3.7: CloudFront Distribution dành cho Item Media"
     width="100%"
 >}}
@@ -470,7 +470,7 @@ Các nội dung cần xác nhận:
 
 
 {{< figure
-    src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.4-AWS-services/5.4.3-CloudFront/cloudfront-origin-access-control.png"
+    src="/images/5-Workshop/5.4-AWS-services/5.4.3-CloudFront/cloudfront-origin-access-control.png"
     title="Hình 5.4.3.8: Origin Access Control của các S3 Origin"
     width="100%"
 >}}

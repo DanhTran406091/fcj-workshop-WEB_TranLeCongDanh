@@ -23,7 +23,7 @@ chapter: false
 
 &emsp; **Thời gian thực tập:** Từ 12/06/2026 đến 15/08/2026
 
-![Ảnh đại diện của Trần Lê Công Danh](/fcj-workshop-WEB_TranLeCongDanh/images/avatar-aws.png)
+![Ảnh đại diện của Trần Lê Công Danh](/images/avatar-aws.png)
 
 
 

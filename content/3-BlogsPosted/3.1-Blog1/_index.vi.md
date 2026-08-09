@@ -25,7 +25,7 @@ Sau khi ứng dụng React/Vite được build, các tệp cần thiết sẽ n�
 
 ## Sơ đồ triển khai
 
-![Sơ đồ triển khai website React/Vite trên Amazon S3](/fcj-workshop-WEB_TranLeCongDanh/images/blog1/react-vite-deployment-amazon-s3.drawio.png)
+![Sơ đồ triển khai website React/Vite trên Amazon S3](/images/blog1/react-vite-deployment-amazon-s3.drawio.png)
 
 Quy trình trong sơ đồ gồm:
 

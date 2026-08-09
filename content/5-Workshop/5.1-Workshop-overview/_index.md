@@ -38,7 +38,7 @@ The User Frontend and Admin Frontend are deployed independently to separate user
 The following diagram illustrates the actual deployment architecture of the system.
 
 {{< figure
-    src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.1-Workshop-overview/live-auction-deployment-architecture.svg"
+    src="/images/5-Workshop/5.1-Workshop-overview/live-auction-deployment-architecture.svg"
     title="Figure 5.1.1: AWS Deployment Architecture of the Live Auction System"
     width="100%"
 >}}

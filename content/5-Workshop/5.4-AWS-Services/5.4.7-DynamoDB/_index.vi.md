@@ -566,7 +566,7 @@ Active
 ```
 
 {{< figure
-    src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.4-AWS-services/5.4.7-DynamoDB/dynamodb-table-list.png"
+    src="/images/5-Workshop/5.4-AWS-services/5.4.7-DynamoDB/dynamodb-table-list.png"
     title="Hình 5.4.7.1: Các bảng DynamoDB của hệ thống Live Auction"
     width="100%"
 >}}
@@ -598,7 +598,7 @@ Kiểm tra:
 * Table Size.
 
 {{< figure
-    src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.4-AWS-services/5.4.7-DynamoDB/dynamodb-table-overview.png"
+    src="/images/5-Workshop/5.4-AWS-services/5.4.7-DynamoDB/dynamodb-table-overview.png"
     title="Hình 5.4.7.2: Thông tin bảng la_auction_catalog"
     width="100%"
 >}}
@@ -625,7 +625,7 @@ Không chỉnh sửa hoặc xóa Item trực tiếp trên Console.
 
 
 {{< figure
-    src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.4-AWS-services/5.4.7-DynamoDB/dynamodb-auction-catalog-items.png"
+    src="/images/5-Workshop/5.4-AWS-services/5.4.7-DynamoDB/dynamodb-auction-catalog-items.png"
     title="Hình 5.4.7.3: Dữ liệu phiên và vật phẩm trong bảng la_auction_catalog"
     width="100%"
 >}}
@@ -662,7 +662,7 @@ Active
 ```
 
 {{< figure
-    src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.4-AWS-services/5.4.7-DynamoDB/dynamodb-global-secondary-indexes.png"
+    src="/images/5-Workshop/5.4-AWS-services/5.4.7-DynamoDB/dynamodb-global-secondary-indexes.png"
     title="Hình 5.4.7.4: Global Secondary Index của bảng la_auction_catalog"
     width="100%"
 >}}
@@ -698,7 +698,7 @@ Có thể kiểm tra thêm bảng `la_idempotency` với thuộc tính `expirati
 
 
 {{< figure
-    src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.4-AWS-services/5.4.7-DynamoDB/dynamodb-websocket-ttl.png"
+    src="/images/5-Workshop/5.4-AWS-services/5.4.7-DynamoDB/dynamodb-websocket-ttl.png"
     title="Hình 5.4.7.5: Cấu hình TTL của bảng WebSocket Connection"
     width="100%"
 >}}
@@ -730,7 +730,7 @@ Point-in-time recovery: On
 ```
 
 {{< figure
-    src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.4-AWS-services/5.4.7-DynamoDB/dynamodb-point-in-time-recovery.png"
+    src="/images/5-Workshop/5.4-AWS-services/5.4.7-DynamoDB/dynamodb-point-in-time-recovery.png"
     title="Hình 5.4.7.6: Point-in-Time Recovery của bảng DynamoDB"
     width="100%"
 >}}
@@ -759,7 +759,7 @@ View type: New and old images
 ```
 
 {{< figure
-    src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.4-AWS-services/5.4.7-DynamoDB/dynamodb-stream.png"
+    src="/images/5-Workshop/5.4-AWS-services/5.4.7-DynamoDB/dynamodb-stream.png"
     title="Hình 5.4.7.7: DynamoDB Stream của bảng trạng thái đấu giá"
     width="100%"
 >}}
@@ -784,7 +784,7 @@ Kiểm tra các Metrics:
 Các Metrics giúp theo dõi hoạt động của bảng trong quá trình sử dụng hệ thống.
 
 {{< figure
-    src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.4-AWS-services/5.4.7-DynamoDB/dynamodb-monitoring-metrics.png"
+    src="/images/5-Workshop/5.4-AWS-services/5.4.7-DynamoDB/dynamodb-monitoring-metrics.png"
     title="Hình 5.4.7.8: Metrics giám sát bảng Amazon DynamoDB"
     width="100%"
 >}}
