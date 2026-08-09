@@ -14,7 +14,7 @@ pre: " <b> 4.2. </b> "
 
 Mở đầu chương trình, các khách mời giới thiệu về **Agentic AI Build Week**, mục tiêu của cuộc thi và cơ hội để người tham gia vận dụng kiến thức về AWS, trí tuệ nhân tạo và phát triển phần mềm vào việc giải quyết các bài toán thực tế.
 
-![Khách mời giới thiệu chương trình Agentic AI Build Week](/images/4-EventParticipated/4.2-Event2/01-agentic-ai-build-week-introduction.png)
+![Khách mời giới thiệu chương trình Agentic AI Build Week](/fcj-workshop-WEB_TranLeCongDanh/images/4-EventParticipated/4.2-Event2/01-agentic-ai-build-week-introduction.png)
 
 *Khách mời giới thiệu tổng quan về Agentic AI Build Week và chương trình hackathon.*
 
@@ -26,7 +26,7 @@ Trong phần chính của sự kiện, các nhóm lần lượt giới thiệu q
 
 Nhóm đầu tiên trình bày giải pháp **AI-Powered Conversation Ordering – From Idea to a Multi-Channel AI Agent**. Đây là một AI Agent hỗ trợ người dùng đặt món thông qua hội thoại trên nhiều kênh khác nhau.
 
-![Nhóm trình bày giải pháp AI-Powered Conversation Ordering](/images/4-EventParticipated/4.2-Event2/02-conversation-ordering-presentation.png)
+![Nhóm trình bày giải pháp AI-Powered Conversation Ordering](/fcj-workshop-WEB_TranLeCongDanh/images/4-EventParticipated/4.2-Event2/02-conversation-ordering-presentation.png)
 
 *Nhóm giới thiệu ý tưởng xây dựng AI Agent hỗ trợ đặt món qua hội thoại.*
 
@@ -60,7 +60,7 @@ Quy trình xử lý của Agent gồm:
 
 Hệ thống có thể tiếp nhận yêu cầu từ những kênh như Zalo, WhatsApp hoặc ứng dụng riêng. Yêu cầu sau đó được chuyển đến backend để xử lý hội thoại, truy xuất dữ liệu sản phẩm, quản lý trạng thái phiên làm việc và thực hiện nghiệp vụ đặt hàng.
 
-![Kiến trúc tổng quan của hệ thống đặt món bằng AI Agent](/images/4-EventParticipated/4.2-Event2/03-conversation-ordering-architecture.png)
+![Kiến trúc tổng quan của hệ thống đặt món bằng AI Agent](/fcj-workshop-WEB_TranLeCongDanh/images/4-EventParticipated/4.2-Event2/03-conversation-ordering-architecture.png)
 
 *Kiến trúc tổng quan cho phép tiếp nhận yêu cầu từ nhiều kênh và xử lý bằng AI Agent.*
 
@@ -100,7 +100,7 @@ SignalScout sử dụng các công cụ thu thập dữ liệu kết hợp với
 - Trình bày kết quả dưới dạng báo cáo hoặc dashboard.
 - Hỗ trợ người dùng theo dõi các tín hiệu quan trọng.
 
-![Nhóm trình bày mô hình tạo và cung cấp giá trị của SignalScout](/images/4-EventParticipated/4.2-Event2/04-signalscout-value-canvas.png)
+![Nhóm trình bày mô hình tạo và cung cấp giá trị của SignalScout](/fcj-workshop-WEB_TranLeCongDanh/images/4-EventParticipated/4.2-Event2/04-signalscout-value-canvas.png)
 
 *Mô hình Value Creation & Delivery Canvas của giải pháp SignalScout.*
 
@@ -114,7 +114,7 @@ Nhóm sử dụng một số công cụ như **AWS, Langfuse, TinyFish và Apify
 
 Trong phần demo, nhóm trình bày giao diện tổng hợp các tín hiệu và đánh giá chúng theo nhiều tiêu chí. Thay vì tự đọc một lượng lớn tài liệu, người dùng có thể xem thông tin đã được hệ thống xử lý trên dashboard.
 
-![Giao diện demo phân tích tín hiệu doanh nghiệp](/images/4-EventParticipated/4.2-Event2/05-signalscout-demo.png)
+![Giao diện demo phân tích tín hiệu doanh nghiệp](/fcj-workshop-WEB_TranLeCongDanh/images/4-EventParticipated/4.2-Event2/05-signalscout-demo.png)
 
 *Giao diện demo tổng hợp và phân tích các tín hiệu liên quan đến doanh nghiệp.*
 
@@ -130,7 +130,7 @@ Em cũng nhận thấy rằng AI chỉ tạo ra giá trị tốt khi dữ liệu
 
 Nhóm thứ ba trình bày giải pháp **Solution Architect Professional Native App**. Nội dung được tổ chức theo các phần: bài toán, giải pháp, quy trình hoạt động, kiến trúc, tác động và demo sản phẩm.
 
-![Nhóm giới thiệu Solution Architect Professional Native App](/images/4-EventParticipated/4.2-Event2/06-solution-architect-app-introduction.png)
+![Nhóm giới thiệu Solution Architect Professional Native App](/fcj-workshop-WEB_TranLeCongDanh/images/4-EventParticipated/4.2-Event2/06-solution-architect-app-introduction.png)
 
 *Nhóm Plan V giới thiệu Solution Architect Professional Native App.*
 
@@ -161,7 +161,7 @@ Giải pháp sử dụng kiến trúc cloud-native và kết hợp nhiều dịc
 - **Amazon CloudWatch:** thu thập log và theo dõi hoạt động hệ thống.
 - **Terraform:** mô tả và triển khai hạ tầng bằng mã nguồn.
 
-![Kiến trúc AWS của Solution Architect Professional Native App](/images/4-EventParticipated/4.2-Event2/07-solution-architect-app-architecture.png)
+![Kiến trúc AWS của Solution Architect Professional Native App](/fcj-workshop-WEB_TranLeCongDanh/images/4-EventParticipated/4.2-Event2/07-solution-architect-app-architecture.png)
 
 *Kiến trúc kết hợp các dịch vụ AWS để vận hành frontend, backend, AI Agent và cơ sở dữ liệu.*
 
@@ -198,7 +198,7 @@ SHEPHERD tiếp nhận video trực tiếp từ camera, sử dụng computer vis
 
 AI Agent tiếp tục phân tích dữ liệu vận hành và đưa ra đề xuất, chẳng hạn điều phối thêm nhân viên đến khu vực đang đông hoặc hướng người tham dự sang khu vực ít người hơn.
 
-![Kiến trúc hệ thống SHEPHERD Venue Operations](/images/4-EventParticipated/4.2-Event2/08-shepherd-architecture.png)
+![Kiến trúc hệ thống SHEPHERD Venue Operations](/fcj-workshop-WEB_TranLeCongDanh/images/4-EventParticipated/4.2-Event2/08-shepherd-architecture.png)
 
 *Kiến trúc xử lý video, phân tích dữ liệu và hỗ trợ vận hành bằng Agentic AI.*
 
@@ -222,7 +222,7 @@ Trong phần demo, hệ thống hiển thị video có các khung nhận diện 
 
 Operations Agent có thể phân tích dữ liệu và đưa ra đề xuất cụ thể. Ví dụ, khi một khu vực có số lượng người tăng nhanh, Agent có thể đề nghị điều động thêm nhân viên và hướng người mới đến khu vực ít đông hơn.
 
-![Giao diện Operations Agent phân tích và đề xuất điều phối](/images/4-EventParticipated/4.2-Event2/09-shepherd-operations-agent.png)
+![Giao diện Operations Agent phân tích và đề xuất điều phối](/fcj-workshop-WEB_TranLeCongDanh/images/4-EventParticipated/4.2-Event2/09-shepherd-operations-agent.png)
 
 *Operations Agent đánh giá tình trạng từng khu vực và đưa ra đề xuất điều phối.*
 

@@ -60,7 +60,7 @@ Where:
 - **infra/**: Terraform configuration used to provision AWS infrastructure.
 
 <figure style="text-align: center;">
-    <img src="/images/5-Workshop/5.2-Preparation/project-structure.png" alt="Project Structure">
+    <img src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.2-Preparation/project-structure.png" alt="Project Structure">
     <figcaption style="text-align: center;">
         <b>Figure 5.2.1.</b> Main project directory structure.
     </figcaption>
@@ -77,7 +77,7 @@ aws --version
 ```
 
 <figure style="text-align: center;">
-    <img src="/images/5-Workshop/5.2-Preparation/aws-version.png" alt="AWS CLI Version">
+    <img src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.2-Preparation/aws-version.png" alt="AWS CLI Version">
     <figcaption style="text-align: center;">
         <b>Figure 5.2.2.</b> Verifying the installed AWS CLI version.
     </figcaption>
@@ -99,7 +99,7 @@ Provide the following information when prompted:
 Once completed, AWS CLI stores the credentials locally so that Terraform can authenticate and provision AWS resources.
 
 <figure style="text-align: center;">
-    <img src="/images/5-Workshop/5.2-Preparation/aws-configure.png" alt="AWS Configure">
+    <img src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.2-Preparation/aws-configure.png" alt="AWS Configure">
     <figcaption style="text-align: center;">
         <b>Figure 5.2.3.</b> Configuring AWS CLI using the <code>aws configure</code> command.
     </figcaption>
@@ -120,7 +120,7 @@ If Terraform is installed successfully, the current version information will be 
 Terraform will be used throughout the following sections to provision and manage the AWS infrastructure for the Live Auction system.
 
 <figure style="text-align: center;">
-    <img src="/images/5-Workshop/5.2-Preparation/terraform-version.png" alt="Terraform Version">
+    <img src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.2-Preparation/terraform-version.png" alt="Terraform Version">
     <figcaption style="text-align: center;">
         <b>Figure 5.2.4.</b> Verifying the installed Terraform version.
     </figcaption>

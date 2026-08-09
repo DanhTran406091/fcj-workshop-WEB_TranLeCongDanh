@@ -183,7 +183,7 @@ This message indicates that:
 * No resources need to be removed or replaced.
 
 <figure style="text-align: center;">
-    <img src="/images/5-Workshop/5.3-Infrastructure/terraform-plan-no-changes.png" alt="Terraform Plan detected no changes" width="90%">
+    <img src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.3-Infrastructure/terraform-plan-no-changes.png" alt="Terraform Plan detected no changes" width="90%">
     <figcaption style="text-align: center;">
         <b>Figure 5.3.16.</b> Terraform confirms that the current infrastructure matches the Identity module configuration.
     </figcaption>

@@ -239,7 +239,7 @@ The following information should be verified:
 * Whether all three required buckets were created.
 
 {{< figure
-    src="/images/5-Workshop/5.4-AWS-services/5.4.2-S3/s3-bucket-list.png"
+    src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.4-AWS-services/5.4.2-S3/s3-bucket-list.png"
     title="Figure 5.4.2.1: S3 Buckets of the Live Auction system"
     width="100%"
 >}}
@@ -266,7 +266,7 @@ The presence of `index.html` and the build resource directory confirms that the 
 Files containing API endpoints, Client IDs, or other information that should not be disclosed should not be opened in the report screenshots.
 
 {{< figure
-    src="/images/5-Workshop/5.4-AWS-services/5.4.2-S3/s3-user-frontend-objects.png"
+    src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.4-AWS-services/5.4.2-S3/s3-user-frontend-objects.png"
     title="Figure 5.4.2.2: Content stored in the User Frontend Bucket"
     width="100%"
 >}}
@@ -286,7 +286,7 @@ Verify the build files of the Admin Frontend.
 The Admin Frontend content is stored independently from the User Frontend, confirming that the two applications are deployed through separate S3 Buckets.
 
 {{< figure
-    src="/images/5-Workshop/5.4-AWS-services/5.4.2-S3/s3-admin-frontend-objects.png"
+    src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.4-AWS-services/5.4.2-S3/s3-admin-frontend-objects.png"
     title="Figure 5.4.2.3: Content stored in the Admin Frontend Bucket"
     width="100%"
 >}}
@@ -306,7 +306,7 @@ Verify the directories or image objects associated with auction items.
 If the bucket does not contain any data, the interface may display an empty state. This does not indicate a deployment failure because media data is created only after the system uploads item images to Amazon S3.
 
 {{< figure
-    src="/images/5-Workshop/5.4-AWS-services/5.4.2-S3/s3-item-media-objects.png"
+    src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.4-AWS-services/5.4.2-S3/s3-item-media-objects.png"
     title="Figure 5.4.2.4: Item data stored in the Item Media Bucket"
     width="100%"
 >}}
@@ -336,7 +336,7 @@ Next, inspect the **Bucket policy** section to confirm that CloudFront is allowe
 The Bucket Policy should not be modified directly through the AWS Console because its configuration is managed by Terraform.
 
 {{< figure
-    src="/images/5-Workshop/5.4-AWS-services/5.4.2-S3/s3-block-public-access.png"
+    src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.4-AWS-services/5.4.2-S3/s3-block-public-access.png"
     title="Figure 5.4.2.5: Block Public Access configuration of an S3 Bucket"
     width="100%"
 >}}
@@ -364,7 +364,7 @@ The required states include:
 * The encryption algorithm is `SSE-S3` or `AES256`.
 
 {{< figure
-    src="/images/5-Workshop/5.4-AWS-services/5.4.2-S3/s3-bucket-versioning.png"
+    src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.4-AWS-services/5.4.2-S3/s3-bucket-versioning.png"
     title="Figure 5.4.2.6: Versioning configuration of the User Frontend Bucket"
     width="100%"
 >}}
@@ -372,7 +372,7 @@ The required states include:
 The verification result shows that **Bucket Versioning** is `Enabled`. Therefore, Amazon S3 can retain multiple versions of the same object and support data recovery when a file is overwritten or accidentally deleted.
 
 {{< figure
-    src="/images/5-Workshop/5.4-AWS-services/5.4.2-S3/s3-default-encryption.png"
+    src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.4-AWS-services/5.4.2-S3/s3-default-encryption.png"
     title="Figure 5.4.2.7: Default encryption configuration of the User Frontend Bucket"
     width="100%"
 >}}
@@ -399,7 +399,7 @@ CORS allows the frontend applications to send supported requests to the Media Bu
 The complete origin list should not be published if it contains internal environment addresses or other information that should not be disclosed.
 
 {{< figure
-    src="/images/5-Workshop/5.4-AWS-services/5.4.2-S3/s3-media-cors.png"
+    src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.4-AWS-services/5.4.2-S3/s3-media-cors.png"
     title="Figure 5.4.2.8: CORS configuration of the Item Media Bucket"
     width="100%"
 >}}

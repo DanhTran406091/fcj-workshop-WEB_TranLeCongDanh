@@ -134,7 +134,7 @@ Nhóm API này hỗ trợ:
 ```text
 GET  /api/v1/auction-items
 GET  /api/v1/auction-items/{item_id}
-POST /api/v1/auction-items/{item_id}/images/presign
+POST /api/v1/auction-items/{item_id}/fcj-workshop-WEB_TranLeCongDanh/images/presign
 ```
 
 Nhóm API này hỗ trợ:
@@ -482,7 +482,7 @@ Kiểm tra:
 
 
 {{< figure
-    src="/images/5-Workshop/5.4-AWS-services/5.4.5-API-Gateway/api-gateway-api-list.png"
+    src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.4-AWS-services/5.4.5-API-Gateway/api-gateway-api-list.png"
     title="Hình 5.4.5.1: Các API của hệ thống Live Auction trên Amazon API Gateway"
     width="100%"
 >}}
@@ -654,7 +654,7 @@ Cây Resource cho thấy REST API đã được chia thành hai nhóm chính:
 Do cây Resource trên AWS Management Console có nhiều đường dẫn và không thể hiển thị đầy đủ trong một màn hình, hình dưới đây chỉ minh họa một phần cấu trúc đã được triển khai. Danh sách đầy đủ được thể hiện trong sơ đồ cây phía trên.
 
 {{< figure
-    src="/images/5-Workshop/5.4-AWS-services/5.4.5-API-Gateway/api-gateway-resources-methods.png"
+    src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.4-AWS-services/5.4.5-API-Gateway/api-gateway-resources-methods.png"
     title="Hình 5.4.5.2: Một phần Resource và HTTP Method của REST API trên AWS Management Console"
     width="50%"
 >}}
@@ -687,7 +687,7 @@ Lambda Proxy Integration: Enabled
 ```
 
 {{< figure
-    src="/images/5-Workshop/5.4-AWS-services/5.4.5-API-Gateway/api-gateway-method-execution.png"
+    src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.4-AWS-services/5.4.5-API-Gateway/api-gateway-method-execution.png"
     title="Hình 5.4.5.3: Cấu hình Method và Lambda Integration của REST API"
     width="100%"
 >}}
@@ -712,7 +712,7 @@ Các nội dung cần xác nhận:
 
 
 {{< figure
-    src="/images/5-Workshop/5.4-AWS-services/5.4.5-API-Gateway/api-gateway-cognito-authorizer.png"
+    src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.4-AWS-services/5.4.5-API-Gateway/api-gateway-cognito-authorizer.png"
     title="Hình 5.4.5.4: Cognito User Pool Authorizer của REST API"
     width="100%"
 >}}
@@ -740,7 +740,7 @@ Không sử dụng chức năng chỉnh sửa trực tiếp trên Console vì St
 
 
 {{< figure
-    src="/images/5-Workshop/5.4-AWS-services/5.4.5-API-Gateway/api-gateway-prod-stage.png"
+    src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.4-AWS-services/5.4.5-API-Gateway/api-gateway-prod-stage.png"
     title="Hình 5.4.5.5: Stage prod của Amazon API Gateway REST API"
     width="100%"
 >}}
@@ -764,7 +764,7 @@ Kiểm tra:
 
 
 {{< figure
-    src="/images/5-Workshop/5.4-AWS-services/5.4.5-API-Gateway/api-gateway-api-key.png"
+    src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.4-AWS-services/5.4.5-API-Gateway/api-gateway-api-key.png"
     title="Hình 5.4.5.6: API Key được cấu hình cho REST API"
     width="100%"
 >}}
@@ -796,7 +796,7 @@ Quota: 10,000 requests/day
 
 
 {{< figure
-    src="/images/5-Workshop/5.4-AWS-services/5.4.5-API-Gateway/api-gateway-usage-plan.png"
+    src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.4-AWS-services/5.4.5-API-Gateway/api-gateway-usage-plan.png"
     title="Hình 5.4.5.7: Throttling và Quota của API Gateway Usage Plan"
     width="100%"
 >}}
@@ -832,7 +832,7 @@ Access Log của Stage `prod` được lưu trong CloudWatch Log Group đã cấ
 
 
 {{< figure
-    src="/images/5-Workshop/5.4-AWS-services/5.4.5-API-Gateway/api-gateway-cloudwatch-metrics.png"
+    src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.4-AWS-services/5.4.5-API-Gateway/api-gateway-cloudwatch-metrics.png"
     title="Hình 5.4.5.8: API Call, Latency và Error Metrics của REST API"
     width="100%"
 >}}

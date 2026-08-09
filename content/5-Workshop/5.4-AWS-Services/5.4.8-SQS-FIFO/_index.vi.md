@@ -108,7 +108,7 @@ Kiểm tra các thông tin:
 
 
 {{< figure
-    src="/images/5-Workshop/5.4-AWS-services/5.4.8-SQS-FIFO/sqs-queue-list.png"
+    src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.4-AWS-services/5.4.8-SQS-FIFO/sqs-queue-list.png"
     title="Hình 5.4.8.1: Danh sách Amazon SQS Queue của hệ thống Live Auction"
     width="100%"
 >}}
@@ -140,7 +140,7 @@ FIFO
 ```
 
 {{< figure
-    src="/images/5-Workshop/5.4-AWS-services/5.4.8-SQS-FIFO/sqs-fifo-details.png"
+    src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.4-AWS-services/5.4.8-SQS-FIFO/sqs-fifo-details.png"
     title="Hình 5.4.8.2: Thông tin cấu hình của Amazon SQS FIFO Queue"
     width="100%"
 >}}
@@ -201,7 +201,7 @@ Các nội dung cần xác nhận:
 - Lambda Function nhận thông điệp là `la-bid-processor`.
 
 {{< figure
-    src="/images/5-Workshop/5.4-AWS-services/5.4.8-SQS-FIFO/sqs-lambda-trigger.png"
+    src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.4-AWS-services/5.4.8-SQS-FIFO/sqs-lambda-trigger.png"
     title="Hình 5.4.8.3: SQS Trigger của Lambda Bid Processor"
     width="100%"
 >}}
@@ -246,7 +246,7 @@ Kiểm tra:
 Dead-letter Queue tiếp nhận các thông điệp không thể xử lý sau số lần thử lại được cấu hình. Cơ chế này giúp nhóm có thể kiểm tra lỗi mà không làm mất thông điệp đặt giá.
 
 {{< figure
-    src="/images/5-Workshop/5.4-AWS-services/5.4.8-SQS-FIFO/sqs-dead-letter-queue.png"
+    src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.4-AWS-services/5.4.8-SQS-FIFO/sqs-dead-letter-queue.png"
     title="Hình 5.4.8.4: Cấu hình Dead-letter Queue của SQS FIFO"
     width="100%"
 >}}
@@ -307,7 +307,7 @@ Các chỉ số này giúp xác nhận rằng:
 - Không có thông điệp bị chờ quá lâu trong Queue.
 
 {{< figure
-    src="/images/5-Workshop/5.4-AWS-services/5.4.8-SQS-FIFO/sqs-cloudwatch-metrics.png"
+    src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.4-AWS-services/5.4.8-SQS-FIFO/sqs-cloudwatch-metrics.png"
     title="Hình 5.4.8.5: Các chỉ số giám sát của Amazon SQS FIFO"
     width="100%"
 >}}

@@ -107,7 +107,7 @@ Verify:
 - Dead-letter Queue, if configured.
 
 {{< figure
-    src="/images/5-Workshop/5.4-AWS-services/5.4.8-SQS-FIFO/sqs-queue-list.png"
+    src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.4-AWS-services/5.4.8-SQS-FIFO/sqs-queue-list.png"
     title="Figure 5.4.8.1: Amazon SQS queues of the Live Auction system"
     width="100%"
 >}}
@@ -139,7 +139,7 @@ FIFO
 ```
 
 {{< figure
-    src="/images/5-Workshop/5.4-AWS-services/5.4.8-SQS-FIFO/sqs-fifo-details.png"
+    src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.4-AWS-services/5.4.8-SQS-FIFO/sqs-fifo-details.png"
     title="Figure 5.4.8.2: Amazon SQS FIFO Queue configuration"
     width="100%"
 >}}
@@ -200,7 +200,7 @@ Confirm:
 - The Lambda function receiving messages is `la-bid-processor`.
 
 {{< figure
-    src="/images/5-Workshop/5.4-AWS-services/5.4.8-SQS-FIFO/sqs-lambda-trigger.png"
+    src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.4-AWS-services/5.4.8-SQS-FIFO/sqs-lambda-trigger.png"
     title="Figure 5.4.8.3: SQS Trigger of Lambda Bid Processor"
     width="100%"
 >}}
@@ -247,7 +247,7 @@ Verify:
 The Dead-letter Queue receives messages that cannot be processed after the configured number of attempts. This mechanism allows the team to investigate errors without losing bid messages.
 
 {{< figure
-    src="/images/5-Workshop/5.4-AWS-services/5.4.8-SQS-FIFO/sqs-dead-letter-queue.png"
+    src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.4-AWS-services/5.4.8-SQS-FIFO/sqs-dead-letter-queue.png"
     title="Figure 5.4.8.4: Dead-letter Queue configuration of SQS FIFO"
     width="100%"
 >}}
@@ -308,7 +308,7 @@ These metrics help confirm that:
 - Messages were not waiting in the Queue for too long.
 
 {{< figure
-    src="/images/5-Workshop/5.4-AWS-services/5.4.8-SQS-FIFO/sqs-cloudwatch-metrics.png"
+    src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.4-AWS-services/5.4.8-SQS-FIFO/sqs-cloudwatch-metrics.png"
     title="Figure 5.4.8.5: Amazon SQS FIFO monitoring metrics"
     width="100%"
 >}}

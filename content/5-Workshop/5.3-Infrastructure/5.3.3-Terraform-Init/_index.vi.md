@@ -31,11 +31,11 @@ HƯỚNG DẪN CHỤP ẢNH:
 1. Chạy lệnh: terraform version
 2. Chụp cửa sổ Terminal có cả câu lệnh và kết quả.
 3. Lưu ảnh tại:
-static/images/5-Workshop/5.3-Infrastructure/terraform-version.png
+static/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.3-Infrastructure/terraform-version.png
 -->
 
 <figure style="text-align: center;">
-    <img src="/images/5-Workshop/5.3-Infrastructure/terraform-version.png" alt="Kiểm tra phiên bản Terraform" width="75%">
+    <img src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.3-Infrastructure/terraform-version.png" alt="Kiểm tra phiên bản Terraform" width="75%">
     <figcaption style="text-align: center;">
         <b>Hình 5.3.12.</b> Kiểm tra phiên bản Terraform trên môi trường triển khai.
     </figcaption>
@@ -133,7 +133,7 @@ Các thành phần chính trong thư mục bao gồm:
 * `tfplan`: Tệp kế hoạch triển khai được tạo trong quá trình thực hiện `terraform plan` trước đó.
 
 <figure style="text-align: center;">
-    <img src="/images/5-Workshop/5.3-Infrastructure/terraform-init-files.png" alt="Các tệp trong module Identity sau khi Terraform Init" width="80%">
+    <img src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.3-Infrastructure/terraform-init-files.png" alt="Các tệp trong module Identity sau khi Terraform Init" width="80%">
     <figcaption style="text-align: center;">
         <b>Hình 5.3.14.</b> Các tệp trong module <code>03-identity</code> sau khi khởi tạo Terraform.
     </figcaption>
@@ -246,11 +246,11 @@ HƯỚNG DẪN CHỤP ẢNH:
 3. Chụp phần kết quả có dòng:
    Terraform has been successfully initialized!
 4. Lưu ảnh tại:
-static/images/5-Workshop/5.3-Infrastructure/terraform-init-success.png
+static/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.3-Infrastructure/terraform-init-success.png
 -->
 
 <figure style="text-align: center;">
-    <img src="/images/5-Workshop/5.3-Infrastructure/terraform-init-success.png" alt="Terraform Init thành công" width="85%">
+    <img src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.3-Infrastructure/terraform-init-success.png" alt="Terraform Init thành công" width="85%">
     <figcaption style="text-align: center;">
         <b>Hình 5.3.13.</b> Khởi tạo module Terraform thành công bằng lệnh <code>terraform init</code>.
     </figcaption>
@@ -317,11 +317,11 @@ HƯỚNG DẪN CHỤP ẢNH:
    variables.tf
    versions.tf
 3. Lưu ảnh tại:
-static/images/5-Workshop/5.3-Infrastructure/terraform-init-files.png
+static/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.3-Infrastructure/terraform-init-files.png
 -->
 
 <figure style="text-align: center;">
-    <img src="/images/5-Workshop/5.3-Infrastructure/terraform-init-files.png" alt="Các tệp sau Terraform Init" width="65%">
+    <img src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.3-Infrastructure/terraform-init-files.png" alt="Các tệp sau Terraform Init" width="65%">
     <figcaption style="text-align: center;">
         <b>Hình 5.3.14.</b> Thư mục <code>.terraform</code> và tệp <code>.terraform.lock.hcl</code> sau khi khởi tạo.
     </figcaption>

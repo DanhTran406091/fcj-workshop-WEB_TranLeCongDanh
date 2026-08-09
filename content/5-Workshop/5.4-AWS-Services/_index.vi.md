@@ -160,11 +160,11 @@ HƯỚNG DẪN CHỤP HÌNH:
 3. Chụp màn hình thể hiện các tài nguyên chính của dự án.
 4. Không để lộ Account ID, Access Key, email hoặc thông tin nhạy cảm.
 5. Lưu ảnh tại:
-   static/images/5-Workshop/5.4-AWS-services/aws-deployed-resources.png
+   static/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.4-AWS-services/aws-deployed-resources.png
 -->
 
 {{< figure
-    src="/images/5-Workshop/5.4-AWS-services/aws-deployed-resources.png"
+    src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.4-AWS-services/aws-deployed-resources.png"
     title="Hình 5.4.2: Các tài nguyên của hệ thống Live Auction trên AWS Management Console"
     width="100%"
 >}}

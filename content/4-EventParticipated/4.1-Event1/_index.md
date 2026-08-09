@@ -91,43 +91,43 @@ In addition to technical knowledge, I had an opportunity to meet people who shar
 
 ### Introduction of the AWS Quest Finalists
 
-![The organizers introducing the AWS Quest finalist teams](/images/4-EventParticipated/4.1-Event1/01-finalist-introduction.png)
+![The organizers introducing the AWS Quest finalist teams](/fcj-workshop-WEB_TranLeCongDanh/images/4-EventParticipated/4.1-Event1/01-finalist-introduction.png)
 
 *The organizers introduced the two teams that successfully passed the previous rounds and advanced to the AWS Quest final.*
 
 ### Team Discussion During the Final Round
 
-![The finalist teams discussing their answers](/images/4-EventParticipated/4.1-Event1/02-aws-quest-final.png)
+![The finalist teams discussing their answers](/fcj-workshop-WEB_TranLeCongDanh/images/4-EventParticipated/4.1-Event1/02-aws-quest-final.png)
 
 *The team members discussed the questions, analyzed the available options, and agreed on their final answers during the AWS Quest final.*
 
 ### Award Presentation
 
-![The winning team receiving their awards](/images/4-EventParticipated/4.1-Event1/03-award-ceremony.png)
+![The winning team receiving their awards](/fcj-workshop-WEB_TranLeCongDanh/images/4-EventParticipated/4.1-Event1/03-award-ceremony.png)
 
 *The organizers announced the final result and presented awards to the winning team after the competition.*
 
 ### Security for AI Agents Session
 
-![The speaker presenting the Security for AI Agents session](/images/4-EventParticipated/4.1-Event1/04-security-ai-agents-session.png)
+![The speaker presenting the Security for AI Agents session](/fcj-workshop-WEB_TranLeCongDanh/images/4-EventParticipated/4.1-Event1/04-security-ai-agents-session.png)
 
 *The speaker discussed AI agent capabilities and important security considerations when designing, deploying, and operating AI-based systems.*
 
 ### AI Agent Live Demonstration
 
-![Attendees participating in the AI agent demonstration](/images/4-EventParticipated/4.1-Event1/05-ai-agent-live-demo.png)
+![Attendees participating in the AI agent demonstration](/fcj-workshop-WEB_TranLeCongDanh/images/4-EventParticipated/4.1-Event1/05-ai-agent-live-demo.png)
 
 *Students and interns were guided through the live demonstration and given an opportunity to experience the application introduced by the speaker.*
 
 ### AWS Certification Tips and Exam Preparation
 
-![The speaker sharing AWS certification tips](/images/4-EventParticipated/4.1-Event1/06-cloud-practitioner-tips.png)
+![The speaker sharing AWS certification tips](/fcj-workshop-WEB_TranLeCongDanh/images/4-EventParticipated/4.1-Event1/06-cloud-practitioner-tips.png)
 
 *The speaker introduced AWS certifications and shared helpful study methods, important considerations, and practical tips for preparing for the AWS Certified Cloud Practitioner exam.*
 
 ### Closing Group Photo
 
-![Group photo after the Cloud Architect x Meetup event](/images/4-EventParticipated/4.1-Event1/07-meetup-group-photo.png)
+![Group photo after the Cloud Architect x Meetup event](/fcj-workshop-WEB_TranLeCongDanh/images/4-EventParticipated/4.1-Event1/07-meetup-group-photo.png)
 
 *The organizers, speakers, students, and other attendees took a group photo after the Cloud Architect x Meetup event.*
 

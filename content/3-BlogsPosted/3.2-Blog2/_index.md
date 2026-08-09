@@ -275,7 +275,7 @@ The article was shared with the **AWS Study Group – First Cloud Journey** comm
 **Article link:** [View the article on AWS Study Group](https://www.facebook.com/groups/awsstudygroupfcj/posts/2238842566880703/)
 
 {{< figure
-    src="/images/3-BlogsPosted/3.2-Blog2/blog2-facebook-post.png"
+    src="/fcj-workshop-WEB_TranLeCongDanh/images/3-BlogsPosted/3.2-Blog2/blog2-facebook-post.png"
     title="Figure 3.2.1: The AWS Lambda and Amazon RDS article published on AWS Study Group"
     width="100%"
 >}}

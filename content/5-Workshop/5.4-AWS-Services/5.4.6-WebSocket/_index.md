@@ -475,7 +475,7 @@ placeBid
 The `$connect` route uses the `la-ws-authorizer` Lambda Authorizer to authenticate a connection before allowing the client to access the WebSocket API.
 
 {{< figure
-    src="/images/5-Workshop/5.4-AWS-services/5.4.6-WebSocket/websocket-api-overview.png"
+    src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.4-AWS-services/5.4.6-WebSocket/websocket-api-overview.png"
     title="Figure 5.4.6.1: Route Selection Expression, routes, and Authorizer of the WebSocket API"
     width="100%"
 >}}
@@ -506,7 +506,7 @@ Confirm the following information:
 - The routes are integrated with WebSocket Handler Lambda.
 
 {{< figure
-    src="/images/5-Workshop/5.4-AWS-services/5.4.6-WebSocket/websocket-routes.png"
+    src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.4-AWS-services/5.4.6-WebSocket/websocket-routes.png"
     title="Figure 5.4.6.2: Routes of the API Gateway WebSocket API"
     width="50%"
 >}}
@@ -527,7 +527,7 @@ Verify:
 - The route is deployed to the `prod` stage.
 
 {{< figure
-    src="/images/5-Workshop/5.4-AWS-services/5.4.6-WebSocket/websocket-connect-route.png"
+    src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.4-AWS-services/5.4.6-WebSocket/websocket-connect-route.png"
     title="Figure 5.4.6.3: Configuration of the WebSocket API $connect route"
     width="100%"
 >}}
@@ -548,7 +548,7 @@ Select the system Authorizer and verify:
 - Identity Source is `route.request.querystring.token`.
 
 {{< figure
-    src="/images/5-Workshop/5.4-AWS-services/5.4.6-WebSocket/websocket-authorizer.png"
+    src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.4-AWS-services/5.4.6-WebSocket/websocket-authorizer.png"
     title="Figure 5.4.6.4: Lambda Authorizer of the WebSocket API"
     width="100%"
 >}}
@@ -583,7 +583,7 @@ placeBid
 The following figure shows the Integration Request of the `$connect` route. The remaining routes can be selected individually to confirm that they are also connected to the corresponding Lambda function.
 
 {{< figure
-    src="/images/5-Workshop/5.4-AWS-services/5.4.6-WebSocket/websocket-lambda-integration.png"
+    src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.4-AWS-services/5.4.6-WebSocket/websocket-lambda-integration.png"
     title="Figure 5.4.6.5: Lambda Proxy Integration of the WebSocket API $connect route"
     width="100%"
 >}}
@@ -612,7 +612,7 @@ Auto deploy: Enabled
 ```
 
 {{< figure
-    src="/images/5-Workshop/5.4-AWS-services/5.4.6-WebSocket/websocket-prod-stage.png"
+    src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.4-AWS-services/5.4.6-WebSocket/websocket-prod-stage.png"
     title="Figure 5.4.6.6: The prod stage of the API Gateway WebSocket API"
     width="100%"
 >}}
@@ -647,7 +647,7 @@ Verify:
 - Lambda Permission allows API Gateway to invoke the function.
 
 {{< figure
-    src="/images/5-Workshop/5.4-AWS-services/5.4.6-WebSocket/websocket-lambda-trigger.png"
+    src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.4-AWS-services/5.4.6-WebSocket/websocket-lambda-trigger.png"
     title="Figure 5.4.6.7: API Gateway WebSocket trigger of Lambda Handler"
     width="100%"
 >}}
@@ -694,7 +694,7 @@ placeBid
 ```
 
 {{< figure
-    src="/images/5-Workshop/5.4-AWS-services/5.4.6-WebSocket/websocket-handler-cloudwatch-log.png"
+    src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.4-AWS-services/5.4.6-WebSocket/websocket-handler-cloudwatch-log.png"
     title="Figure 5.4.6.8: CloudWatch Logs of Lambda WebSocket Handler"
     width="100%"
 >}}

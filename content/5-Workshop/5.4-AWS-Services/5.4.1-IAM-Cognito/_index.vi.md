@@ -104,7 +104,7 @@ Các nội dung cần kiểm tra gồm:
 
 
 {{< figure
-    src="/images/5-Workshop/5.4-AWS-services/5.4.1-IAM-Cognito/iam-role-list.png"
+    src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.4-AWS-services/5.4.1-IAM-Cognito/iam-role-list.png"
     title="Hình 5.4.1.1: Danh sách IAM Role của hệ thống Live Auction"
     width="100%"
 >}}
@@ -126,7 +126,7 @@ Không nên gán quyền toàn phần như `AdministratorAccess` cho Lambda Func
 
 
 {{< figure
-    src="/images/5-Workshop/5.4-AWS-services/5.4.1-IAM-Cognito/iam-role-permissions.png"
+    src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.4-AWS-services/5.4.1-IAM-Cognito/iam-role-permissions.png"
     title="Hình 5.4.1.2: Các Permission Policy được gán với IAM Role của Lambda"
     width="100%"
 >}}
@@ -151,7 +151,7 @@ Có thể chọn **View policy document** để xem nội dung Trust Policy. Kh�
 
 
 {{< figure
-    src="/images/5-Workshop/5.4-AWS-services/5.4.1-IAM-Cognito/iam-role-trust-relationship.png"
+    src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.4-AWS-services/5.4.1-IAM-Cognito/iam-role-trust-relationship.png"
     title="Hình 5.4.1.3: Trust Relationship của Lambda Execution Role"
     width="100%"
 >}}
@@ -269,7 +269,7 @@ Các thông tin cần kiểm tra gồm:
 * Thời điểm cập nhật gần nhất.
 
 {{< figure
-    src="/images/5-Workshop/5.4-AWS-services/5.4.1-IAM-Cognito/cognito-user-pool.png"
+    src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.4-AWS-services/5.4.1-IAM-Cognito/cognito-user-pool.png"
     title="Hình 5.4.1.4: Cognito User Pool của hệ thống Live Auction"
     width="100%"
 >}}
@@ -313,7 +313,7 @@ Các thông tin cần kiểm tra gồm:
 
 
 {{< figure
-    src="/images/5-Workshop/5.4-AWS-services/5.4.1-IAM-Cognito/cognito-app-client.png"
+    src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.4-AWS-services/5.4.1-IAM-Cognito/cognito-app-client.png"
     title="Hình 5.4.1.5: App Client được cấu hình cho hệ thống Live Auction"
     width="100%"
 >}}
@@ -345,7 +345,7 @@ Các thông tin cần kiểm tra gồm:
 
 
 {{< figure
-    src="/images/5-Workshop/5.4-AWS-services/5.4.1-IAM-Cognito/cognito-groups.png"
+    src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.4-AWS-services/5.4.1-IAM-Cognito/cognito-groups.png"
     title="Hình 5.4.1.6: Các nhóm user và admin trong Cognito User Pool"
     width="100%"
 >}}
@@ -373,7 +373,7 @@ Tài khoản quản trị phải được gán vào nhóm `admin` trước khi s
 
 
 {{< figure
-    src="/images/5-Workshop/5.4-AWS-services/5.4.1-IAM-Cognito/cognito-users.png"
+    src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.4-AWS-services/5.4.1-IAM-Cognito/cognito-users.png"
     title="Hình 5.4.1.7: Danh sách tài khoản được quản lý trong Amazon Cognito"
     width="100%"
 >}}
@@ -404,7 +404,7 @@ Các thông tin cần kiểm tra gồm:
 
 
 {{< figure
-    src="/images/5-Workshop/5.4-AWS-services/5.4.1-IAM-Cognito/cognito-post-confirmation-trigger.png"
+    src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.4-AWS-services/5.4.1-IAM-Cognito/cognito-post-confirmation-trigger.png"
     title="Hình 5.4.1.8: Lambda Post Confirmation được liên kết với Cognito User Pool"
     width="100%"
 >}}

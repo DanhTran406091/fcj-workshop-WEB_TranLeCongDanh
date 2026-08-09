@@ -11,7 +11,7 @@ pre: "<b>5.3.2. </b>"
 Toàn bộ hạ tầng của hệ thống Live Auction được quản lý trong thư mục **infra/** bằng Terraform theo mô hình **Infrastructure as Code (IaC)**. Thay vì khai báo toàn bộ tài nguyên trong một tệp duy nhất, nhóm chia hạ tầng thành nhiều module độc lập tương ứng với từng lớp chức năng của hệ thống. Cách tổ chức này giúp quá trình phát triển, kiểm thử và bảo trì trở nên dễ dàng hơn, đồng thời hạn chế ảnh hưởng giữa các thành phần khi có sự thay đổi.
 
 <figure style="text-align: center;">
-    <img src="/images/5-Workshop/5.3-Infrastructure/infrastructure-structure.png" alt="Infrastructure Directory Structure" width="45%">
+    <img src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.3-Infrastructure/infrastructure-structure.png" alt="Infrastructure Directory Structure" width="45%">
     <figcaption style="text-align: center;">
         <b>Hình 5.3.2.</b> Cấu trúc thư mục Infrastructure của dự án.
     </figcaption>
@@ -28,7 +28,7 @@ Trong thư mục này có tệp **bootstrap-remote-state.ps1**, được sử d�
 Việc tách riêng giai đoạn bootstrap giúp các bước triển khai tiếp theo không cần cấu hình lại Terraform Backend, đồng thời đảm bảo nhiều thành viên trong nhóm có thể sử dụng chung một trạng thái hạ tầng.
 
 <figure style="text-align: center;">
-    <img src="/images/5-Workshop/5.3-Infrastructure/bootstrap-structure.png" alt="Bootstrap Structure" width="55%">
+    <img src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.3-Infrastructure/bootstrap-structure.png" alt="Bootstrap Structure" width="55%">
     <figcaption style="text-align: center;">
         <b>Hình 5.3.3.</b> Cấu trúc thư mục <code>00-bootstrap</code>.
     </figcaption>
@@ -45,7 +45,7 @@ Thư mục này chứa các cấu hình cơ bản như **backend.tf**, dùng đ�
 Việc tách riêng phần Foundation giúp các cấu hình dùng chung chỉ cần định nghĩa một lần và có thể tái sử dụng cho toàn bộ hệ thống.
 
 <figure style="text-align: center;">
-    <img src="/images/5-Workshop/5.3-Infrastructure/foundation-structure.png" alt="Foundation Structure" width="45%">
+    <img src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.3-Infrastructure/foundation-structure.png" alt="Foundation Structure" width="45%">
     <figcaption style="text-align: center;">
         <b>Hình 5.3.4.</b> Cấu trúc thư mục <code>01-foundation</code>.
     </figcaption>
@@ -62,7 +62,7 @@ Module này triển khai các dịch vụ như **AWS Identity and Access Managem
 Ngoài các tệp cấu hình Terraform như **main.tf**, **variables.tf**, **outputs.tf**, **providers.tf**, **backend.tf** và **versions.tf**, thư mục còn chứa **terraform.lock.hcl** để khóa phiên bản Provider, thư mục **.terraform/** và tệp **tfplan** được sinh ra trong quá trình lập kế hoạch triển khai.
 
 <figure style="text-align: center;">
-    <img src="/images/5-Workshop/5.3-Infrastructure/identity-structure.png" alt="Identity Structure" width="35%">
+    <img src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.3-Infrastructure/identity-structure.png" alt="Identity Structure" width="35%">
     <figcaption style="text-align: center;">
         <b>Hình 5.3.5.</b> Cấu trúc module <code>03-identity</code>.
     </figcaption>
@@ -79,7 +79,7 @@ Các bảng DynamoDB được tạo trong giai đoạn này phục vụ nhiều 
 Bên cạnh tệp **main.tf** dùng để khai báo tài nguyên DynamoDB, module còn bao gồm các tệp **variables.tf**, **outputs.tf**, **providers.tf**, **backend.tf** và **versions.tf** nhằm chuẩn hóa quá trình triển khai và quản lý hạ tầng.
 
 <figure style="text-align: center;">
-    <img src="/images/5-Workshop/5.3-Infrastructure/data-structure.png" alt="Data Structure" width="35%">
+    <img src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.3-Infrastructure/data-structure.png" alt="Data Structure" width="35%">
     <figcaption style="text-align: center;">
         <b>Hình 5.3.6.</b> Cấu trúc module <code>04-data</code>.
     </figcaption>
@@ -96,7 +96,7 @@ Trong quá trình đấu giá thời gian thực, nhiều người dùng có th�
 Ngoài các tệp cấu hình Terraform chuẩn như **main.tf**, **variables.tf**, **outputs.tf**, **providers.tf**, **backend.tf** và **versions.tf**, module còn lưu trữ kết quả của lệnh **terraform plan** để hỗ trợ quá trình kiểm tra trước khi triển khai.
 
 <figure style="text-align: center;">
-    <img src="/images/5-Workshop/5.3-Infrastructure/messaging-structure.png" alt="Messaging Structure" width="35%">
+    <img src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.3-Infrastructure/messaging-structure.png" alt="Messaging Structure" width="35%">
     <figcaption style="text-align: center;">
         <b>Hình 5.3.7.</b> Cấu trúc module <code>05-messaging</code>.
     </figcaption>
@@ -115,7 +115,7 @@ Bên trong module còn có thư mục **stage3-control-plane/**, được sử d
 Tương tự các module khác, thư mục này cũng bao gồm các tệp **main.tf**, **variables.tf**, **outputs.tf**, **providers.tf**, **backend.tf**, **versions.tf** và **terraform.lock.hcl** nhằm đảm bảo quá trình triển khai được thực hiện nhất quán.
 
 <figure style="text-align: center;">
-    <img src="/images/5-Workshop/5.3-Infrastructure/compute-structure.png" alt="Compute Structure" width="40%">
+    <img src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.3-Infrastructure/compute-structure.png" alt="Compute Structure" width="40%">
     <figcaption style="text-align: center;">
         <b>Hình 5.3.8.</b> Cấu trúc module <code>06-compute</code>.
     </figcaption>
@@ -132,7 +132,7 @@ Bên cạnh REST API, module còn triển khai **API Gateway WebSocket**, cho ph
 Tương tự các module khác, thư mục này bao gồm các tệp **main.tf**, **variables.tf**, **outputs.tf**, **providers.tf**, **backend.tf**, **versions.tf**, cùng các tệp hỗ trợ quá trình lập kế hoạch và triển khai bằng Terraform.
 
 <figure style="text-align: center;">
-    <img src="/images/5-Workshop/5.3-Infrastructure/api-structure.png" alt="API Structure" width="30%">
+    <img src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.3-Infrastructure/api-structure.png" alt="API Structure" width="30%">
     <figcaption style="text-align: center;">
         <b>Hình 5.3.9.</b> Cấu trúc module <code>07-api</code>.
     </figcaption>
@@ -147,7 +147,7 @@ Thư mục **09-edge/** quản lý các dịch vụ biên (Edge Services) của 
 Việc sử dụng CloudFront giúp giảm độ trễ truy cập, tăng tốc độ tải trang và cải thiện trải nghiệm người dùng khi truy cập hệ thống từ nhiều vị trí địa lý khác nhau. Ngoài ra, module cũng chịu trách nhiệm cấu hình các tài nguyên liên quan đến việc phân phối nội dung trên AWS.
 
 <figure style="text-align: center;">
-    <img src="/images/5-Workshop/5.3-Infrastructure/edge-structure.png" alt="Edge Structure" width="30%">
+    <img src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.3-Infrastructure/edge-structure.png" alt="Edge Structure" width="30%">
     <figcaption style="text-align: center;">
         <b>Hình 5.3.10.</b> Cấu trúc module <code>09-edge</code>.
     </figcaption>
@@ -163,7 +163,7 @@ Thư mục này bao gồm nhiều tập lệnh PowerShell được tổ chức t
 Việc xây dựng các tập lệnh kiểm thử riêng giúp nhóm dễ dàng xác minh kết quả sau mỗi lần triển khai, đồng thời hỗ trợ phát hiện sớm các lỗi phát sinh trong quá trình phát triển.
 
 <figure style="text-align: center;">
-    <img src="/images/5-Workshop/5.3-Infrastructure/tests-structure.png" alt="Tests Structure" width="30%">
+    <img src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.3-Infrastructure/tests-structure.png" alt="Tests Structure" width="30%">
     <figcaption style="text-align: center;">
         <b>Hình 5.3.11.</b> Cấu trúc thư mục <code>tests</code>.
     </figcaption>

@@ -45,7 +45,7 @@ Các thành phần hạ tầng được quản lý bao gồm:
 Việc sử dụng Terraform giúp nhóm triển khai toàn bộ hạ tầng AWS chỉ với một số lệnh, đồng thời đảm bảo các thành viên đều sử dụng chung một cấu hình trong quá trình phát triển và triển khai.
 
 <figure style="text-align: center;">
-    <img src="/images/5-Workshop/5.3-Infrastructure/terraform-overview.png" alt="Terraform Overview" width="60%">
+    <img src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.3-Infrastructure/terraform-overview.png" alt="Terraform Overview" width="60%">
     <figcaption style="text-align: center;">
         <b>Hình 5.3.1.</b> Thư mục Infrastructure (infra) sử dụng Terraform để quản lý hạ tầng AWS.
     </figcaption>

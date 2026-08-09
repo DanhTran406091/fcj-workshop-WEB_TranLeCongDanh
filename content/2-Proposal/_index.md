@@ -86,7 +86,7 @@ The diagram below illustrates the proposed AWS architecture for the Live Auction
 
 Click the diagram below to view the full-size version.
 
-[![Proposed AWS Architecture for Live Auction](/images/2-Proposal/live-auction-proposed-architecture.svg)](/images/2-Proposal/live-auction-proposed-architecture.svg)
+[![Proposed AWS Architecture for Live Auction](/fcj-workshop-WEB_TranLeCongDanh/images/2-Proposal/live-auction-proposed-architecture.svg)](/fcj-workshop-WEB_TranLeCongDanh/images/2-Proposal/live-auction-proposed-architecture.svg)
 
 > **Note:** This diagram represents the **target architecture** of the system. Some advanced components are planned for future implementation depending on the project scope and development progress.
 

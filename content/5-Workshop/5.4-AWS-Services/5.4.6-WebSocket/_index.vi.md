@@ -478,7 +478,7 @@ Trong đó, route `$connect` sử dụng Lambda Authorizer `la-ws-authorizer` đ
 
 
 {{< figure
-    src="/images/5-Workshop/5.4-AWS-services/5.4.6-WebSocket/websocket-api-overview.png"
+    src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.4-AWS-services/5.4.6-WebSocket/websocket-api-overview.png"
     title="Hình 5.4.6.1: Route Selection Expression, các Route và Authorizer của WebSocket API"
     width="100%"
 >}}
@@ -510,7 +510,7 @@ Các nội dung cần xác nhận:
 
 
 {{< figure
-    src="/images/5-Workshop/5.4-AWS-services/5.4.6-WebSocket/websocket-routes.png"
+    src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.4-AWS-services/5.4.6-WebSocket/websocket-routes.png"
     title="Hình 5.4.6.2: Các Route của API Gateway WebSocket"
     width="50%"
 >}}
@@ -532,7 +532,7 @@ Kiểm tra:
 
 
 {{< figure
-    src="/images/5-Workshop/5.4-AWS-services/5.4.6-WebSocket/websocket-connect-route.png"
+    src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.4-AWS-services/5.4.6-WebSocket/websocket-connect-route.png"
     title="Hình 5.4.6.3: Cấu hình route $connect của WebSocket API"
     width="100%"
 >}}
@@ -554,7 +554,7 @@ Chọn Authorizer của hệ thống và kiểm tra:
 
 
 {{< figure
-    src="/images/5-Workshop/5.4-AWS-services/5.4.6-WebSocket/websocket-authorizer.png"
+    src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.4-AWS-services/5.4.6-WebSocket/websocket-authorizer.png"
     title="Hình 5.4.6.4: Lambda Authorizer của WebSocket API"
     width="100%"
 >}}
@@ -590,7 +590,7 @@ placeBid
 
 
 {{< figure
-    src="/images/5-Workshop/5.4-AWS-services/5.4.6-WebSocket/websocket-lambda-integration.png"
+    src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.4-AWS-services/5.4.6-WebSocket/websocket-lambda-integration.png"
     title="Hình 5.4.6.5: Lambda Proxy Integration của Route $connect trong WebSocket API"
     width="100%"
 >}}
@@ -620,7 +620,7 @@ Auto deploy: Enabled
 
 
 {{< figure
-    src="/images/5-Workshop/5.4-AWS-services/5.4.6-WebSocket/websocket-prod-stage.png"
+    src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.4-AWS-services/5.4.6-WebSocket/websocket-prod-stage.png"
     title="Hình 5.4.6.6: Stage prod của API Gateway WebSocket"
     width="100%"
 >}}
@@ -656,7 +656,7 @@ Các nội dung cần kiểm tra:
 
 
 {{< figure
-    src="/images/5-Workshop/5.4-AWS-services/5.4.6-WebSocket/websocket-lambda-trigger.png"
+    src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.4-AWS-services/5.4.6-WebSocket/websocket-lambda-trigger.png"
     title="Hình 5.4.6.7: API Gateway WebSocket Trigger của Lambda Handler"
     width="100%"
 >}}
@@ -703,7 +703,7 @@ placeBid
 ```
 
 {{< figure
-    src="/images/5-Workshop/5.4-AWS-services/5.4.6-WebSocket/websocket-handler-cloudwatch-log.png"
+    src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.4-AWS-services/5.4.6-WebSocket/websocket-handler-cloudwatch-log.png"
     title="Hình 5.4.6.8: CloudWatch Logs của Lambda WebSocket Handler"
     width="100%"
 >}}

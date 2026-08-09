@@ -86,7 +86,7 @@ Sơ đồ dưới đây mô tả kiến trúc AWS mở rộng được nhóm đ�
 
 Nhấn vào sơ đồ để xem ở kích thước đầy đủ.
 
-[![Sơ đồ kiến trúc AWS đề xuất cho hệ thống Live Auction](/images/2-Proposal/live-auction-proposed-architecture.svg)](/images/2-Proposal/live-auction-proposed-architecture.svg)
+[![Sơ đồ kiến trúc AWS đề xuất cho hệ thống Live Auction](/fcj-workshop-WEB_TranLeCongDanh/images/2-Proposal/live-auction-proposed-architecture.svg)](/fcj-workshop-WEB_TranLeCongDanh/images/2-Proposal/live-auction-proposed-architecture.svg)
 
 > **Lưu ý:** Sơ đồ trên thể hiện **kiến trúc mục tiêu** của hệ thống. Một số thành phần nâng cao sẽ được triển khai trong các giai đoạn tiếp theo tùy theo phạm vi và tiến độ của đồ án.
 

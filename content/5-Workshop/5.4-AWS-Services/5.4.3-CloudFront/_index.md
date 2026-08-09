@@ -284,7 +284,7 @@ Deployed
 ```
 
 {{< figure
-    src="/images/5-Workshop/5.4-AWS-services/5.4.3-CloudFront/cloudfront-distribution-list.png"
+    src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.4-AWS-services/5.4.3-CloudFront/cloudfront-distribution-list.png"
     title="Figure 5.4.3.1: CloudFront Distributions of the Live Auction system"
     width="100%"
 >}}
@@ -316,7 +316,7 @@ index.html
 ```
 
 {{< figure
-    src="/images/5-Workshop/5.4-AWS-services/5.4.3-CloudFront/cloudfront-user-frontend-general.png"
+    src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.4-AWS-services/5.4.3-CloudFront/cloudfront-user-frontend-general.png"
     title="Figure 5.4.3.2: User Frontend CloudFront Distribution details"
     width="100%"
 >}}
@@ -338,7 +338,7 @@ Verify:
 * The Origin does not incorrectly point to the Admin Frontend Bucket or Media Bucket.
 
 {{< figure
-    src="/images/5-Workshop/5.4-AWS-services/5.4.3-CloudFront/cloudfront-user-frontend-origin.png"
+    src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.4-AWS-services/5.4.3-CloudFront/cloudfront-user-frontend-origin.png"
     title="Figure 5.4.3.3: S3 Origin of the User Frontend Distribution"
     width="100%"
 >}}
@@ -373,7 +373,7 @@ Compress objects automatically: Yes
 ```
 
 {{< figure
-    src="/images/5-Workshop/5.4-AWS-services/5.4.3-CloudFront/cloudfront-cache-behavior.png"
+    src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.4-AWS-services/5.4.3-CloudFront/cloudfront-cache-behavior.png"
     title="Figure 5.4.3.4: Default Cache Behavior of a CloudFront Distribution"
     width="100%"
 >}}
@@ -398,7 +398,7 @@ These configurations allow the frontend router to process Single Page Applicatio
 The Admin Frontend Distribution should contain the same two configurations.
 
 {{< figure
-    src="/images/5-Workshop/5.4-AWS-services/5.4.3-CloudFront/cloudfront-custom-error-responses.png"
+    src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.4-AWS-services/5.4.3-CloudFront/cloudfront-custom-error-responses.png"
     title="Figure 5.4.3.5: Custom Error Responses supporting the Single Page Application"
     width="100%"
 >}}
@@ -417,7 +417,7 @@ Verify:
 * Custom Error Responses are configured for `403` and `404`.
 
 {{< figure
-    src="/images/5-Workshop/5.4-AWS-services/5.4.3-CloudFront/cloudfront-admin-frontend.png"
+    src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.4-AWS-services/5.4.3-CloudFront/cloudfront-admin-frontend.png"
     title="Figure 5.4.3.6: CloudFront Distribution for the Admin Frontend"
     width="100%"
 >}}
@@ -440,7 +440,7 @@ Verify:
 * IPv6 is enabled.
 
 {{< figure
-    src="/images/5-Workshop/5.4-AWS-services/5.4.3-CloudFront/cloudfront-item-media.png"
+    src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.4-AWS-services/5.4.3-CloudFront/cloudfront-item-media.png"
     title="Figure 5.4.3.7: CloudFront Distribution for Item Media"
     width="100%"
 >}}
@@ -465,7 +465,7 @@ The following information should be confirmed:
 * Signing Protocol is SigV4.
 
 {{< figure
-    src="/images/5-Workshop/5.4-AWS-services/5.4.3-CloudFront/cloudfront-origin-access-control.png"
+    src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.4-AWS-services/5.4.3-CloudFront/cloudfront-origin-access-control.png"
     title="Figure 5.4.3.8: Origin Access Controls of the S3 Origins"
     width="100%"
 >}}

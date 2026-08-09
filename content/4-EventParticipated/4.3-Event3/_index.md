@@ -16,7 +16,7 @@ Unlike a chatbot that mainly receives questions and generates responses, an Agen
 
 The event combined theoretical presentations with guided hands-on exercises. Participants not only learned how AI Agents work but were also guided through preparing a development environment, building a basic Agent, and approaching the process of deploying an Agent to AWS.
 
-![Introduction to AgentForge Deep Dive](/images/4-EventParticipated/4.3-Event3/01-agentforge-introduction.png)
+![Introduction to AgentForge Deep Dive](/fcj-workshop-WEB_TranLeCongDanh/images/4-EventParticipated/4.3-Event3/01-agentforge-introduction.png)
 
 *The speakers introduced AgentForge and its objective of building production-ready Agentic AI systems with Amazon Bedrock AgentCore.*
 
@@ -24,7 +24,7 @@ The event combined theoretical presentations with guided hands-on exercises. Par
 
 AgentForge was designed as a three-day program. Each day combined theoretical knowledge with Hands-on Labs of increasing complexity.
 
-![Three-day AgentForge workshop agenda](/images/4-EventParticipated/4.3-Event3/02-three-day-agenda.png)
+![Three-day AgentForge workshop agenda](/fcj-workshop-WEB_TranLeCongDanh/images/4-EventParticipated/4.3-Event3/02-three-day-agenda.png)
 
 *An overview of the three-day AgentForge workshop agenda.*
 
@@ -68,7 +68,7 @@ For this event, I participated only in **Day 1**. Day 2 and Day 3 were introduce
 
 Agentic AI was introduced as a partially or fully autonomous software system that uses AI to **reason, plan, and complete tasks** on behalf of people or other systems.
 
-![Definition of Agentic AI](/images/4-EventParticipated/4.3-Event3/03-what-is-agentic-ai.png)
+![Definition of Agentic AI](/fcj-workshop-WEB_TranLeCongDanh/images/4-EventParticipated/4.3-Event3/03-what-is-agentic-ai.png)
 
 *Agentic AI uses artificial intelligence to reason, plan, and complete tasks with different levels of autonomy.*
 
@@ -90,7 +90,7 @@ A basic AI Agent can include the following components:
 - **Guardrails:** Rules that limit and control the Agent’s behavior.
 - **User Interaction:** The communication channel between the user and the Agent.
 
-![Basic components of an AI Agent](/images/4-EventParticipated/4.3-Event3/04-basic-agent-components.png)
+![Basic components of an AI Agent](/fcj-workshop-WEB_TranLeCongDanh/images/4-EventParticipated/4.3-Event3/04-basic-agent-components.png)
 
 *An Agent combines goals, memory, data, tools, and a language model to perform actions.*
 
@@ -105,7 +105,7 @@ The speaker introduced different levels of autonomy in AI systems:
 3. **Autonomous Agents:** Create plans at runtime and complete multi-step tasks.
 4. **Agentic Virtual Workers:** Coordinate multiple Agents, operate over extended periods, and imitate the collaboration of human teams.
 
-![Different levels of autonomy in AI systems](/images/4-EventParticipated/4.3-Event3/05-autonomy-gradient.png)
+![Different levels of autonomy in AI systems](/fcj-workshop-WEB_TranLeCongDanh/images/4-EventParticipated/4.3-Event3/05-autonomy-gradient.png)
 
 *The level of autonomy increases from simple assistants to Agentic Virtual Workers.*
 
@@ -115,7 +115,7 @@ An important lesson was that developers do not always need to build fully autono
 
 The next topic introduced the basic Agent loop implemented with **Strands Agents**.
 
-![Basic Strands Agent loop](/images/4-EventParticipated/4.3-Event3/06-strands-agent-loop.png)
+![Basic Strands Agent loop](/fcj-workshop-WEB_TranLeCongDanh/images/4-EventParticipated/4.3-Event3/06-strands-agent-loop.png)
 
 *The processing loop between the user, Agent, model, and tools.*
 
@@ -148,7 +148,7 @@ When an Agent is moved into a production environment, it requires a secure platf
 
 Amazon Bedrock AgentCore provides components that help move an Agent from the development environment into production.
 
-![Components of Amazon Bedrock AgentCore](/images/4-EventParticipated/4.3-Event3/07-agentcore-components.png)
+![Components of Amazon Bedrock AgentCore](/fcj-workshop-WEB_TranLeCongDanh/images/4-EventParticipated/4.3-Event3/07-agentcore-components.png)
 
 *Amazon Bedrock AgentCore provides the environment, context, tools, optimization capabilities, and platform controls required to operate Agents.*
 
@@ -175,7 +175,7 @@ AgentCore Runtime supports several communication methods:
 - **A2A:** Supports communication between Agents.
 - **AG-UI:** Supports communication between an Agent and a user interface.
 
-![Protocols supported by AgentCore Runtime](/images/4-EventParticipated/4.3-Event3/08-agentcore-runtime-protocols.png)
+![Protocols supported by AgentCore Runtime](/fcj-workshop-WEB_TranLeCongDanh/images/4-EventParticipated/4.3-Event3/08-agentcore-runtime-protocols.png)
 
 *AgentCore Runtime supports several communication methods between applications, tools, Agents, and users.*
 
@@ -198,7 +198,7 @@ These mechanisms allow an Agent to access resources with appropriate permissions
 
 AgentCore Gateway serves as a secure connection layer between an Agent and external APIs, tools, and resources.
 
-![AgentCore Gateway providing secure access](/images/4-EventParticipated/4.3-Event3/09-agentcore-gateway-secure-access.png)
+![AgentCore Gateway providing secure access](/fcj-workshop-WEB_TranLeCongDanh/images/4-EventParticipated/4.3-Event3/09-agentcore-gateway-secure-access.png)
 
 *AgentCore Gateway manages connections and authentication when an Agent accesses external tools.*
 

@@ -94,43 +94,43 @@ Ngoài kiến thức chuyên môn, em còn có cơ hội gặp gỡ những ngư
 
 ### Giới thiệu hai đội vào vòng chung kết AWS Quest
 
-![Ban tổ chức giới thiệu hai đội vào vòng chung kết AWS Quest](/images/4-EventParticipated/4.1-Event1/01-finalist-introduction.png)
+![Ban tổ chức giới thiệu hai đội vào vòng chung kết AWS Quest](/fcj-workshop-WEB_TranLeCongDanh/images/4-EventParticipated/4.1-Event1/01-finalist-introduction.png)
 
 *Ban tổ chức giới thiệu hai đội xuất sắc đã vượt qua vòng loại để bước vào trận chung kết của mini game AWS Quest.*
 
 ### Các đội thảo luận và lựa chọn đáp án
 
-![Hai đội thảo luận đáp án trong vòng chung kết AWS Quest](/images/4-EventParticipated/4.1-Event1/02-aws-quest-final.png)
+![Hai đội thảo luận đáp án trong vòng chung kết AWS Quest](/fcj-workshop-WEB_TranLeCongDanh/images/4-EventParticipated/4.1-Event1/02-aws-quest-final.png)
 
 *Các thành viên trong hai đội tập trung trao đổi, phân tích câu hỏi và thống nhất đáp án trong phần thi chung kết AWS Quest.*
 
 ### Trao phần thưởng cho đội đạt giải nhất
 
-![Trao phần thưởng cho đội chiến thắng AWS Quest](/images/4-EventParticipated/4.1-Event1/03-award-ceremony.png)
+![Trao phần thưởng cho đội chiến thắng AWS Quest](/fcj-workshop-WEB_TranLeCongDanh/images/4-EventParticipated/4.1-Event1/03-award-ceremony.png)
 
 *Ban tổ chức công bố kết quả và trao phần thưởng cho đội giành chiến thắng sau khi hoàn thành vòng chung kết.*
 
 ### Phiên chia sẻ về Security for AI Agents
 
-![Diễn giả chia sẻ về Security for AI Agents](/images/4-EventParticipated/4.1-Event1/04-security-ai-agents-session.png)
+![Diễn giả chia sẻ về Security for AI Agents](/fcj-workshop-WEB_TranLeCongDanh/images/4-EventParticipated/4.1-Event1/04-security-ai-agents-session.png)
 
 *Diễn giả trình bày về AI agent, các khả năng nổi bật và những vấn đề bảo mật cần được quan tâm khi thiết kế, triển khai và vận hành hệ thống.*
 
 ### Trải nghiệm phần demo của diễn giả
 
-![Người tham dự trải nghiệm phần demo AI agent](/images/4-EventParticipated/4.1-Event1/05-ai-agent-live-demo.png)
+![Người tham dự trải nghiệm phần demo AI agent](/fcj-workshop-WEB_TranLeCongDanh/images/4-EventParticipated/4.1-Event1/05-ai-agent-live-demo.png)
 
 *Các sinh viên và thực tập sinh được hướng dẫn truy cập, quan sát và trải nghiệm phần demo ứng dụng do diễn giả giới thiệu.*
 
 ### Chia sẻ về chứng chỉ AWS và kinh nghiệm làm bài thi
 
-![Chia sẻ về AWS Certified Cloud Practitioner](/images/4-EventParticipated/4.1-Event1/06-cloud-practitioner-tips.png)
+![Chia sẻ về AWS Certified Cloud Practitioner](/fcj-workshop-WEB_TranLeCongDanh/images/4-EventParticipated/4.1-Event1/06-cloud-practitioner-tips.png)
 
 *Diễn giả giới thiệu các chứng chỉ AWS, đồng thời chia sẻ những lưu ý, phương pháp học tập và một số mẹo hữu ích khi chuẩn bị cho kỳ thi AWS Certified Cloud Practitioner.*
 
 ### Hình ảnh tổng kết chương trình
 
-![Ảnh tập thể sau chương trình Cloud Architect x Meetup](/images/4-EventParticipated/4.1-Event1/07-meetup-group-photo.png)
+![Ảnh tập thể sau chương trình Cloud Architect x Meetup](/fcj-workshop-WEB_TranLeCongDanh/images/4-EventParticipated/4.1-Event1/07-meetup-group-photo.png)
 
 *Ban tổ chức, diễn giả và các sinh viên tham dự cùng chụp ảnh lưu niệm sau khi chương trình Cloud Architect x Meetup kết thúc.*
 

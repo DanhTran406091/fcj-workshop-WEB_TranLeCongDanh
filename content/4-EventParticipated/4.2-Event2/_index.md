@@ -14,7 +14,7 @@ pre: " <b> 4.2. </b> "
 
 At the beginning of the event, the guest speakers introduced **Agentic AI Build Week**, the objectives of the hackathon, and the opportunity for participants to apply their knowledge of AWS, artificial intelligence, and software development to real-world problems.
 
-![Guest speakers introducing Agentic AI Build Week](/images/4-EventParticipated/4.2-Event2/01-agentic-ai-build-week-introduction.png)
+![Guest speakers introducing Agentic AI Build Week](/fcj-workshop-WEB_TranLeCongDanh/images/4-EventParticipated/4.2-Event2/01-agentic-ai-build-week-introduction.png)
 
 *The guest speakers introduced Agentic AI Build Week and provided an overview of the hackathon.*
 
@@ -28,7 +28,7 @@ Each team selected a different field of application, but they all used AI Agents
 
 The first team presented **AI-Powered Conversation Ordering – From Idea to a Multi-Channel AI Agent**. This solution uses an AI Agent to help users place food orders through conversations across multiple communication channels.
 
-![The team presenting AI-Powered Conversation Ordering](/images/4-EventParticipated/4.2-Event2/02-conversation-ordering-presentation.png)
+![The team presenting AI-Powered Conversation Ordering](/fcj-workshop-WEB_TranLeCongDanh/images/4-EventParticipated/4.2-Event2/02-conversation-ordering-presentation.png)
 
 *The team introduced its idea of building an AI Agent for conversational food ordering.*
 
@@ -66,7 +66,7 @@ A conventional chatbot mainly generates responses. In contrast, an AI Agent can 
 
 The system can receive requests from communication channels such as Zalo, WhatsApp, or a dedicated application. These requests are then sent to the backend, where the system processes the conversation, retrieves product data, manages session states, and performs ordering operations.
 
-![Overall architecture of the AI Agent ordering system](/images/4-EventParticipated/4.2-Event2/03-conversation-ordering-architecture.png)
+![Overall architecture of the AI Agent ordering system](/fcj-workshop-WEB_TranLeCongDanh/images/4-EventParticipated/4.2-Event2/03-conversation-ordering-architecture.png)
 
 *The overall architecture supports requests from multiple communication channels and processes them through an AI Agent.*
 
@@ -108,7 +108,7 @@ According to the Value Creation & Delivery Canvas presented by the team, the sys
 - Presenting results through reports or dashboards.
 - Helping users monitor important signals.
 
-![The team presenting SignalScout's value creation and delivery model](/images/4-EventParticipated/4.2-Event2/04-signalscout-value-canvas.png)
+![The team presenting SignalScout's value creation and delivery model](/fcj-workshop-WEB_TranLeCongDanh/images/4-EventParticipated/4.2-Event2/04-signalscout-value-canvas.png)
 
 *The Value Creation & Delivery Canvas of the SignalScout solution.*
 
@@ -124,7 +124,7 @@ The team used tools such as **AWS, Langfuse, TinyFish, and Apify** while develop
 
 During the demonstration, the team presented an interface that consolidated and evaluated signals according to multiple criteria. Instead of manually reading a large number of documents, users could view the processed information through a dashboard.
 
-![SignalScout business signal analysis demonstration](/images/4-EventParticipated/4.2-Event2/05-signalscout-demo.png)
+![SignalScout business signal analysis demonstration](/fcj-workshop-WEB_TranLeCongDanh/images/4-EventParticipated/4.2-Event2/05-signalscout-demo.png)
 
 *The demonstration interface consolidated and analyzed signals related to businesses.*
 
@@ -142,7 +142,7 @@ Therefore, in addition to the capabilities of the AI model, the system must also
 
 The third team presented the **Solution Architect Professional Native App**. Their presentation was organized into several sections, including the problem statement, proposed solution, workflow, system architecture, impact, and product demonstration.
 
-![The team introducing the Solution Architect Professional Native App](/images/4-EventParticipated/4.2-Event2/06-solution-architect-app-introduction.png)
+![The team introducing the Solution Architect Professional Native App](/fcj-workshop-WEB_TranLeCongDanh/images/4-EventParticipated/4.2-Event2/06-solution-architect-app-introduction.png)
 
 *Plan V introduced the Solution Architect Professional Native App.*
 
@@ -173,7 +173,7 @@ The solution used a cloud-native architecture that combined multiple AWS service
 - **Amazon CloudWatch:** Collects logs and monitors system operations.
 - **Terraform:** Defines and deploys the infrastructure as code.
 
-![AWS architecture of the Solution Architect Professional Native App](/images/4-EventParticipated/4.2-Event2/07-solution-architect-app-architecture.png)
+![AWS architecture of the Solution Architect Professional Native App](/fcj-workshop-WEB_TranLeCongDanh/images/4-EventParticipated/4.2-Event2/07-solution-architect-app-architecture.png)
 
 *The architecture combines AWS services to operate the frontend, backend, AI Agent, and database.*
 
@@ -210,7 +210,7 @@ SHEPHERD receives live video streams from cameras and uses computer vision to de
 
 The AI Agent then analyzes the operational data and produces recommendations. For example, it can recommend assigning additional staff to a crowded area or directing new attendees toward a less congested area.
 
-![SHEPHERD Venue Operations system architecture](/images/4-EventParticipated/4.2-Event2/08-shepherd-architecture.png)
+![SHEPHERD Venue Operations system architecture](/fcj-workshop-WEB_TranLeCongDanh/images/4-EventParticipated/4.2-Event2/08-shepherd-architecture.png)
 
 *The architecture processes video streams, analyzes data, and supports venue operations using Agentic AI.*
 
@@ -236,7 +236,7 @@ The dashboard allowed operators to monitor the number of people and identify whe
 
 The Operations Agent could analyze the data and provide specific recommendations. For example, when the number of people in an area increased rapidly, the Agent could recommend assigning additional staff and redirecting new arrivals to a less crowded area.
 
-![Operations Agent analyzing conditions and recommending staff allocation](/images/4-EventParticipated/4.2-Event2/09-shepherd-operations-agent.png)
+![Operations Agent analyzing conditions and recommending staff allocation](/fcj-workshop-WEB_TranLeCongDanh/images/4-EventParticipated/4.2-Event2/09-shepherd-operations-agent.png)
 
 *The Operations Agent evaluated each area and provided staff-allocation recommendations.*
 

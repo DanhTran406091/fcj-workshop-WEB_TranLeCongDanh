@@ -423,7 +423,7 @@ Các nội dung cần kiểm tra gồm:
 
 
 {{< figure
-    src="/images/5-Workshop/5.4-AWS-services/5.4.4-Lambda/lambda-function-list.png"
+    src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.4-AWS-services/5.4.4-Lambda/lambda-function-list.png"
     title="Hình 5.4.4.1: Danh sách Lambda Function của hệ thống Live Auction"
     width="100%"
 >}}
@@ -460,7 +460,7 @@ Kiểm tra:
 * Execution Role.
 
 {{< figure
-    src="/images/5-Workshop/5.4-AWS-services/5.4.4-Lambda/lambda-general-configuration.png"
+    src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.4-AWS-services/5.4.4-Lambda/lambda-general-configuration.png"
     title="Hình 5.4.4.2: Cấu hình Runtime, Memory và Timeout của Lambda Function"
     width="100%"
 >}}
@@ -485,7 +485,7 @@ Các nội dung cần xác nhận:
 
 
 {{< figure
-    src="/images/5-Workshop/5.4-AWS-services/5.4.4-Lambda/lambda-bid-processor-sqs-trigger.png"
+    src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.4-AWS-services/5.4.4-Lambda/lambda-bid-processor-sqs-trigger.png"
     title="Hình 5.4.4.3: SQS Trigger của Bid Processor Lambda"
     width="100%"
 >}}
@@ -516,7 +516,7 @@ Các thông tin cần kiểm tra gồm:
 * Lambda Function được liên kết đúng với API.
 
 {{< figure
-    src="/images/5-Workshop/5.4-AWS-services/5.4.4-Lambda/lambda-api-gateway-trigger.png"
+    src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.4-AWS-services/5.4.4-Lambda/lambda-api-gateway-trigger.png"
     title="Hình 5.4.4.4: API Gateway Trigger của Lambda Function"
     width="100%"
 >}}
@@ -544,7 +544,7 @@ Không hiển thị toàn bộ giá trị biến nếu có thông tin không mu�
 
 
 {{< figure
-    src="/images/5-Workshop/5.4-AWS-services/5.4.4-Lambda/lambda-environment-variables.png"
+    src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.4-AWS-services/5.4.4-Lambda/lambda-environment-variables.png"
     title="Hình 5.4.4.5: Các biến môi trường của Lambda Function"
     width="100%"
 >}}
@@ -575,7 +575,7 @@ Các nội dung cần xác nhận:
 
 
 {{< figure
-    src="/images/5-Workshop/5.4-AWS-services/5.4.4-Lambda/lambda-execution-role.png"
+    src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.4-AWS-services/5.4.4-Lambda/lambda-execution-role.png"
     title="Hình 5.4.4.6: IAM Execution Role được gán cho Lambda Function"
     width="100%"
 >}}
@@ -605,7 +605,7 @@ Chọn Log Stream gần nhất và kiểm tra:
 * Lỗi nếu có.
 
 {{< figure
-    src="/images/5-Workshop/5.4-AWS-services/5.4.4-Lambda/lambda-cloudwatch-log.png"
+    src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.4-AWS-services/5.4.4-Lambda/lambda-cloudwatch-log.png"
     title="Hình 5.4.4.7: Log thực thi của Lambda Function trên Amazon CloudWatch"
     width="100%"
 >}}
@@ -631,7 +631,7 @@ Metrics giúp xác nhận Function đã được gọi và hỗ trợ phát hi�
 
 
 {{< figure
-    src="/images/5-Workshop/5.4-AWS-services/5.4.4-Lambda/lambda-monitoring-metrics.png"
+    src="/fcj-workshop-WEB_TranLeCongDanh/images/5-Workshop/5.4-AWS-services/5.4.4-Lambda/lambda-monitoring-metrics.png"
     title="Hình 5.4.4.8: Metrics giám sát Lambda Function"
     width="100%"
 >}}
