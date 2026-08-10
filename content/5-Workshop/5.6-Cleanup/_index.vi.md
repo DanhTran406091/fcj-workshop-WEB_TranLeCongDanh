@@ -13,7 +13,7 @@ Sau khi hoàn thành Workshop, các tài nguyên AWS không còn sử dụng nê
 Do hệ thống Live Auction vẫn cần được duy trì để trình diễn, kiểm tra và chấm đồ án, nhóm **chưa thực hiện xóa tài nguyên tại thời điểm viết báo cáo**. Nội dung dưới đây trình bày quy trình dọn dẹp sẽ được thực hiện sau khi đồ án đã được nghiệm thu và không còn yêu cầu duy trì website.
 
 {{% notice warning %}}
-Không thực hiện `terraform destroy` khi hệ thống vẫn đang được sử dụng để trình diễn hoặc chấm đồ án. Thao tác này có thể xóa website, API, Lambda Function, dữ liệu DynamoDB, tài khoản Cognito và các tài nguyên liên quan, khiến hệ thống không thể tiếp tục truy cập. Nhóm chỉ thực hiện dọn dẹp sau khi đồ án đã được nghiệm thu và được xác nhận không còn cần duy trì hệ thống.
+Không thực hiện `terraform destroy` vì hệ thống vẫn đang được sử dụng để trình diễn hoặc chấm đồ án. Thao tác này có thể xóa website, API, Lambda Function, dữ liệu DynamoDB, tài khoản Cognito và các tài nguyên liên quan, khiến hệ thống không thể tiếp tục truy cập. Nhóm chỉ thực hiện dọn dẹp sau khi đồ án đã được nghiệm thu và được xác nhận không còn cần duy trì hệ thống.
 {{% /notice %}}
 
 ## Lưu ý trước khi dọn dẹp
@@ -48,9 +48,6 @@ Region được sử dụng trong dự án:
 ap-southeast-1
 ```
 
-{{% notice warning %}}
-Không đưa Access Key, Secret Access Key, Session Token hoặc thông tin xác thực AWS vào báo cáo. Cần kiểm tra cẩn thận Account ID trước khi chạy lệnh để tránh xóa nhầm tài nguyên của tài khoản khác.
-{{% /notice %}}
 
 ## Sao lưu dữ liệu
 

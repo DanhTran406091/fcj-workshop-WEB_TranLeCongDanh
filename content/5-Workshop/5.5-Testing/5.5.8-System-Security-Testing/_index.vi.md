@@ -1,4 +1,11 @@
-### 5.5.8. Kiểm thử bảo mật hệ thống
+---
+title: "Kiểm thử bảo mật hệ thống"
+date: 2026-08-03
+weight: 8
+chapter: false
+pre: " <b> 5.5.8. </b> "
+---
+
 
 Mục tiêu của kiểm thử bảo mật là xác minh hệ thống thực sự từ chối các hành vi không hợp lệ, thay vì chỉ kiểm tra rằng các cơ chế như JWT, IAM, CORS hoặc S3 Block Public Access đã được cấu hình.
 

@@ -1,4 +1,11 @@
-### 5.5.7. Kiểm thử S3, tải ảnh và CloudFront
+---
+title: "Kiểm thử S3, tải ảnh và CloudFront"
+date: 2026-08-03
+weight: 7
+chapter: false
+pre: " <b> 5.5.7. </b> "
+---
+
 
 #### Mục tiêu
 

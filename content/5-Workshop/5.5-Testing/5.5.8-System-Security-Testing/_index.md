@@ -1,4 +1,10 @@
-### 5.5.8. System Security Testing
+---
+title: "System Security Testing"
+date: 2026-08-03
+weight: 8
+chapter: false
+pre: " <b> 5.5.8. </b> "
+---
 
 The objective of security testing is to verify that the system actually rejects invalid or unauthorized behavior, rather than only confirming that mechanisms such as JWT, IAM, CORS, or S3 Block Public Access have been configured.
 

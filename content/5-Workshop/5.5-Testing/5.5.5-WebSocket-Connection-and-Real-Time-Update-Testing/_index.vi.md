@@ -1,4 +1,10 @@
-### 5.5.5. Kiểm thử kết nối WebSocket và cập nhật thời gian thực
+---
+title: "Kiểm thử kết nối WebSocket và cập nhật thời gian thực"
+date: 2026-08-03
+weight: 5
+chapter: false
+pre: " <b> 5.5.5. </b> "
+---
 
 #### Mục tiêu kiểm thử
 

@@ -1,4 +1,11 @@
-### 5.5.5. WebSocket Connection and Real-Time Update Testing
+---
+title: "WebSocket Connection and Real-Time Update Testing"
+date: 2026-08-03
+weight: 5
+chapter: false
+pre: " <b> 5.5.5. </b> "
+---
+
 
 #### Test Objectives
 

@@ -1,4 +1,10 @@
-### 5.5.6. End-to-End Bidding Flow Testing
+---
+title: "End-to-End Bidding Flow Testing"
+date: 2026-08-03
+weight: 6
+chapter: false
+pre: " <b> 5.5.6. </b> "
+---
 
 #### Objectives
 

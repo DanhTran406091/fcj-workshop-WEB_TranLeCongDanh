@@ -1,218 +1,454 @@
 ---
-title: "Blog 1 - Triển khai website React/Vite với Amazon S3"
-date: 2026-08-03
+title: "Blog 1 - Live Auction trên AWS Serverless"
+date: 2026-08-09
 weight: 1
 chapter: false
 pre: " <b> 3.1. </b> "
 ---
 
-# TRIỂN KHAI WEBSITE REACT/VITE VỚI AMAZON S3
+# LIVE AUCTION: XÂY DỰNG NỀN TẢNG ĐẤU GIÁ THỜI GIAN THỰC TRÊN AWS SERVERLESS
 
-Trong quá trình tìm hiểu các dịch vụ AWS, nhóm em đã nghiên cứu và thực hành sử dụng **Amazon S3 Static Website Hosting** để triển khai một website tĩnh được xây dựng bằng React/Vite.
+Trong quá trình thực hiện đồ án, nhóm em đã nghiên cứu và chia sẻ bài viết **“Live Auction: Xây dựng nền tảng đấu giá thời gian thực trên AWS Serverless”** trên cộng đồng AWS Study Group.
 
-Bài viết này chia sẻ quy trình build ứng dụng, tải các tệp frontend lên Amazon S3 và cho phép người dùng truy cập website thông qua S3 Website Endpoint.
+Bài viết trình bày quá trình xây dựng hệ thống đấu giá trực tuyến có khả năng xử lý yêu cầu đặt giá đồng thời, cập nhật giá theo thời gian thực, xác thực người dùng và triển khai hạ tầng bằng Terraform.
 
-## Tổng quan về Amazon S3 Static Website Hosting
+## Bài toán của hệ thống
 
-Amazon Simple Storage Service (Amazon S3) là dịch vụ lưu trữ đối tượng của AWS. Ngoài khả năng lưu trữ dữ liệu, Amazon S3 còn hỗ trợ triển khai các website tĩnh gồm:
+Một trong những yêu cầu quan trọng của nền tảng đấu giá trực tuyến là duy trì được mức giá chính xác khi có nhiều người cùng đặt giá trong khoảng thời gian rất ngắn.
 
-* HTML
-* CSS
-* JavaScript
-* Hình ảnh và font chữ
-
-Sau khi ứng dụng React/Vite được build, các tệp cần thiết sẽ nằm trong thư mục `dist/`. Những tệp này có thể được tải lên S3 bucket và phân phối trực tiếp đến trình duyệt của người dùng.
-
-## Sơ đồ triển khai
-
-![Sơ đồ triển khai website React/Vite trên Amazon S3](/images/blog1/react-vite-deployment-amazon-s3.drawio.png)
-
-Quy trình trong sơ đồ gồm:
-
-1. Phát triển mã nguồn frontend bằng React/Vite.
-2. Build ứng dụng để tạo thư mục `dist/`.
-3. Tải các tệp đã build lên Amazon S3.
-4. Bật tính năng Static Website Hosting.
-5. Người dùng truy cập website bằng S3 Website Endpoint.
-6. Amazon S3 trả về các tệp HTML, CSS và JavaScript.
-
-## Các bước thực hiện
-
-### Bước 1: Build ứng dụng React/Vite
-
-Tại thư mục dự án, chạy các lệnh:
-
-```bash
-npm install
-npm run build
-```
-
-Sau khi quá trình build hoàn tất, Vite sẽ tạo thư mục `dist/` chứa phiên bản đã được tối ưu của website.
-
-### Bước 2: Tạo S3 bucket
-
-Đăng nhập vào AWS Management Console và thực hiện:
-
-1. Tìm kiếm dịch vụ **Amazon S3**.
-2. Chọn **Create bucket**.
-3. Nhập tên bucket.
-4. Chọn AWS Region phù hợp.
-5. Kiểm tra các thiết lập và chọn **Create bucket**.
-
-Tên S3 bucket phải là duy nhất trong phạm vi AWS. Nhóm em sử dụng tên liên quan đến ứng dụng để thuận tiện cho việc quản lý.
-
-### Bước 3: Tải website lên Amazon S3
-
-Sau khi tạo bucket:
-
-1. Mở bucket vừa tạo.
-2. Chọn **Upload**.
-3. Chọn **Add files** hoặc **Add folder**.
-4. Tải toàn bộ nội dung bên trong thư mục `dist/`.
-5. Chọn **Upload** để hoàn tất.
-
-Tệp `index.html` phải nằm ở cấp đầu tiên của bucket. Không nên đặt toàn bộ thư mục `dist` thành một thư mục con vì Amazon S3 có thể không tìm thấy trang mặc định.
-
-Cấu trúc đúng trong bucket:
+Ban đầu, hệ thống được xây dựng theo mô hình:
 
 ```text
-index.html
-assets/
-favicon.ico
-...
+React/Vite Frontend
+        ↓
+FastAPI Backend
+        ↓
+MySQL Database
 ```
 
-### Bước 4: Bật Static Website Hosting
+Mô hình này vẫn được giữ lại để hỗ trợ quá trình phát triển và kiểm thử trong môi trường cục bộ. Tuy nhiên, khi phân tích sâu hơn, nhóm nhận thấy hệ thống còn phải giải quyết nhiều yêu cầu như:
 
-Trong S3 bucket, truy cập:
+* Cập nhật trạng thái đấu giá theo thời gian thực.
+* Xử lý nhiều yêu cầu đặt giá đồng thời.
+* Bảo đảm thứ tự xử lý lượt đặt giá.
+* Xác thực và phân quyền tài khoản.
+* Lưu trữ hình ảnh vật phẩm.
+* Tự động thay đổi trạng thái phiên theo thời gian.
+* Theo dõi lỗi và hỗ trợ khôi phục dữ liệu.
+* Triển khai hạ tầng một cách nhất quán và có thể lặp lại.
+
+Do đó, nhóm nghiên cứu và triển khai kiến trúc serverless trên AWS cho các nghiệp vụ chính của hệ thống.
+
+## Kiến trúc tổng quát
+
+Sơ đồ dưới đây mô tả kiến trúc AWS được sử dụng cho nền tảng Live Auction.
+
+![Kiến trúc AWS Serverless của hệ thống Live Auction](/images/blog1/live-auction-serverless-architecture.jpg)
+
+Kiến trúc kết hợp các dịch vụ chính:
+
+* Amazon S3.
+* Amazon CloudFront.
+* Amazon Cognito.
+* Amazon API Gateway.
+* API Gateway WebSocket.
+* AWS Lambda.
+* Amazon DynamoDB.
+* Amazon SQS FIFO.
+* Amazon EventBridge.
+* Amazon CloudWatch.
+* AWS CloudTrail.
+* AWS Backup.
+* AWS IAM.
+* AWS CodeBuild và các thành phần CI/CD.
+* Terraform.
+
+## Phân phối frontend bằng Amazon S3 và CloudFront
+
+Hai giao diện User Frontend và Admin Frontend được build từ React/Vite thành các tệp tĩnh.
+
+Luồng phân phối frontend:
 
 ```text
-Properties
-→ Static website hosting
-→ Edit
+Mã nguồn React/Vite
+        ↓
+Build thành static asset
+        ↓
+Amazon S3
+        ↓
+Amazon CloudFront
+        ↓
+Người dùng
 ```
 
-Sau đó cấu hình:
+Các S3 Bucket được sử dụng để lưu trữ tệp HTML, CSS, JavaScript và những tài nguyên tĩnh khác. Amazon CloudFront lấy nội dung từ S3 Origin và phân phối đến người dùng thông qua HTTPS.
+
+User Frontend và Admin Frontend có tài nguyên triển khai riêng, giúp tách biệt chức năng dành cho thành viên và quản trị viên. Hình ảnh vật phẩm cũng được lưu trữ và phân phối thông qua tài nguyên riêng để tránh ảnh hưởng đến các request API.
+
+## Xác thực bằng Amazon Cognito
+
+Amazon Cognito User Pool được sử dụng để quản lý:
+
+* Đăng ký tài khoản.
+* Xác nhận tài khoản.
+* Đăng nhập.
+* Khôi phục mật khẩu.
+* Làm mới token.
+* Phân biệt quyền thành viên và quản trị viên.
+
+Sau khi đăng nhập thành công, Amazon Cognito phát hành JWT Token. Token này được sử dụng khi frontend gửi yêu cầu đến REST API hoặc thiết lập kết nối WebSocket.
+
+Luồng xác thực:
 
 ```text
-Static website hosting: Enable
-Hosting type: Host a static website
-Index document: index.html
+User/Admin Frontend
+        ↓
+Amazon Cognito
+        ↓
+Nhận JWT Token
+        ↓
+Gửi request đến API Gateway
+        ↓
+Kiểm tra token
+        ↓
+Cho phép hoặc từ chối yêu cầu
 ```
 
-Nếu ứng dụng có trang xử lý lỗi, có thể thiết lập thêm:
+Lambda Post Confirmation được sử dụng để hoàn thành bước khởi tạo dữ liệu người dùng sau khi tài khoản được xác nhận.
+
+## Xử lý nghiệp vụ bằng AWS Lambda
+
+Thay vì tập trung toàn bộ nghiệp vụ vào một backend lớn, kiến trúc serverless tách các chức năng thành những Lambda Function có trách nhiệm riêng.
+
+Một số nhóm xử lý gồm:
+
+* Quản lý phiên đấu giá và các quy tắc của phiên.
+* Quản lý vật phẩm và tải hình ảnh.
+* Truy vấn danh mục và lịch sử đặt giá.
+* Xử lý các thao tác quản trị.
+* Quản lý kết nối WebSocket.
+* Xử lý lượt đặt giá.
+* Gửi kết quả mới đến người tham gia.
+
+Các Lambda Function tiêu biểu gồm:
 
 ```text
-Error document: error.html
+session-service
+item-service
+query-service
+admin-command
+ws-authorizer
+ws-handler
+bid-processor
+broadcast
 ```
 
-Sau khi lưu cấu hình, Amazon S3 cung cấp một **Bucket website endpoint** để truy cập website.
+Cách tổ chức này giúp từng thành phần có phạm vi rõ ràng, dễ kiểm tra và có thể được cập nhật độc lập.
 
-### Bước 5: Cấu hình quyền truy cập
+## Đấu giá thời gian thực bằng WebSocket
 
-Để người dùng có thể mở website bằng S3 Website Endpoint, các tệp frontend cần có quyền đọc công khai phù hợp.
+Hệ thống sử dụng API Gateway WebSocket để duy trì kết nối giữa người tham gia và phòng đấu giá.
 
-Cần kiểm tra:
-
-1. Thiết lập **Block Public Access** của bucket.
-2. Bucket policy cho phép đọc các object cần thiết.
-3. Tệp `index.html` và thư mục `assets/` đã được tải lên đầy đủ.
-4. Không có dữ liệu nhạy cảm trong mã nguồn frontend.
-
-Ví dụ bucket policy cho phép đọc object công khai:
-
-```json
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Sid": "PublicReadGetObject",
-      "Effect": "Allow",
-      "Principal": "*",
-      "Action": "s3:GetObject",
-      "Resource": "arn:aws:s3:::YOUR_BUCKET_NAME/*"
-    }
-  ]
-}
-```
-
-Cần thay `YOUR_BUCKET_NAME` bằng tên bucket thực tế.
-
-Chỉ nên công khai các tệp phục vụ website. Không được lưu mật khẩu, Access Key, Secret Access Key hoặc dữ liệu nhạy cảm trong mã nguồn frontend.
-
-## Cập nhật website
-
-Khi mã nguồn thay đổi, nhóm em thực hiện lại quy trình:
+Luồng kết nối:
 
 ```text
-Cập nhật mã nguồn
-→ Chạy npm run build
-→ Tải các tệp mới trong dist lên S3
-→ Kiểm tra lại website
+Người dùng
+    ↓
+API Gateway WebSocket
+    ↓
+WebSocket Authorizer
+    ↓
+Lambda WebSocket Handler
+    ↓
+Lưu Connection ID và Room Membership
+    ↓
+Nhận cập nhật đấu giá theo thời gian thực
 ```
 
-Ngoài việc tải tệp thủ công bằng AWS Management Console, có thể sử dụng AWS CLI:
+WebSocket Authorizer kiểm tra token khi người dùng thiết lập kết nối. Sau đó, Lambda Handler quản lý Connection ID và phòng đấu giá mà người dùng tham gia.
 
-```bash
-aws s3 sync dist/ s3://YOUR_BUCKET_NAME --delete
+Nhờ kết nối WebSocket, hệ thống có thể chủ động gửi mức giá mới đến trình duyệt mà không yêu cầu frontend liên tục gửi request để kiểm tra.
+
+## Xử lý lượt đặt giá bằng Amazon SQS FIFO
+
+Yêu cầu đặt giá không được ghi trực tiếp từ trình duyệt vào bản ghi giá hiện tại. Thay vào đó, yêu cầu được đưa vào Amazon SQS FIFO.
+
+Luồng xử lý:
+
+```text
+Người dùng đặt giá
+        ↓
+API Gateway WebSocket
+        ↓
+Lambda WebSocket Handler
+        ↓
+Amazon SQS FIFO
+        ↓
+Lambda Bid Processor
+        ↓
+Amazon DynamoDB
+        ↓
+Broadcast kết quả qua WebSocket
 ```
 
-Tùy chọn `--delete` sẽ xóa trên S3 những tệp không còn tồn tại trong thư mục `dist`. Vì vậy, cần kiểm tra chính xác tên bucket trước khi chạy.
+Message Group được tổ chức theo từng vật phẩm nhằm duy trì thứ tự xử lý các yêu cầu trong cùng một cuộc đấu giá.
 
-## Một số lỗi thường gặp
+Lambda Bid Processor kiểm tra:
 
-### Lỗi Access Denied
+* Trạng thái phiên.
+* Thời gian bắt đầu và kết thúc.
+* Mức giá hiện tại.
+* Bước giá tối thiểu.
+* Quyền tham gia của người dùng.
+* Yêu cầu đã được xử lý trước đó hay chưa.
 
-Nguyên nhân thường liên quan đến:
+Conditional Update của DynamoDB giúp hạn chế trường hợp hai yêu cầu đồng thời ghi đè lên cùng một mức giá.
 
-* Block Public Access vẫn đang được bật.
-* Bucket policy chưa chính xác.
-* ARN của bucket trong policy bị sai.
+Idempotency Record giúp request gửi lại không làm thay đổi kết quả đã được xử lý, trong khi Bid Event lưu lại kết quả được chấp nhận hoặc từ chối.
 
-### Website hiển thị trang trắng
+## Lưu trữ dữ liệu bằng Amazon DynamoDB
 
-Cần kiểm tra:
+Amazon DynamoDB được sử dụng để lưu các nhóm dữ liệu như:
 
-* Đường dẫn đến các tệp trong thư mục `assets/`.
-* Lỗi trong Developer Tools của trình duyệt.
-* Quá trình build ứng dụng có thành công hay không.
+* Tài khoản và hồ sơ.
+* Danh mục.
+* Phiên đấu giá.
+* Vật phẩm.
+* Trạng thái đấu giá.
+* Lịch sử đặt giá.
+* Idempotency Record.
+* Connection ID của WebSocket.
+* Thành viên trong phòng đấu giá.
+* Audit Event.
 
-### Không tìm thấy index.html
+DynamoDB phù hợp với kiến trúc Lambda vì không yêu cầu duy trì Connection Pool như cơ sở dữ liệu quan hệ truyền thống và có thể mở rộng theo lượng request.
 
-Tệp `index.html` có thể đang nằm trong thư mục `dist` trên bucket thay vì nằm ở cấp đầu tiên.
+## Gửi kết quả đến người tham gia
 
-### Lỗi khi tải lại đường dẫn React Router
+Sau khi một lượt đặt giá được xử lý, Lambda Broadcast đọc danh sách kết nối đang hoạt động trong phòng và gửi kết quả thông qua API Gateway Management API.
 
-Amazon S3 tìm object dựa trên đường dẫn được yêu cầu. Đối với ứng dụng SPA sử dụng React Router, cần có phương án xử lý điều hướng phù hợp hoặc kết hợp thêm Amazon CloudFront.
+Những kết nối đã hết hiệu lực được loại bỏ để không ảnh hưởng đến các người dùng vẫn còn tham gia.
 
-## Ưu điểm
+Dữ liệu cập nhật có thể bao gồm:
 
-* Quy trình triển khai tương đối đơn giản.
-* Không cần quản lý máy chủ.
-* Phù hợp với website tĩnh và frontend SPA.
-* Dễ dàng cập nhật các tệp sau khi build.
-* Có thể kết hợp với các dịch vụ AWS khác.
+* Mức giá mới nhất.
+* Trạng thái chấp nhận hoặc từ chối lượt đặt giá.
+* Người đang dẫn đầu.
+* Thời gian còn lại.
+* Trạng thái của vật phẩm và phiên đấu giá.
 
-## Hạn chế
+Luồng gửi kết quả:
 
-* Không chạy trực tiếp backend Python, Java hoặc Node.js.
-* S3 Website Endpoint chỉ hỗ trợ HTTP.
-* Cần cấu hình quyền truy cập cẩn thận.
-* Nếu cần HTTPS và CDN, có thể kết hợp Amazon CloudFront.
+```text
+Lambda Bid Processor
+        ↓
+Cập nhật Amazon DynamoDB
+        ↓
+Lambda Broadcast
+        ↓
+API Gateway Management API
+        ↓
+Các trình duyệt đang kết nối
+```
+
+## Tự động hóa vòng đời phiên
+
+Amazon EventBridge được sử dụng để hỗ trợ các tác vụ theo thời gian như:
+
+* Bắt đầu phiên đấu giá.
+* Đóng vật phẩm.
+* Chuyển sang vật phẩm tiếp theo.
+* Kết thúc phiên.
+
+Luồng xử lý:
+
+```text
+Amazon EventBridge
+        ↓
+Lambda Admin Command
+        ↓
+Cập nhật trạng thái phiên
+        ↓
+Amazon DynamoDB
+        ↓
+Thông báo trạng thái mới
+```
+
+Khi một tác vụ không được xử lý thành công, Dead-letter Queue có thể lưu lại sự kiện để nhóm kiểm tra thay vì làm mất sự kiện một cách im lặng.
+
+## Lưu trữ hình ảnh vật phẩm
+
+Hình ảnh vật phẩm được lưu trong Amazon S3 riêng biệt với các tệp frontend.
+
+Khi người dùng thêm hình ảnh cho vật phẩm, hệ thống có thể thực hiện theo luồng:
+
+```text
+Frontend yêu cầu tải ảnh
+        ↓
+Amazon API Gateway
+        ↓
+AWS Lambda
+        ↓
+Tạo Presigned URL
+        ↓
+Frontend tải ảnh trực tiếp lên Amazon S3
+```
+
+Cách thực hiện này giúp dữ liệu hình ảnh không phải truyền qua Lambda, giảm thời gian xử lý và hạn chế tải không cần thiết cho API.
+
+## Triển khai hạ tầng bằng Terraform
+
+Các tài nguyên AWS được mô tả và quản lý bằng Terraform theo mô hình Infrastructure as Code.
+
+Những nhóm tài nguyên chính gồm:
+
+* Identity.
+* Data.
+* Messaging.
+* Compute.
+* REST API.
+* WebSocket API.
+* Edge.
+* Security.
+* Monitoring.
+* Backup.
+* CI/CD.
+
+Quy trình triển khai cơ bản:
+
+```text
+Terraform Configuration
+          ↓
+terraform init
+          ↓
+terraform plan
+          ↓
+Kiểm tra kế hoạch
+          ↓
+terraform apply
+          ↓
+Tạo tài nguyên trên AWS
+```
+
+Việc sử dụng Terraform giúp cấu hình hạ tầng có thể được kiểm tra, lưu phiên bản và triển khai lại một cách nhất quán.
+
+Terraform cũng hỗ trợ nhóm quản lý quan hệ phụ thuộc giữa các thành phần, chẳng hạn Lambda cần IAM Role, API Gateway cần Lambda Integration và CloudFront cần S3 Origin.
+
+## CI/CD
+
+AWS CodeBuild được sử dụng để hỗ trợ build và đóng gói Lambda Artifact cũng như frontend asset.
+
+Quy trình tổng quát:
+
+```text
+Thành viên cập nhật mã nguồn
+          ↓
+Repository nhận thay đổi
+          ↓
+AWS CodeBuild
+          ↓
+Build và đóng gói
+          ↓
+Tạo Artifact
+          ↓
+Triển khai phiên bản mới
+```
+
+CodePipeline và CodeDeploy có thể được sử dụng để hỗ trợ quá trình cập nhật phiên bản một cách có kiểm soát.
+
+Việc áp dụng CI/CD giúp giảm các thao tác triển khai thủ công, đồng thời tạo lịch sử cho từng lần build và cập nhật hệ thống.
+
+## Giám sát và ghi nhận hoạt động
+
+Amazon CloudWatch thu thập:
+
+* Log của Lambda.
+* Chỉ số hoạt động của API.
+* Số lượng message trong SQS.
+* Lỗi xử lý.
+* Độ trễ.
+* Các chỉ số liên quan đến lượt đặt giá.
+* Trạng thái của Dead-letter Queue.
+
+CloudWatch Alarm có thể gửi cảnh báo khi:
+
+* Lambda xuất hiện nhiều lỗi.
+* Độ trễ tăng cao.
+* SQS có message tồn đọng.
+* Dead-letter Queue nhận được message.
+* Tỷ lệ yêu cầu đặt giá bị từ chối tăng bất thường.
+
+Ngoài Amazon CloudWatch, kiến trúc còn sử dụng:
+
+* AWS CloudTrail để ghi nhận hoạt động API trên tài khoản AWS.
+* AWS Config để theo dõi cấu hình tài nguyên.
+* IAM Access Analyzer để hỗ trợ phát hiện quyền truy cập ngoài dự kiến.
+* AWS Backup để hỗ trợ sao lưu và khôi phục dữ liệu.
+* Amazon SNS để gửi thông báo cảnh báo.
+
+## Bảo mật hệ thống
+
+AWS IAM kiểm soát quyền truy cập giữa các dịch vụ. Mỗi Lambda Function chỉ được cấp những quyền cần thiết cho nhiệm vụ của nó.
+
+Một số ví dụ:
+
+* Lambda quản lý dữ liệu được cấp quyền truy cập các bảng DynamoDB cần thiết.
+* Lambda WebSocket được cấp quyền quản lý kết nối.
+* Lambda xử lý đặt giá được cấp quyền nhận message từ SQS FIFO.
+* Lambda tiếp nhận yêu cầu được cấp quyền gửi message vào SQS.
+* CloudFront được cấp quyền lấy nội dung từ S3 Origin.
+* CodeBuild được cấp quyền truy cập các tài nguyên phục vụ quá trình build và triển khai.
+
+Nhóm hướng đến nguyên tắc cấp quyền tối thiểu, tránh sử dụng một Role có toàn bộ quyền cho nhiều dịch vụ khác nhau.
+
+## Bài học đạt được
+
+Qua quá trình xây dựng hệ thống, nhóm nhận thấy serverless không có nghĩa là có thể bỏ qua các quyết định thiết kế.
+
+Một kiến trúc serverless vẫn cần:
+
+* Phân chia trách nhiệm rõ ràng.
+* Xác định Access Pattern phù hợp.
+* Kiểm soát retry.
+* Bảo đảm tính idempotent.
+* Cấp quyền IAM đúng phạm vi.
+* Xử lý connection hết hiệu lực.
+* Quản lý message thất bại.
+* Theo dõi log và metrics.
+* Có phương án sao lưu và khôi phục.
+
+AWS cung cấp các thành phần để xây dựng hệ thống, nhưng độ ổn định phụ thuộc vào cách các dịch vụ được kết nối và phối hợp với nhau.
 
 ## Kết quả đạt được
 
-Qua quá trình nghiên cứu và thực hành, nhóm em đã:
+Qua bài viết và quá trình thực hiện đồ án, nhóm đã:
 
-* Hiểu cách build ứng dụng React/Vite.
-* Biết cách tạo và cấu hình S3 bucket.
-* Biết cách bật Static Website Hosting.
-* Triển khai frontend lên Amazon S3.
-* Hiểu thêm về quyền truy cập và bảo mật dữ liệu.
-* Biết cách cập nhật website khi mã nguồn thay đổi.
-* Nhận biết một số lỗi thường gặp trong quá trình triển khai.
+* Xây dựng được kiến trúc serverless cho nền tảng đấu giá trực tuyến.
+* Tách User Frontend và Admin Frontend.
+* Phân phối frontend thông qua Amazon S3 và CloudFront.
+* Xác thực tài khoản bằng Amazon Cognito.
+* Xử lý nghiệp vụ bằng AWS Lambda.
+* Cung cấp REST API và WebSocket API bằng Amazon API Gateway.
+* Xử lý yêu cầu đặt giá theo thứ tự bằng Amazon SQS FIFO.
+* Lưu dữ liệu và trạng thái bằng Amazon DynamoDB.
+* Tự động hóa hạ tầng bằng Terraform.
+* Theo dõi hệ thống bằng Amazon CloudWatch.
+* Hiểu rõ hơn về kiến trúc hướng sự kiện và xử lý dữ liệu theo thời gian thực.
 
-## Liên kết
+## Hướng phát triển
 
-* [Tài liệu cấu hình Static Website Hosting của AWS](https://docs.aws.amazon.com/AmazonS3/latest/userguide/HostingWebsiteOnS3Setup.html)
-* [Xem bài đăng trên AWS Study Group](DAN_LINK_BAI_DANG_FACEBOOK_VAO_DAY)
+Hệ thống vẫn có thể tiếp tục được cải thiện thông qua:
+
+* Thực hiện load test ở quy mô lớn hơn.
+* Hoàn thiện cơ chế thông báo.
+* Bổ sung phân tích dữ liệu đấu giá.
+* Kiểm tra phương án khôi phục đa vùng.
+* Tối ưu chi phí vận hành.
+* Hoàn thiện cảnh báo và dashboard giám sát.
+* Tiếp tục đánh giá độ tin cậy của luồng đặt giá khi số lượng người dùng tăng.
+
+## Liên kết bài viết
+
+Bài viết đã được đăng và duyệt trên cộng đồng AWS Study Group:
+
+[**Xem bài viết “Live Auction: Xây dựng nền tảng đấu giá thời gian thực trên AWS Serverless”**](https://www.facebook.com/groups/awsstudygroupfcj/posts/2239889186776041/)

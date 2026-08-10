@@ -1,4 +1,11 @@
-### 5.5.2. Test Methodology and Test Case Format
+---
+title: "Test Methodology and Test Case Format"
+date: 2026-08-03
+weight: 2
+chapter: false
+pre: " <b> 5.5.2. </b> "
+---
+### Test Methodology and Test Case Format
 
 #### Test Methodology
 

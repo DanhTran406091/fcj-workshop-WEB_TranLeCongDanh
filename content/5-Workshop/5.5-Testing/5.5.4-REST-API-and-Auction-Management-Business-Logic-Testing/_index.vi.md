@@ -1,4 +1,12 @@
-### 5.5.4. Kiểm thử REST API và nghiệp vụ quản lý đấu giá
+---
+title: "Kiểm thử REST API và nghiệp vụ quản lý đấu giá"
+date: 2026-08-03
+weight: 4
+chapter: false
+pre: " <b> 5.5.4. </b> "
+---
+
+### Kiểm thử REST API và nghiệp vụ quản lý đấu giá
 
 #### Mục tiêu kiểm thử
 

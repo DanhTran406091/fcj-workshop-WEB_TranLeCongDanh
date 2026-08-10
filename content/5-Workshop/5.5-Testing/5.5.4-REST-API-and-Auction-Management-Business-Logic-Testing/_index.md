@@ -1,4 +1,12 @@
-### 5.5.4. REST API and Auction Management Business Logic Testing
+---
+title: "REST API and Auction Management Business Logic Testing"
+date: 2026-08-03
+weight: 4
+chapter: false
+pre: " <b> 5.5.4. </b> "
+---
+
+### REST API and Auction Management Business Logic Testing
 
 #### Test Objectives
 

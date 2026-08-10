@@ -10,11 +10,11 @@ Trong quá trình thực tập, em cùng các thành viên trong nhóm nghiên c
 
 Hiện tại, nhóm em đã thực hiện bài blog sau:
 
-### [Blog 1 - Triển khai website React/Vite với Amazon S3](3.1-Blog1/)
+### [Blog 1 - Live Auction: Xây dựng nền tảng đấu giá thời gian thực trên AWS Serverless](3.1-Blog1/)
 
-Bài viết giới thiệu cách sử dụng **Amazon S3 Static Website Hosting** để triển khai một website tĩnh được xây dựng bằng React/Vite. Nội dung trình bày quy trình build ứng dụng, tải các tệp trong thư mục `dist` lên S3, cấu hình quyền truy cập và sử dụng S3 Website Endpoint để truy cập website.
+Bài viết giới thiệu quá trình chuyển đổi hệ thống **Live Auction** từ mô hình React/Vite, FastAPI và MySQL ban đầu sang kiến trúc serverless trên AWS. Nội dung tập trung phân tích cách nhóm sử dụng các dịch vụ AWS để giải quyết bài toán xác thực tài khoản, xử lý yêu cầu đặt giá đồng thời, cập nhật trạng thái đấu giá theo thời gian thực và quản lý hạ tầng.
 
-Bài viết cũng chia sẻ một số lỗi thường gặp, lưu ý về bảo mật và những hạn chế cần biết khi triển khai website trực tiếp bằng Amazon S3.
+Kiến trúc sử dụng **Amazon S3**, **Amazon CloudFront**, **Amazon Cognito**, **Amazon API Gateway**, **AWS Lambda**, **Amazon DynamoDB** và **Amazon SQS FIFO**. Hạ tầng được triển khai bằng **Terraform**, đồng thời kết hợp các dịch vụ giám sát, sao lưu và CI/CD nhằm nâng cao khả năng vận hành của hệ thống.
 
 ### [Blog 2 - Lambda scale nhanh, nhưng Database không scale theo cùng cách](3.2-Blog2/)
 

@@ -10,11 +10,11 @@ During the internship, my team members and I researched and shared the knowledge
 
 Currently, our team has published the following blog post:
 
-### [Blog 1 - Deploying a React/Vite Website with Amazon S3](3.1-Blog1/)
+### [Blog 1 - Live Auction: Building a Real-Time Auction Platform on AWS Serverless](3.1-Blog1/)
 
-This blog post introduces how to use **Amazon S3 Static Website Hosting** to deploy a static website built with React and Vite. It covers the process of building the application, uploading the files from the `dist` directory to Amazon S3, configuring access permissions, and accessing the website through an S3 Website Endpoint.
+This blog post presents the evolution of the **Live Auction** platform from an initial architecture using React/Vite, FastAPI, and MySQL into a serverless architecture on AWS. It explains how the system handles user authentication, concurrent bid requests, ordered bid processing, real-time auction updates, image storage, monitoring, and infrastructure deployment.
 
-The post also shares several common deployment issues, security considerations, and important limitations of hosting a website directly on Amazon S3.
+The architecture integrates **Amazon S3**, **Amazon CloudFront**, **Amazon Cognito**, **Amazon API Gateway**, **AWS Lambda**, **Amazon DynamoDB**, and **Amazon SQS FIFO**. The infrastructure is managed with **Terraform**, while AWS monitoring, backup, security, and CI/CD services support system deployment and operation.
 
 ### [Blog 2 - Lambda Scales Quickly, but the Database Does Not Scale the Same Way](3.2-Blog2/)
 
