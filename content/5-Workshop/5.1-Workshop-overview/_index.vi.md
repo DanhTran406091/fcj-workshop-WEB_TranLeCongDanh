@@ -6,7 +6,7 @@ chapter : false
 pre : " <b> 5.1. </b> "
 ---
 
-# Giới thiệu đồ án và kiến trúc triển khai
+# đồ án và kiến trúc triển khai
 
 ## Giới thiệu
 
@@ -35,10 +35,11 @@ Hệ thống Live Auction được triển khai theo mô hình kiến trúc serv
 
 User Frontend và Admin Frontend được triển khai độc lập nhằm tách biệt chức năng dành cho người dùng và quản trị viên. Cả hai giao diện cùng kết nối đến các dịch vụ backend thông qua Amazon API Gateway và được kiểm soát quyền truy cập dựa trên token do Amazon Cognito cấp.
 
-Sơ đồ dưới đây mô tả kiến trúc triển khai thực tế của hệ thống.
+
+Sơ đồ dưới đây mô tả kiến trúc triển khai thực tế của hệ thống Live Auction trên nền tảng AWS. Sơ đồ thể hiện mối liên hệ giữa người dùng, hai giao diện frontend, các dịch vụ xác thực, API, xử lý nghiệp vụ, lưu trữ dữ liệu, xử lý đấu giá theo thời gian thực, giám sát và quy trình CI/CD.
 
 {{< figure
-    src="/images/5-Workshop/5.1-Workshop-overview/live-auction-deployment-architecture.svg"
+    src="/images/5-Workshop/5.1-Workshop-overview/live-auction-deployment-architecture.jpg"
     title="Hình 5.1.1: Kiến trúc triển khai hệ thống Live Auction trên AWS"
     width="100%"
 >}}

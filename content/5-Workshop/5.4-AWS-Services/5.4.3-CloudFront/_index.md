@@ -24,10 +24,6 @@ The system uses three CloudFront Distributions:
 * A Distribution for the Admin Frontend.
 * A Distribution for Item Media content.
 
-{{% notice warning %}}
-CloudFront Distribution IDs and Domain Names are not authentication credentials. However, the AWS Account ID and ARN should be masked if they appear in screenshots. Access Keys, Secret Access Keys, Session Tokens, and authentication tokens must not be included in the report.
-{{% /notice %}}
-
 ## Role of Amazon CloudFront
 
 In the Live Auction system, Amazon CloudFront is used to:

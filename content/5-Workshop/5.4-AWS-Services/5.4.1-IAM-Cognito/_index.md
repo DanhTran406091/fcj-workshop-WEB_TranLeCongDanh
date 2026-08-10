@@ -23,9 +23,6 @@ infra/03-identity
 
 After the Terraform deployment was completed, the team verified the deployed resources directly through the AWS Management Console.
 
-{{% notice warning %}}
-Do not include Access Keys, Secret Access Keys, Session Tokens, Client Secrets, Access Tokens, or Refresh Tokens in screenshots or report content. Information such as the AWS Account ID, ARN, User Pool ID, Client ID, username, and email should be partially masked before publishing the report.
-{{% /notice %}}
 
 ## AWS Identity and Access Management
 

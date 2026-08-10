@@ -46,11 +46,11 @@ Trong hệ thống Live Auction, Amazon S3 được sử dụng để:
 
 Hệ thống sử dụng ba S3 Bucket chính.
 
-| S3 Bucket | Vai trò |
-| --- | --- |
-| **User Frontend Bucket** | Lưu các tệp đã build của giao diện dành cho người dùng. |
+| S3 Bucket                 | Vai trò                                                    |
+| ------------------------- | ---------------------------------------------------------- |
+| **User Frontend Bucket**  | Lưu các tệp đã build của giao diện dành cho người dùng.    |
 | **Admin Frontend Bucket** | Lưu các tệp đã build của giao diện dành cho quản trị viên. |
-| **Item Media Bucket** | Lưu hình ảnh và tệp phương tiện của các vật phẩm đấu giá. |
+| **Item Media Bucket**     | Lưu hình ảnh và tệp phương tiện của các vật phẩm đấu giá.  |
 
 Tên bucket được tạo theo quy ước của dự án và có chứa AWS Account ID để bảo đảm tên bucket là duy nhất trên toàn bộ Amazon S3.
 

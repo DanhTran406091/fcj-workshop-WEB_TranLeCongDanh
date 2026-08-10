@@ -24,9 +24,6 @@ Hệ thống sử dụng ba CloudFront Distribution:
 * Distribution dành cho Admin Frontend.
 * Distribution dành cho hình ảnh và nội dung Item Media.
 
-{{% notice warning %}}
-CloudFront Distribution ID và Domain Name không phải thông tin xác thực bí mật. Tuy nhiên, cần che AWS Account ID và ARN nếu chúng xuất hiện trong ảnh chụp. Không đưa Access Key, Secret Access Key, Session Token hoặc các token đăng nhập vào nội dung báo cáo.
-{{% /notice %}}
 
 ## Vai trò của Amazon CloudFront
 

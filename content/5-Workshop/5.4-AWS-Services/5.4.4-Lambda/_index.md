@@ -22,9 +22,6 @@ infra/06-compute/stage3-control-plane
 
 The source code of each Lambda function is packaged as a `.zip` file before Terraform deploys it to AWS.
 
-{{% notice warning %}}
-Do not include Access Keys, Secret Access Keys, Session Tokens, authentication tokens, or sensitive environment variable values in report screenshots. The AWS Account ID, ARN, and internal endpoints should be masked if they appear in screenshots.
-{{% /notice %}}
 
 ## Role of AWS Lambda
 

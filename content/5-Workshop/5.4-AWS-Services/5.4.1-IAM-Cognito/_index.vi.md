@@ -23,9 +23,6 @@ infra/03-identity
 
 Sau khi Terraform triển khai hoàn tất, nhóm kiểm tra các tài nguyên trực tiếp trên AWS Management Console để xác nhận cấu hình thực tế.
 
-{{% notice warning %}}
-Không đưa Access Key, Secret Access Key, Session Token, Client Secret, Access Token hoặc Refresh Token công khai vì các thông tin như AWS Account ID, ARN, User Pool ID, Client ID, username và email nên được che một phần trước khi công khai báo cáo nhằm hạn chế làm lộ thông tin định danh tài nguyên và tài khoản.
-{{% /notice %}}
 
 ## AWS Identity and Access Management
 

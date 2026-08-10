@@ -22,9 +22,6 @@ infra/06-compute/stage3-control-plane
 
 Mã nguồn của từng Lambda Function được đóng gói thành tệp `.zip` trước khi Terraform triển khai lên AWS.
 
-{{% notice warning %}}
-Không đưa Access Key, Secret Access Key, Session Token, token đăng nhập hoặc giá trị biến môi trường nhạy cảm vào hình ảnh báo cáo. Cần che AWS Account ID, ARN và các endpoint nội bộ nếu chúng xuất hiện trong ảnh chụp.
-{{% /notice %}}
 
 ## Vai trò của AWS Lambda
 

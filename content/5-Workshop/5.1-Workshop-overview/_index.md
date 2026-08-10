@@ -35,11 +35,12 @@ The Live Auction system was deployed using a serverless architecture on AWS. Ter
 
 The User Frontend and Admin Frontend are deployed independently to separate user functionality from administrative functionality. Both interfaces communicate with the backend services through Amazon API Gateway. Access to protected functionality is controlled using tokens issued by Amazon Cognito.
 
-The following diagram illustrates the actual deployment architecture of the system.
+
+The following diagram illustrates the actual deployment architecture of the Live Auction system on AWS.
 
 {{< figure
-    src="/images/5-Workshop/5.1-Workshop-overview/live-auction-deployment-architecture.svg"
-    title="Figure 5.1.1: AWS Deployment Architecture of the Live Auction System"
+    src="/images/5-Workshop/5.1-Workshop-overview/live-auction-deployment-architecture.jpg"
+    title="Figure 5.1.1: Deployment architecture of the Live Auction system on AWS"
     width="100%"
 >}}
 
