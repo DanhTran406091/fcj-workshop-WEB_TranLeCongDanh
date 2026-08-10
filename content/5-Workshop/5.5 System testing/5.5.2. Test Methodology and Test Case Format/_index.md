@@ -1,271 +1,160 @@
 ### 5.5.2. Test Methodology and Test Case Format
 
-#### Testing Method
+#### Test Methodology
 
-The team performs system testing using a black-box approach, combined with verification of data and logs on AWS services.
+The team performs system testing using the **black-box testing** approach, combined with verification of data and logs across AWS services.
 
 For each test case, the team provides input data and performs actions through:
 
 - User Frontend.
 - Admin Frontend.
 - REST API.
-- WebSocket connections.
+- WebSocket connection.
 - AWS Management Console.
 - API testing tools such as Postman or `curl`.
-- Load testing tools if available.
+- Load testing tools, if applicable.
 
-Actual results are then compared against expected results to determine the test case status.
+The actual results are then compared with the expected results to determine the status of the test case.
 
-The testing procedure follows this sequence:
+The testing process is performed in the following sequence:
 
 ```text
-Prepare environment and test data
-1. Verify prerequisites
-2. Execute test steps
-3. Observe results on frontend or API
-4. Check data and logs on AWS
-5. Compare with expected results
-6. Record status
+Prepare the test environment and test data
+1. Confirm prerequisites
+2. Perform the test steps
+3. Observe the result on the frontend or API
+4. Verify data and logs on AWS
+5. Compare with the expected result
+6. Record the test status
 7. Save test evidence
-```
+````
 
-Evaluation is not based solely on frontend display. Depending on the test case, the team also verifies:
+The evaluation is not based only on information displayed on the frontend. Depending on the test case, the team also verifies:
 
-- HTTP status and response body of REST APIs.
-- Messages sent and received via WebSocket.
-- Records created or updated in Amazon DynamoDB.
-- Message state in Amazon SQS FIFO.
-- CloudWatch Logs of AWS Lambda.
-- CloudWatch Metrics for Lambda, API Gateway, DynamoDB and SQS.
-- Object metadata or versions in Amazon S3.
-- Content distributed through Amazon CloudFront.
-- User and group state in Amazon Cognito.
-
-#### Testing Principles
-
-The testing process adheres to the following principles:
-
-1. Each test case focuses on a single behavior or condition.
-2. Test cases must define clear prerequisites and input data.
-3. Steps must be detailed enough for another team member to reproduce.
-4. Expected results must be measurable or observable.
-5. Actual results must be recorded based on real system behavior.
-6. A test case is marked `PASS` only when actual results match expectations.
-7. If results differ, mark `FAIL` and describe observed errors.
-8. If testing is not possible due to missing features, resources or dependencies, mark `BLOCKED`.
-9. A `PASS` test case must include appropriate evidence.
-10. Do not change expected results after execution just to mark a test `PASS`.
-11. Data created by prior test cases must not bias subsequent tests.
-12. Do not include tokens, passwords or AWS secret keys in reports.
+* HTTP status codes and response bodies from the REST API.
+* Messages sent and received through WebSocket.
+* Records created or updated in Amazon DynamoDB.
+* Message status in Amazon SQS FIFO.
+* CloudWatch Logs for AWS Lambda.
+* CloudWatch Metrics for Lambda, API Gateway, DynamoDB, and SQS.
+* Objects or object versions in Amazon S3.
+* Content distributed through Amazon CloudFront.
+* User status and permission groups in Amazon Cognito.
 
 #### Test Case Classification
 
-Test cases are grouped by system components and given a prefix:
+Test cases are divided into groups corresponding to the functions and components of the system:
 
-| Prefix    | Test group                           | Example       |
-|-----------|--------------------------------------|---------------|
-| `AUTH`    | Authentication and authorization     | `AUTH-01`     |
-| `API`     | REST API and auction management      | `API-01`      |
-| `WS`      | WebSocket and real-time updates      | `WS-01`       |
-| `BID`     | End-to-end bidding flow              | `BID-01`      |
-| `FIFO`    | SQS FIFO ordering and processing     | `FIFO-01`     |
-| `DB`      | DynamoDB and data integrity          | `DB-01`       |
-| `STORAGE` | Amazon S3 and CloudFront             | `STORAGE-01`  |
-| `RECOVERY`| Error handling and recovery          | `RECOVERY-01` |
-| `PERF`    | Performance and concurrency          | `PERF-01`     |
-| `SEC`     | System security                      | `SEC-01`      |
+| Prefix     | Test Group                                     | Example       |
+| ---------- | ---------------------------------------------- | ------------- |
+| `AUTH`     | Authentication and authorization               | `AUTH-01`     |
+| `API`      | REST API and auction management business logic | `API-01`      |
+| `WS`       | WebSocket and real-time updates                | `WS-01`       |
+| `BID`      | End-to-end bidding flow                        | `BID-01`      |
+| `FIFO`     | Message ordering and processing with SQS FIFO  | `FIFO-01`     |
+| `DB`       | DynamoDB and data integrity                    | `DB-01`       |
+| `STORAGE`  | Amazon S3 and CloudFront                       | `STORAGE-01`  |
+| `RECOVERY` | Error handling and recovery                    | `RECOVERY-01` |
+| `PERF`     | Performance and concurrent load                | `PERF-01`     |
+| `SEC`      | System security                                | `SEC-01`      |
 
-Test IDs must be unique across the test documentation. The ID structure is:
+When a test case has the status `FAIL`, the team must additionally record:
 
-```text
-<PREFIX>-<SEQUENCE>
-```
+* The step where the error occurred.
+* The time when the error occurred.
+* The observed error message.
+* HTTP status code if related to the REST API.
+* Request code or request ID, if available.
+* The related Lambda Function.
+* The related CloudWatch Log Group or Log Stream.
+* The impact of the error on the system.
+* The proposed solution or bug-fix task.
 
-Examples:
+When a test case has the status `BLOCKED`, the team must clearly specify:
 
-```text
-AUTH-01
-API-03
-WS-05
-BID-07
-FIFO-02
-SEC-04
-```
+* The missing component.
+* The dependent function that has not been completed.
+* The configuration that has not yet been deployed.
+* The access permission that has not been granted.
+* The condition that must be completed before retesting.
 
-#### Test Case Format
+#### Evidence Collection Guidelines
 
-Each test case is recorded using the following fields:
+| Evidence Type             | Usage                                                                         |
+| ------------------------- | ----------------------------------------------------------------------------- |
+| User Frontend screenshot  | Demonstrates that user-facing functionality works correctly.                  |
+| Admin Frontend screenshot | Demonstrates administrative functionality and authorization.                  |
+| HTTP request and response | Demonstrates that the REST API returns the correct status and data.           |
+| WebSocket message         | Demonstrates that data is sent and received in real time.                     |
+| CloudWatch Logs           | Demonstrates that Lambda is invoked and processes business logic.             |
+| CloudWatch Metrics        | Demonstrates request counts, errors, latency, or processed message volume.    |
+| DynamoDB item             | Demonstrates that data is created or updated correctly.                       |
+| SQS Metrics               | Demonstrates that messages are sent, received, and deleted from the Queue.    |
+| DLQ content               | Demonstrates that failed messages are moved to the Dead-letter Queue.         |
+| S3 object                 | Demonstrates that a file is uploaded and stored in the correct bucket.        |
+| CloudFront response       | Demonstrates that the frontend or static content is distributed successfully. |
+| Cognito User Pool         | Demonstrates account status or permission group membership.                   |
 
-| Field                  | Description                                                                                                      |
-|------------------------|------------------------------------------------------------------------------------------------------------------|
-| **Test ID**            | Unique test case ID, e.g. `AUTH-01`.                                                                            |
-| **Test name**          | Short descriptive name of the test case.                                                                         |
-| **Objective**          | The function, behavior or condition the test case verifies.                                                      |
-| **Prerequisites**      | Accounts, data, configuration and system state required before testing.                                          |
-| **Steps**              | Ordered actions to execute the test case.                                                                        |
-| **Input data**         | Tokens, accounts, passwords, session IDs, item IDs, bid amounts or request payloads.                             |
-| **Expected result**    | The correct system behavior after execution.                                                                     |
-| **Actual result**      | Observed result on frontend, API or AWS services.                                                               |
-| **Status**             | `PASS`, `FAIL` or `BLOCKED`.                                                                                     |
-| **Evidence**           | Screenshots, API responses, WebSocket messages, CloudWatch Logs, Metrics or AWS data.                            |
-
-#### Example Recorded Test Case
-
-##### AUTH-01 — Successful User sign-in
-
-| Field                  | Content                                                                                                                |
-|------------------------|------------------------------------------------------------------------------------------------------------------------|
-| **Test ID**            | `AUTH-01`                                                                                                              |
-| **Test name**          | Sign in with a valid User account                                                                                      |
-| **Objective**          | Verify a confirmed user can sign in to the User Frontend via Amazon Cognito.                                           |
-| **Prerequisites**      | Test email does not already exist in the Cognito User Pool; User Frontend can reach Cognito.                            |
-| **Steps**              | 1. Open User Frontend. 2. Go to sign-in page. 3. Enter valid email and password. 4. Click Sign in. 5. Observe UI result. |
-| **Input data**         | Email and password of the test User.                                                                                     |
-| **Expected result**    | Cognito authenticates successfully; user is redirected to main page; frontend shows signed-in state.                    |
-| **Actual result**      | Fill after executing the test.                                                                                         |
-| **Status**             | `PASS`, `FAIL` or `BLOCKED`.                                                                                           |
-| **Evidence**           | Screenshot of signed-in UI and sanitized logs.                                                                          |
-
-#### Status Conventions
-
-| Status   | Recording rules                                                                                         |
-|----------|--------------------------------------------------------------------------------------------------------|
-| `PASS`   | Actual result matches expected result and evidence exists.                                             |
-| `FAIL`   | Actual result differs, system error occurs or data is incorrect.                                        |
-| `BLOCKED`| Test cannot run due to missing components, configuration, data or dependencies.                         |
-
-When a test case is `FAIL`, additionally record:
-
-- The step where the failure occurred.
-- Time of failure.
-- Observed error message.
-- HTTP status if related to REST API.
-- Request ID or correlation ID if available.
-- Related Lambda function.
-- CloudWatch Log Group or Log Stream.
-- Impact to the system.
-- Suggested mitigation or bug ticket.
-
-When a test case is `BLOCKED`, the record should include:
-
-- Missing component.
-- Dependent feature not implemented.
-- Configuration not deployed.
-- Access or permission missing.
-- Conditions required before retry.
-
-#### Actual Result Recording Rules
-
-The **Actual result** field must describe observed behavior and must not duplicate the **Expected result** if the test was not executed.
-
-Appropriate example:
+Each image should have a clear title and description corresponding to the related test case, for example:
 
 ```text
-API returned HTTP 200. Response contains sessionId, itemId,
-currentPrice and status = ACTIVE. Corresponding data exists
-in the Auctions table in DynamoDB.
+Figure 5.5.2.1: Result of test case AUTH-01
 ```
 
-Inappropriate example:
-
-```text
-Works correctly.
-```
-
-If a test fails, include specific error details:
-
-```text
-API returned HTTP 500 instead of HTTP 400 when bidAmount was missing.
-CloudWatch Logs show KeyError in Lambda la-ws-handler.
-```
-
-#### Evidence Collection Rules
-
-Evidence must directly relate to the test objective. Depending on the case, the team may use one or more of the following:
-
-| Evidence type            | Usage case                                                              |
-|--------------------------|-------------------------------------------------------------------------|
-| Frontend screenshot      | Demonstrate user-facing functionality.                                 |
-| Admin screenshot         | Demonstrate admin functions and authorization.                          |
-| HTTP request/response    | Prove REST API returned expected status and data.                       |
-| WebSocket message        | Prove real-time messages were sent and received.                        |
-| CloudWatch Logs          | Show Lambda trigger and business logic processing.                      |
-| CloudWatch Metrics       | Show request counts, errors, latency or message throughput.             |
-| DynamoDB item            | Prove data was created or updated correctly.                             |
-| SQS Metrics              | Prove messages were sent, received and deleted from the queue.          |
-| DLQ contents             | Show messages that failed and moved to the Dead-letter Queue.           |
-| S3 object                | Prove file was uploaded to the correct bucket.                          |
-| CloudFront response      | Prove frontend or static content was served successfully.               |
-
-Each image should include a caption and the related test case ID. Avoid using a single image for multiple test cases unless it clearly demonstrates each case.
+A single shared image should not be used for multiple test cases if it does not clearly demonstrate the result of each individual case.
 
 #### Test Data Management
 
-To enable reproducibility, prepare the following test data before execution:
+To ensure that results can be verified again, the team must prepare test data before performing the tests:
 
-- Confirmed User accounts.
-- Admin accounts in the correct group.
-- Regular Users without Admin privileges.
-- Auction sessions in `SCHEDULED`, `ACTIVE` and `ENDED` states.
-- Items with starting prices and minimum increments.
-- Valid and invalid resource IDs.
-- Valid and invalid bid amounts.
-- Valid and invalid image files and sizes.
-- Active WebSocket connections.
-- Duplicate messages to test idempotency where applicable.
+* A confirmed User account.
+* An Admin account assigned to the correct permission group.
+* A User account without Admin privileges.
+* An auction session with the status `SCHEDULED`.
+* An auction session with the status `ACTIVE`.
+* An auction session with the status `ENDED`.
+* An item with a starting price and minimum bid increment.
+* A valid auction session ID and item ID.
+* A non-existent resource ID.
+* Valid and invalid bid amounts.
+* Images with valid and invalid formats.
+* Files within and exceeding the allowed size limit.
+* An active WebSocket connection.
+* Duplicate messages for idempotency testing, if this functionality has been implemented.
 
-Test data must be isolated from production. After testing, remove or mark test data if no longer needed.
+Test data must be clearly distinguished from real data. After testing is completed, the team should delete or mark the test data if it is no longer required.
 
-#### Order of Test Groups
+#### Test Group Execution Order
 
-Execute test groups in the following dependency order:
+The test case groups should be executed in the following dependency order:
 
-1. Environment and endpoint checks.
-2. Authentication and authorization tests.
-3. REST API tests.
-4. DynamoDB data validation.
-5. WebSocket connectivity tests.
-6. End-to-end bidding flow tests.
-7. SQS FIFO and concurrency processing tests.
-8. S3 and CloudFront tests.
-9. Error handling and recovery tests.
-10. Security tests.
-11. Performance tests.
-12. Results consolidation.
+1. Verify the environment and endpoints.
+2. Test authentication and authorization.
+3. Test the REST API.
+4. Test data in DynamoDB.
+5. Test WebSocket connectivity.
+6. Test the end-to-end bidding flow.
+7. Test SQS FIFO and concurrent processing.
+8. Test S3 and CloudFront.
+9. Test error handling and recovery.
+10. Test security.
+11. Test performance.
+12. Consolidate the results.
 
-If authentication tests fail, dependent test cases that require valid tokens may be marked `BLOCKED`. Similarly, if WebSocket or SQS FIFO are not working, the end-to-end bidding flow cannot be validated.
+#### Test Information Security
 
-#### Re-testing After Fixes
+The team must not expose:
 
-When a test case is `FAIL`, follow this process:
+* Test account passwords.
+* Access Tokens, ID Tokens, or Refresh Tokens.
+* The `Authorization` header.
+* AWS Access Key ID.
+* AWS Secret Access Key.
+* AWS Session Token.
+* Cognito Client Secret.
+* Cookies or login session information.
+* Contents of `.env` files.
+* Valid presigned URLs.
+* Unnecessary personal data.
 
-```text
-Record issue
-→ Diagnose cause
-→ Fix
-→ Deploy new release
-→ Re-run the failed test case
-→ Verify related functionality
-→ Update results and evidence
-```
-
-Retesting must re-execute the test case from the beginning. Do not change the outcome from `FAIL` to `PASS` solely because code changes were made without re-running the test.
-
-In addition to re-running the failed case, perform regression tests on related functionality to ensure the fix does not introduce regressions.
-
-#### Test Evidence Security
-
-Do not show in documentation or evidence:
-
-- Account passwords.
-- Access Token, ID Token or Refresh Token.
-- `Authorization` header.
-- AWS Access Key ID or Secret Access Key.
-- AWS Session Token.
-- Cognito Client Secret.
-- Login cookies or session data.
-- `.env` contents.
-- Presigned URLs that are still valid.
-- Unnecessary personal data.
-
-If requests or logs contain sensitive data, redact or remove them before inclusion in reports. Keep only the information required to prove the test case outcome.
+If a request or log contains sensitive information, the team must mask or remove that data before including it in the report. Only information necessary to demonstrate that the test case was performed and produced the corresponding result should be retained.
