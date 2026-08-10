@@ -107,14 +107,10 @@ Enable access to the AWS Management Console. The `la-admin` account requires a c
 When creating a password, the team can use an AWS-generated password or a custom password that meets the security policy. The user should change the password after the first sign-in if AWS requires it.
 
 {{< figure
-    src="/images/5-Workshop/5.2-Prerequisite/iam-la-admin-create-user.png"
+    src="/images/5-Workshop/5.2-Prerequisite/iam-la-admin-create-user.jpg"
     title="Figure 5.2.2: Specifying the la-admin IAM User details"
     width="90%"
 >}}
-
-{{% notice warning %}}
-Do not expose passwords in screenshots. If a screenshot contains a custom password, it must be fully hidden before being included in the report.
-{{% /notice %}}
 
 ### Step 3: Assign Permissions to `la-admin`
 
@@ -141,9 +137,6 @@ Create user
     width="90%"
 >}}
 
-{{% notice warning %}}
-If the IAM User details contain an ARN, Account ID, or Access Key ID, these values must be hidden before using the screenshot in the report.
-{{% /notice %}}
 
 Administrative access is suitable only for a management account in a learning and testing environment. In production, the **least-privilege** principle should be applied, meaning that each account receives only the permissions required for its assigned tasks.
 
@@ -186,7 +179,7 @@ Then, an authenticator application on a mobile device is used to scan the QR cod
 MFA helps protect the account because users must provide an additional verification code from the MFA device when signing in.
 
 {{< figure
-    src="/images/5-Workshop/5.2-Prerequisite/iam-la-admin-mfa-setup.png"
+    src="/images/5-Workshop/5.2-Prerequisite/iam-la-admin-mfa-setup.jpg"
     title="Figure 5.2.4: Selecting an Authenticator app to configure MFA for la-admin"
     width="90%"
 >}}
@@ -194,14 +187,11 @@ MFA helps protect the account because users must provide an additional verificat
 After completing the verification, check the MFA status in the **Security credentials** tab. The account should display an assigned MFA device.
 
 {{< figure
-    src="/images/5-Workshop/5.2-Prerequisite/iam-la-admin-mfa-enabled.png"
+    src="/images/5-Workshop/5.2-Prerequisite/iam-la-admin-mfa-enabled.jpg"
     title="Figure 5.2.5: MFA configured for the la-admin IAM User"
     width="90%"
 >}}
 
-{{% notice warning %}}
-Do not capture or disclose QR codes, MFA secrets, one-time verification codes, or ARNs containing the complete Account ID.
-{{% /notice %}}
 
 ### Step 6: Create an Access Key for AWS CLI and Terraform
 
@@ -244,16 +234,13 @@ Create access key
 ```
 
 {{< figure
-    src="/images/5-Workshop/5.2-Prerequisite/iam-la-admin-access-key-purpose.png"
+    src="/images/5-Workshop/5.2-Prerequisite/iam-la-admin-access-key-purpose.jpg"
     title="Figure 5.2.6: Selecting the Access Key use case for AWS CLI"
     width="90%"
 >}}
 
 After the Access Key is created, AWS displays the **Secret Access Key** only once. The team stores this value only in the personal development environment for AWS CLI configuration and never uploads it to GitHub.
 
-{{% notice warning %}}
-Do not capture or disclose an Access Key ID, Secret Access Key, CSV credential file, Session Token, or Console sign-in credentials.
-{{% /notice %}}
 
 ### Step 7: Verify the IAM User
 
@@ -278,7 +265,7 @@ The account should meet the following conditions:
 - An Access Key is available for AWS CLI and Terraform if local deployment is required.
 
 {{< figure
-    src="/images/5-Workshop/5.2-Prerequisite/iam-la-admin-user-list.png"
+    src="/images/5-Workshop/5.2-Prerequisite/iam-la-admin-user-list.jpg"
     title="Figure 5.2.7: The la-admin IAM User in the AWS user list"
     width="90%"
 >}}
@@ -288,7 +275,7 @@ The account should meet the following conditions:
 The team uses the AWS Billing Dashboard and Cost Explorer to monitor costs generated during the deployment of the Live Auction system. The diagram below presents AWS costs grouped by service.
 
 {{< figure
-    src="/images/5-Workshop/5.2-Prerequisite/aws-cost-breakdown.png"
+    src="/images/5-Workshop/5.2-Prerequisite/aws-cost-breakdown.jpg"
     title="Figure 5.2.8: AWS cost breakdown by service"
     width="100%"
 >}}
