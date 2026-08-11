@@ -48,16 +48,16 @@ Trong hệ thống Live Auction, DynamoDB được sử dụng để:
 
 Hệ thống sử dụng tám bảng DynamoDB chính:
 
-| DynamoDB Table | Partition Key | Sort Key | Vai trò |
-| --- | --- | --- | --- |
-| **la_item_auction_state** | `item_id` | Không có | Lưu trạng thái hiện tại của vật phẩm đấu giá. |
-| **la_bid_events** | `item_id` | `sk` | Lưu lịch sử và sự kiện đặt giá. |
-| **la_websocket_connections** | `item_id` | `connection_id` | Lưu Connection ID của người dùng theo dõi vật phẩm. |
-| **la_item_bidder_aliases** | `item_id` | `user_id` | Lưu bí danh người đặt giá trong từng vật phẩm. |
-| **la_idempotency** | `id` | Không có | Ngăn cùng một yêu cầu được xử lý nhiều lần. |
-| **la_auction_catalog** | `pk` | `sk` | Lưu dữ liệu phiên đấu giá, vật phẩm và các thực thể liên quan. |
-| **la_category_catalog** | `category_id` | Không có | Lưu danh mục sản phẩm. |
-| **la_admin_audit_events** | `pk` | `sk` | Lưu lịch sử thao tác quản trị. |
+| DynamoDB Table               | Partition Key | Sort Key        | Vai trò                                                        |
+| ---------------------------- | ------------- | --------------- | -------------------------------------------------------------- |
+| **la_item_auction_state**    | `item_id`     | Không có        | Lưu trạng thái hiện tại của vật phẩm đấu giá.                  |
+| **la_bid_events**            | `item_id`     | `sk`            | Lưu lịch sử và sự kiện đặt giá.                                |
+| **la_websocket_connections** | `item_id`     | `connection_id` | Lưu Connection ID của người dùng theo dõi vật phẩm.            |
+| **la_item_bidder_aliases**   | `item_id`     | `user_id`       | Lưu bí danh người đặt giá trong từng vật phẩm.                 |
+| **la_idempotency**           | `id`          | Không có        | Ngăn cùng một yêu cầu được xử lý nhiều lần.                    |
+| **la_auction_catalog**       | `pk`          | `sk`            | Lưu dữ liệu phiên đấu giá, vật phẩm và các thực thể liên quan. |
+| **la_category_catalog**      | `category_id` | Không có        | Lưu danh mục sản phẩm.                                         |
+| **la_admin_audit_events**    | `pk`          | `sk`            | Lưu lịch sử thao tác quản trị.                                 |
 
 Tên bảng sử dụng dấu gạch dưới theo quy ước:
 
@@ -429,11 +429,11 @@ Global Secondary Index — GSI cho phép truy vấn dữ liệu bằng khóa kh�
 
 Các GSI chính trong hệ thống gồm:
 
-| Table | Index |
-| --- | --- |
-| **la_bid_events** | `bidder_sub-sk-index` |
-| **la_auction_catalog** | `gsi1`, `gsi2` |
-| **la_category_catalog** | `slug-index`, `status-index` |
+| Table                     | Index                           |
+| ------------------------- | ------------------------------- |
+| **la_bid_events**         | `bidder_sub-sk-index`           |
+| **la_auction_catalog**    | `gsi1`, `gsi2`                  |
+| **la_category_catalog**   | `slug-index`, `status-index`    |
 | **la_admin_audit_events** | `actor-index`, `resource-index` |
 
 Các GSI sử dụng:
@@ -450,11 +450,11 @@ Time to Live — TTL cho phép DynamoDB tự động xóa Item sau khi thuộc t
 
 Các bảng sử dụng TTL:
 
-| Table | TTL attribute | Mục đích |
-| --- | --- | --- |
-| **la_websocket_connections** | `ttl` | Xóa Connection đã hết hạn. |
-| **la_idempotency** | `expiration` | Xóa bản ghi chống trùng lặp không còn cần thiết. |
-| **la_admin_audit_events** | `expires_at` | Xóa Audit Event khi hết thời gian lưu trữ. |
+| Table                        | TTL attribute | Mục đích                                         |
+| ---------------------------- | ------------- | ------------------------------------------------ |
+| **la_websocket_connections** | `ttl`         | Xóa Connection đã hết hạn.                       |
+| **la_idempotency**           | `expiration`  | Xóa bản ghi chống trùng lặp không còn cần thiết. |
+| **la_admin_audit_events**    | `expires_at`  | Xóa Audit Event khi hết thời gian lưu trữ.       |
 
 TTL giúp hạn chế dữ liệu cũ tồn tại lâu dài và giảm công việc dọn dẹp thủ công.
 
@@ -498,10 +498,10 @@ Mã hóa giúp bảo vệ dữ liệu khi được lưu trữ trên AWS.
 
 DynamoDB Stream được bật cho hai bảng:
 
-| Table | Stream View Type |
-| --- | --- |
+| Table                     | Stream View Type     |
+| ------------------------- | -------------------- |
 | **la_item_auction_state** | `NEW_AND_OLD_IMAGES` |
-| **la_bid_events** | `NEW_IMAGE` |
+| **la_bid_events**         | `NEW_IMAGE`          |
 
 Stream lưu lại thông tin thay đổi của Item trong bảng.
 

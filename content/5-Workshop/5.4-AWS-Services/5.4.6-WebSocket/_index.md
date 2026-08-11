@@ -152,12 +152,12 @@ If the value of `action` is `joinRoom`, API Gateway invokes the `joinRoom` route
 
 The WebSocket API uses four main routes:
 
-| Route | Authorization | Role |
-| --- | --- | --- |
-| **$connect** | Custom Authorizer | Authenticates the user and establishes the WebSocket connection. |
-| **$disconnect** | None | Handles the event when a WebSocket client disconnects. |
-| **joinRoom** | None | Registers a connection in an auction room. |
-| **placeBid** | None | Receives bid requests from users. |
+| Route           | Authorization     | Role                                                             |
+| --------------- | ----------------- | ---------------------------------------------------------------- |
+| **$connect**    | Custom Authorizer | Authenticates the user and establishes the WebSocket connection. |
+| **$disconnect** | None              | Handles the event when a WebSocket client disconnects.           |
+| **joinRoom**    | None              | Registers a connection in an auction room.                       |
+| **placeBid**    | None              | Receives bid requests from users.                                |
 
 The route structure is:
 

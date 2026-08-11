@@ -46,17 +46,17 @@ In the Live Auction system, AWS Lambda is used to:
 
 The primary Lambda functions of the system include:
 
-| Lambda Function | Role |
-| --- | --- |
+| Lambda Function             | Role                                                                   |
+| --------------------------- | ---------------------------------------------------------------------- |
 | **la-cognito-post-confirm** | Processes the event generated after a user confirms a Cognito account. |
-| **la-session-service** | Processes operations related to auction sessions. |
-| **la-item-service** | Processes auction item operations and media information. |
-| **la-query-service** | Queries categories, auction sessions, items, and other display data. |
-| **la-admin-command** | Processes administrative operations and auction lifecycle commands. |
-| **la-ws-authorizer** | Validates Cognito JWTs when users establish WebSocket connections. |
-| **la-ws-handler** | Manages WebSocket connections, auction rooms, and bid commands. |
-| **la-bid-processor** | Processes bid messages from SQS FIFO and updates auction states. |
-| **la-broadcast** | Sends auction results and state updates to WebSocket clients. |
+| **la-session-service**      | Processes operations related to auction sessions.                      |
+| **la-item-service**         | Processes auction item operations and media information.               |
+| **la-query-service**        | Queries categories, auction sessions, items, and other display data.   |
+| **la-admin-command**        | Processes administrative operations and auction lifecycle commands.    |
+| **la-ws-authorizer**        | Validates Cognito JWTs when users establish WebSocket connections.     |
+| **la-ws-handler**           | Manages WebSocket connections, auction rooms, and bid commands.        |
+| **la-bid-processor**        | Processes bid messages from SQS FIFO and updates auction states.       |
+| **la-broadcast**            | Sends auction results and state updates to WebSocket clients.          |
 
 The actual names may contain additional prefixes or environment identifiers depending on the Terraform configuration.
 

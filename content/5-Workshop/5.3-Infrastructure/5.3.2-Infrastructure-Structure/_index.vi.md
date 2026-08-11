@@ -175,16 +175,16 @@ Việc xây dựng các tập lệnh kiểm thử riêng giúp nhóm dễ dàng 
 
 Hầu hết các module trong thư mục **Infrastructure** đều được tổ chức theo cùng một cấu trúc nhằm đảm bảo tính nhất quán trong quá trình phát triển. Mỗi tệp cấu hình đảm nhận một vai trò riêng trong quá trình triển khai hạ tầng.
 
-| Tệp cấu hình | Chức năng |
-|--------------|-----------|
-| **main.tf** | Khai báo các tài nguyên AWS được triển khai trong module. |
-| **variables.tf** | Định nghĩa các biến đầu vào sử dụng trong cấu hình Terraform. |
-| **outputs.tf** | Khai báo các giá trị đầu ra để sử dụng cho các module khác. |
-| **providers.tf** | Cấu hình Terraform Provider và thông tin kết nối tới AWS. |
-| **backend.tf** | Cấu hình Terraform Backend để lưu trữ Terraform State từ xa. |
-| **versions.tf** | Quy định phiên bản Terraform và các Provider được sử dụng. |
-| **terraform.lock.hcl** | Khóa phiên bản Provider nhằm đảm bảo tính nhất quán giữa các lần triển khai. |
-| **tfplan** | Kết quả sinh ra từ lệnh `terraform plan`, dùng để xem trước các thay đổi trước khi triển khai. |
+| Tệp cấu hình           | Chức năng                                                                                      |
+| ---------------------- | ---------------------------------------------------------------------------------------------- |
+| **main.tf**            | Khai báo các tài nguyên AWS được triển khai trong module.                                      |
+| **variables.tf**       | Định nghĩa các biến đầu vào sử dụng trong cấu hình Terraform.                                  |
+| **outputs.tf**         | Khai báo các giá trị đầu ra để sử dụng cho các module khác.                                    |
+| **providers.tf**       | Cấu hình Terraform Provider và thông tin kết nối tới AWS.                                      |
+| **backend.tf**         | Cấu hình Terraform Backend để lưu trữ Terraform State từ xa.                                   |
+| **versions.tf**        | Quy định phiên bản Terraform và các Provider được sử dụng.                                     |
+| **terraform.lock.hcl** | Khóa phiên bản Provider nhằm đảm bảo tính nhất quán giữa các lần triển khai.                   |
+| **tfplan**             | Kết quả sinh ra từ lệnh `terraform plan`, dùng để xem trước các thay đổi trước khi triển khai. |
 
 Việc chuẩn hóa cấu trúc của các module giúp các thành viên trong nhóm dễ dàng theo dõi, bảo trì và mở rộng hạ tầng trong quá trình phát triển hệ thống.
 

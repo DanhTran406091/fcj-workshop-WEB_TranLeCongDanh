@@ -88,14 +88,14 @@ The REST API uses the following base path:
 
 The APIs are divided into the following primary operation groups:
 
-| API group | Purpose |
-| --- | --- |
-| **User API** | Retrieves information about the current account. |
-| **Auction Session API** | Creates, retrieves, and manages auction sessions. |
-| **Auction Item API** | Retrieves, adds, and manages auction items. |
-| **Bid API** | Retrieves bid history or bid data associated with a user. |
-| **Category API** | Retrieves product categories. |
-| **Admin API** | Manages users, Admin accounts, categories, items, and auction sessions. |
+| API group               | Purpose                                                                 |
+| ----------------------- | ----------------------------------------------------------------------- |
+| **User API**            | Retrieves information about the current account.                        |
+| **Auction Session API** | Creates, retrieves, and manages auction sessions.                       |
+| **Auction Item API**    | Retrieves, adds, and manages auction items.                             |
+| **Bid API**             | Retrieves bid history or bid data associated with a user.               |
+| **Category API**        | Retrieves product categories.                                           |
+| **Admin API**           | Manages users, Admin accounts, categories, items, and auction sessions. |
 
 ## User APIs
 
@@ -260,12 +260,12 @@ Integration HTTP method: POST
 
 Each API group is integrated with the corresponding Lambda function:
 
-| Lambda Function | API group |
-| --- | --- |
+| Lambda Function        | API group                                                          |
+| ---------------------- | ------------------------------------------------------------------ |
 | **la-session-service** | Session creation, rule updates, and session management operations. |
-| **la-item-service** | Item creation and image upload operations. |
-| **la-query-service** | User, session, item, category, and bid query APIs. |
-| **la-admin-command** | Administrative APIs for sessions, accounts, items, and categories. |
+| **la-item-service**    | Item creation and image upload operations.                         |
+| **la-query-service**   | User, session, item, category, and bid query APIs.                 |
+| **la-admin-command**   | Administrative APIs for sessions, accounts, items, and categories. |
 
 API Gateway uses Lambda Permissions to invoke the corresponding functions.
 

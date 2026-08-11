@@ -153,12 +153,12 @@ Nếu `action` là `joinRoom`, API Gateway gọi route `joinRoom`. Nếu `action
 
 WebSocket API sử dụng bốn route chính:
 
-| Route | Authorization | Vai trò |
-| --- | --- | --- |
-| **$connect** | Custom Authorizer | Xác thực và thiết lập kết nối WebSocket. |
-| **$disconnect** | None | Xử lý khi WebSocket Client ngắt kết nối. |
-| **joinRoom** | None | Đăng ký Connection vào phòng của phiên đấu giá. |
-| **placeBid** | None | Tiếp nhận yêu cầu đặt giá từ người dùng. |
+| Route           | Authorization     | Vai trò                                         |
+| --------------- | ----------------- | ----------------------------------------------- |
+| **$connect**    | Custom Authorizer | Xác thực và thiết lập kết nối WebSocket.        |
+| **$disconnect** | None              | Xử lý khi WebSocket Client ngắt kết nối.        |
+| **joinRoom**    | None              | Đăng ký Connection vào phòng của phiên đấu giá. |
+| **placeBid**    | None              | Tiếp nhận yêu cầu đặt giá từ người dùng.        |
 
 Cấu trúc route:
 

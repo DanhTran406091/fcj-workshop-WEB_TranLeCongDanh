@@ -88,14 +88,14 @@ REST API sử dụng đường dẫn cơ sở:
 
 Các API được chia thành những nhóm nghiệp vụ chính:
 
-| Nhóm API | Mục đích |
-| --- | --- |
-| **User API** | Lấy thông tin tài khoản hiện tại. |
-| **Auction Session API** | Tạo, xem và quản lý phiên đấu giá. |
-| **Auction Item API** | Xem, thêm và quản lý vật phẩm. |
-| **Bid API** | Xem lịch sử hoặc dữ liệu đặt giá của người dùng. |
-| **Category API** | Xem danh mục sản phẩm. |
-| **Admin API** | Quản lý người dùng, tài khoản Admin, danh mục và phiên đấu giá. |
+| Nhóm API                | Mục đích                                                        |
+| ----------------------- | --------------------------------------------------------------- |
+| **User API**            | Lấy thông tin tài khoản hiện tại.                               |
+| **Auction Session API** | Tạo, xem và quản lý phiên đấu giá.                              |
+| **Auction Item API**    | Xem, thêm và quản lý vật phẩm.                                  |
+| **Bid API**             | Xem lịch sử hoặc dữ liệu đặt giá của người dùng.                |
+| **Category API**        | Xem danh mục sản phẩm.                                          |
+| **Admin API**           | Quản lý người dùng, tài khoản Admin, danh mục và phiên đấu giá. |
 
 ## Các API dành cho người dùng
 
@@ -260,12 +260,12 @@ Integration HTTP method: POST
 
 Mỗi nhóm API được tích hợp với Lambda Function phù hợp:
 
-| Lambda Function | Nhóm API |
-| --- | --- |
-| **la-session-service** | Tạo phiên, cập nhật quy tắc và quản lý thông tin phiên. |
-| **la-item-service** | Thêm vật phẩm và xử lý yêu cầu tải hình ảnh. |
-| **la-query-service** | Các API truy vấn User, phiên, vật phẩm, danh mục và lượt đặt giá. |
-| **la-admin-command** | Các API quản trị, duyệt phiên, quản lý tài khoản và danh mục. |
+| Lambda Function        | Nhóm API                                                          |
+| ---------------------- | ----------------------------------------------------------------- |
+| **la-session-service** | Tạo phiên, cập nhật quy tắc và quản lý thông tin phiên.           |
+| **la-item-service**    | Thêm vật phẩm và xử lý yêu cầu tải hình ảnh.                      |
+| **la-query-service**   | Các API truy vấn User, phiên, vật phẩm, danh mục và lượt đặt giá. |
+| **la-admin-command**   | Các API quản trị, duyệt phiên, quản lý tài khoản và danh mục.     |
 
 API Gateway sử dụng Lambda Permission để được phép gọi các Function tương ứng.
 

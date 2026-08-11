@@ -46,17 +46,17 @@ Trong hệ thống Live Auction, AWS Lambda được sử dụng để:
 
 Các Lambda Function chính của hệ thống gồm:
 
-| Lambda Function | Vai trò |
-| --- | --- |
-| **la-cognito-post-confirm** | Xử lý sự kiện sau khi người dùng xác nhận tài khoản Cognito. |
-| **la-session-service** | Xử lý nghiệp vụ liên quan đến phiên đấu giá. |
-| **la-item-service** | Xử lý nghiệp vụ liên quan đến vật phẩm và dữ liệu media. |
-| **la-query-service** | Truy vấn danh mục, phiên đấu giá, vật phẩm và dữ liệu cần hiển thị. |
-| **la-admin-command** | Xử lý các chức năng quản trị và lệnh điều khiển vòng đời phiên. |
-| **la-ws-authorizer** | Kiểm tra Cognito JWT khi người dùng tạo kết nối WebSocket. |
-| **la-ws-handler** | Quản lý kết nối WebSocket, phòng đấu giá và tiếp nhận lệnh đặt giá. |
-| **la-bid-processor** | Xử lý thông điệp đặt giá từ SQS FIFO và cập nhật trạng thái đấu giá. |
-| **la-broadcast** | Gửi kết quả và trạng thái đấu giá đến các WebSocket Client. |
+| Lambda Function             | Vai trò                                                              |
+| --------------------------- | -------------------------------------------------------------------- |
+| **la-cognito-post-confirm** | Xử lý sự kiện sau khi người dùng xác nhận tài khoản Cognito.         |
+| **la-session-service**      | Xử lý nghiệp vụ liên quan đến phiên đấu giá.                         |
+| **la-item-service**         | Xử lý nghiệp vụ liên quan đến vật phẩm và dữ liệu media.             |
+| **la-query-service**        | Truy vấn danh mục, phiên đấu giá, vật phẩm và dữ liệu cần hiển thị.  |
+| **la-admin-command**        | Xử lý các chức năng quản trị và lệnh điều khiển vòng đời phiên.      |
+| **la-ws-authorizer**        | Kiểm tra Cognito JWT khi người dùng tạo kết nối WebSocket.           |
+| **la-ws-handler**           | Quản lý kết nối WebSocket, phòng đấu giá và tiếp nhận lệnh đặt giá.  |
+| **la-bid-processor**        | Xử lý thông điệp đặt giá từ SQS FIFO và cập nhật trạng thái đấu giá. |
+| **la-broadcast**            | Gửi kết quả và trạng thái đấu giá đến các WebSocket Client.          |
 
 Tên thực tế có thể chứa thêm tiền tố hoặc tên môi trường tùy cấu hình Terraform, nhưng các Function vẫn được phân biệt theo nghiệp vụ tương ứng.
 

@@ -45,11 +45,11 @@ In the Live Auction system, Amazon S3 is used to:
 
 The system uses three main S3 Buckets.
 
-| S3 Bucket | Role |
-| --- | --- |
-| **User Frontend Bucket** | Stores the build output of the user-facing application. |
+| S3 Bucket                 | Role                                                             |
+| ------------------------- | ---------------------------------------------------------------- |
+| **User Frontend Bucket**  | Stores the build output of the user-facing application.          |
 | **Admin Frontend Bucket** | Stores the build output of the administrator-facing application. |
-| **Item Media Bucket** | Stores images and media files associated with auction items. |
+| **Item Media Bucket**     | Stores images and media files associated with auction items.     |
 
 Bucket names follow the project naming convention and include the AWS Account ID to ensure that each bucket name is globally unique in Amazon S3.
 

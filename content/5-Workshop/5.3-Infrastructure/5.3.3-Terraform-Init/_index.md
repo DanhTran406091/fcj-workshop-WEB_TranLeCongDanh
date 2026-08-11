@@ -70,11 +70,6 @@ Example:
     "Arn": "arn:aws:iam::123456789012:user/example-user"
 }
 ```
-
-{{% notice warning %}}
-Do not include an Access Key, Secret Access Key, or Session Token in screenshots or source code. The AWS Account ID and personal ARN should be partially hidden before including the screenshot in the report.
-{{% /notice %}}
-
 ---
 
 ## Navigate to the Module Directory
@@ -128,11 +123,11 @@ terraform {
 
 The configuration properties have the following purposes:
 
-| Property | Description |
-| --- | --- |
-| `bucket` | The S3 Bucket used to store the Terraform State. |
-| `key` | The path of the State file for the corresponding module. |
-| `region` | The AWS Region containing the S3 Bucket. |
+| Property | Description                                              |
+| -------- | -------------------------------------------------------- |
+| `bucket` | The S3 Bucket used to store the Terraform State.         |
+| `key`    | The path of the State file for the corresponding module. |
+| `region` | The AWS Region containing the S3 Bucket.                 |
 
 Using a Remote Backend prevents the Terraform State from depending on one team member’s computer. Team members can share the same infrastructure state during development and deployment.
 
